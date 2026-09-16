@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conflicting Reservations — Bella Cucina Backoffice</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body style="background:#f4f5f7;">
+
+<nav class="navbar has-shadow" style="background:#fff;">
+  <div class="navbar-brand">
+    <span class="navbar-item" style="font-weight:700;font-size:1.15rem;">Bella Cucina <span style="color:#8a8a8a;font-weight:400;margin-left:.45rem;">Backoffice</span></span>
+  </div>
+  <div class="navbar-menu is-active" style="box-shadow:none;">
+    <div class="navbar-start">
+      <a class="navbar-item">Tables</a>
+      <a class="navbar-item">Menu</a>
+      <a class="navbar-item" style="border-bottom:3px solid #3b82f6;font-weight:600;color:#3b82f6;">Closures</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+<div class="container" style="max-width:1040px;">
+
+  <h1 class="title is-3" style="margin-bottom:.35rem;">Reservations conflicting with a closure</h1>
+  <p class="has-text-grey" style="margin-bottom:1.5rem;">Flagged automatically when a closure was defined. Each reservation needs a decision before the closure takes effect for guests.</p>
+
+  <div class="box" style="padding:0;overflow:hidden;">
+    <table class="table is-fullwidth is-hoverable" style="margin-bottom:0;">
+      <thead style="background:#fafbfc;">
+        <tr>
+          <th style="padding:1rem;">Reservation</th>
+          <th>Guest</th><th>Date &amp; time</th><th>Party</th><th>Table</th><th>Conflicts with</th>
+          <th style="text-align:right;padding-right:1rem;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:.9rem 1rem;"><code>R-20419</code></td>
+          <td>L. Bianchi<br><span class="has-text-grey is-size-7">+39 340 118 2244</span></td>
+          <td>24 Dec 2026<br><span class="has-text-grey is-size-7">19:30</span></td>
+          <td>2</td><td>Window 1</td>
+          <td><span class="tag is-danger is-light">Winter holidays</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small">Contact guest</a></td>
+        </tr>
+        <tr>
+          <td style="padding:.9rem 1rem;"><code>R-20487</code></td>
+          <td>M. Fischer<br><span class="has-text-grey is-size-7">m.fischer@example.com</span></td>
+          <td>26 Dec 2026<br><span class="has-text-grey is-size-7">20:00</span></td>
+          <td>6</td><td>Booth A</td>
+          <td><span class="tag is-danger is-light">Winter holidays</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small">Contact guest</a></td>
+        </tr>
+        <tr>
+          <td style="padding:.9rem 1rem;"><code>R-20502</code></td>
+          <td>S. Novak<br><span class="has-text-grey is-size-7">+386 41 552 901</span></td>
+          <td>31 Dec 2026<br><span class="has-text-grey is-size-7">21:00</span></td>
+          <td>10</td><td>Private Room</td>
+          <td><span class="tag is-danger is-light">Winter holidays</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small">Contact guest</a></td>
+        </tr>
+        <tr>
+          <td style="padding:.9rem 1rem;"><code>R-20544</code></td>
+          <td>A. Dubois<br><span class="has-text-grey is-size-7">a.dubois@example.com</span></td>
+          <td>02 Nov 2026<br><span class="has-text-grey is-size-7">12:30</span></td>
+          <td>4</td><td>Terrace 1</td>
+          <td><span class="tag is-danger is-light">Staff training</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small">Contact guest</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notification is-light" style="background:#eef6ff;">
+    <p class="is-size-7">Once every flagged reservation has been handled, this list empties and the closure calendar can be published.</p>
+  </div>
+
+</div>
+</section>
+</body>
+</html>

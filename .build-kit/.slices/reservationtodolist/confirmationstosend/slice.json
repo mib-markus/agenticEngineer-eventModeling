@@ -1,0 +1,649 @@
+{
+  "id": "0e75c170-525e-4636-b0bf-df1af490d9b9",
+  "title": "ConfirmationsToSend",
+  "status": "Created",
+  "sliceType": "STATE_VIEW",
+  "chapter": "ReservationToDoList",
+  "context": "ReservationToDoList",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+      "title": "ConfirmationsToSend",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.eMail - the address the confirmation goes to"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.endTime"
+        },
+        {
+          "name": "numberOfPeople",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.numberOfPeople"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "type": "INBOUND",
+          "title": "ReservationPlaced",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "a06d4253-7081-4d9e-8fb4-51327dae6044",
+          "type": "OUTBOUND",
+          "title": "Send Reservation Confirmation",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+          "type": "INBOUND",
+          "title": "ReservationConfirmationSent",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "ReservationToDoList",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ConfirmationsToSend",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": true,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "1a000001-0000-4000-8000-000000000001",
+      "title": "A placed reservation opens a TODO item",
+      "chapter": "ReservationToDoList",
+      "sliceName": "ConfirmationsToSend",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "id": "2a000001-0000-4000-8000-000000000001",
+          "title": "Background process reads its TODO list",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "title": "ConfirmationsToSend",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ]
+    },
+    {
+      "id": "1a000001-0000-4000-8000-000000000002",
+      "title": "A sent confirmation closes the TODO item",
+      "chapter": "ReservationToDoList",
+      "sliceName": "ConfirmationsToSend",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": true
+        },
+        {
+          "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+          "title": "ReservationConfirmationSent",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "sentAt",
+              "example": "10.09.2026 14:32"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [
+        {
+          "id": "2a000001-0000-4000-8000-000000000002",
+          "title": "Background process reads its TODO list",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "title": "ConfirmationsToSend",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "reservationCode"
+            },
+            {
+              "name": "eMail"
+            },
+            {
+              "name": "date"
+            },
+            {
+              "name": "startTime"
+            },
+            {
+              "name": "endTime"
+            },
+            {
+              "name": "numberOfPeople"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ]
+    },
+    {
+      "id": "1a000001-0000-4000-8000-000000000003",
+      "title": "Nothing placed yet - the TODO list is empty",
+      "chapter": "ReservationToDoList",
+      "sliceName": "ConfirmationsToSend",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "2a000001-0000-4000-8000-000000000003",
+          "title": "Background process reads its TODO list",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "title": "ConfirmationsToSend",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "reservationCode"
+            },
+            {
+              "name": "eMail"
+            },
+            {
+              "name": "date"
+            },
+            {
+              "name": "startTime"
+            },
+            {
+              "name": "endTime"
+            },
+            {
+              "name": "numberOfPeople"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ]
+    },
+    {
+      "id": "1a000001-0000-4000-8000-000000000004",
+      "title": "Two reservations open two independent TODO items",
+      "chapter": "ReservationToDoList",
+      "sliceName": "ConfirmationsToSend",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        },
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-9M4P"
+            },
+            {
+              "name": "eMail",
+              "example": "erika.musterfrau@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "22.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "20:00"
+            },
+            {
+              "name": "endTime",
+              "example": "22:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "2"
+            }
+          ],
+          "expectEmptyList": false
+        },
+        {
+          "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+          "title": "ReservationConfirmationSent",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "sentAt",
+              "example": "10.09.2026 14:32"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "id": "2a000001-0000-4000-8000-000000000004",
+          "title": "Background process reads its TODO list",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "title": "ConfirmationsToSend",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-9M4P"
+            },
+            {
+              "name": "eMail",
+              "example": "erika.musterfrau@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "22.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "20:00"
+            },
+            {
+              "name": "endTime",
+              "example": "22:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "2"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": [],
+  "storylines": [
+    {
+      "id": "3a000001-0000-4000-8000-000000000001",
+      "title": "Life of one TODO item",
+      "elements": [
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "title": "1. The TODO list starts empty - no confirmation is outstanding",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        },
+        {
+          "id": "7c3a1f20-4d5e-4a6b-9c81-2e0f5a7b3d11",
+          "title": "2. A guest books a table",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "3. ReservationPlaced - this OPENS the TODO item",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "title": "4. The task is now on the list - one row, one confirmation owed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "a06d4253-7081-4d9e-8fb4-51327dae6044",
+          "title": "5. The background process reads the list and picks the row up",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "AUTOMATION",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "b17e5364-8192-4eaf-9ac5-62438ebf7155",
+          "title": "6. It issues SendReservationConfirmation for that row",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+          "title": "7. ReservationConfirmationSent - this CLOSES the TODO item",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "title": "8. The row is gone. The list is empty again - so the process has nothing left to act on and the confirmation cannot be sent a second time",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ]
+}

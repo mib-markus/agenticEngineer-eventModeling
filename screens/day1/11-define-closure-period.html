@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Define Closure Period — Bella Cucina Backoffice</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body style="background:#f4f5f7;">
+
+<nav class="navbar has-shadow" style="background:#fff;">
+  <div class="navbar-brand">
+    <span class="navbar-item" style="font-weight:700;font-size:1.15rem;">Bella Cucina <span style="color:#8a8a8a;font-weight:400;margin-left:.45rem;">Backoffice</span></span>
+  </div>
+  <div class="navbar-menu is-active" style="box-shadow:none;">
+    <div class="navbar-start">
+      <a class="navbar-item">Tables</a>
+      <a class="navbar-item">Menu</a>
+      <a class="navbar-item" style="border-bottom:3px solid #3b82f6;font-weight:600;color:#3b82f6;">Closures</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+<div class="container" style="max-width:640px;">
+
+  <nav class="breadcrumb is-small" style="margin-bottom:1rem;">
+    <ul><li><a>Closure calendar</a></li><li class="is-active"><a>New closure</a></li></ul>
+  </nav>
+
+  <div class="box" style="padding:2rem;">
+    <h1 class="title is-4">Define closure</h1>
+
+    <div class="field">
+      <label class="label">Closure type</label>
+      <div class="control" style="display:flex;gap:1.5rem;padding-top:.35rem;">
+        <label class="radio"><input type="radio" name="ctype" checked> Vacation period</label>
+        <label class="radio"><input type="radio" name="ctype"> Single closure day</label>
+      </div>
+    </div>
+
+    <div class="field is-horizontal" style="margin-top:1.25rem;">
+      <div class="field-body">
+        <div class="field">
+          <label class="label">From</label>
+          <div class="control"><input class="input" type="date" value="2026-12-24"></div>
+        </div>
+        <div class="field">
+          <label class="label">To</label>
+          <div class="control"><input class="input" type="date" value="2027-01-02"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Reason</label>
+      <div class="control"><input class="input" type="text" value="Winter holidays"></div>
+      <p class="help">Shown to guests when the booking site rejects a date.</p>
+    </div>
+
+    <article class="message is-danger is-small" style="margin-top:1.5rem;">
+      <div class="message-body">
+        <strong>4 existing reservations fall inside this period.</strong>
+        They will be flagged for review so staff can contact the guests. The closure is still recorded.
+      </div>
+    </article>
+
+    <article class="message is-warning is-small">
+      <div class="message-body">Overlapping an existing closure period is not allowed &mdash; adjust the dates or edit the existing period instead.</div>
+    </article>
+
+    <div class="field" style="margin-top:1.5rem;">
+      <div class="control" style="display:flex;gap:.75rem;">
+        <a class="button is-primary">Save closure</a>
+        <a class="button is-light">Cancel</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+</body>
+</html>

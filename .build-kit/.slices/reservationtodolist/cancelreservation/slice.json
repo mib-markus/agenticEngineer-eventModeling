@@ -1,0 +1,515 @@
+{
+  "id": "bcc03143-1047-459e-a6f8-7550454de46c",
+  "title": "CancelReservation",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "ReservationToDoList",
+  "context": "ReservationToDoList",
+  "commands": [
+    {
+      "id": "e4a18697-b4c5-4d12-8df8-9576bea2a488",
+      "title": "CancelReservation",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user input - the code the guest received at placement"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "a92e33ad-6347-4fa5-b8d6-1fcb9d9eef1b",
+          "type": "INBOUND",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "f5b297a8-c5d6-4e23-9e09-a687cfb3b599",
+          "type": "OUTBOUND",
+          "title": "ReservationCancelled",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "ReservationToDoList",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CancelReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "f5b297a8-c5d6-4e23-9e09-a687cfb3b599",
+      "title": "ReservationCancelled",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "CancelReservation.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.eMail - carried so the projection can drop the row from that guest's list"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.startTime"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "e4a18697-b4c5-4d12-8df8-9576bea2a488",
+          "type": "INBOUND",
+          "title": "CancelReservation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "d3907586-a3b4-4c01-9ce7-8465adf19377",
+          "type": "OUTBOUND",
+          "title": "ActiveReservations",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "ReservationToDoList",
+      "lane": "Swimlane",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CancelReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "a92e33ad-6347-4fa5-b8d6-1fcb9d9eef1b",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "d3907586-a3b4-4c01-9ce7-8465adf19377",
+          "type": "INBOUND",
+          "title": "ActiveReservations",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "e4a18697-b4c5-4d12-8df8-9576bea2a488",
+          "type": "OUTBOUND",
+          "title": "CancelReservation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "ReservationToDoList",
+      "lane": "Actor",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CancelReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "1d000001-0000-4000-8000-000000000001",
+      "title": "Cancel a reservation using its code",
+      "chapter": "ReservationToDoList",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "id": "e4a18697-b4c5-4d12-8df8-9576bea2a488",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "f5b297a8-c5d6-4e23-9e09-a687cfb3b599",
+          "title": "ReservationCancelled",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ]
+    },
+    {
+      "id": "1d000001-0000-4000-8000-000000000002",
+      "title": "Reject cancelling an unknown code",
+      "chapter": "ReservationToDoList",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "e4a18697-b4c5-4d12-8df8-9576bea2a488",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-XXXX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "e953dc18-d22f-423e-a927-bee16bede9c9",
+          "title": "Reject cancelling an unknown code",
+          "description": "No reservation found for code R-XXXX",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "1d000001-0000-4000-8000-000000000003",
+      "title": "Reject cancelling an already cancelled reservation",
+      "chapter": "ReservationToDoList",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        },
+        {
+          "id": "f5b297a8-c5d6-4e23-9e09-a687cfb3b599",
+          "title": "ReservationCancelled",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "id": "e4a18697-b4c5-4d12-8df8-9576bea2a488",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "06beb464-b592-436b-993c-6e4b69d3e525",
+          "title": "Reject cancelling an already cancelled reservation",
+          "description": "Reservation R-7K2Q was already cancelled",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "1d000001-0000-4000-8000-000000000004",
+      "title": "Reject cancelling a reservation that has already started",
+      "chapter": "ReservationToDoList",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "id": "e4a18697-b4c5-4d12-8df8-9576bea2a488",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "0683bd54-6e72-4953-826a-f27a88c30223",
+          "title": "Reject cancelling a reservation that has already started",
+          "description": "Reservation R-7K2Q has already started - it can no longer be cancelled",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu Versions — Bella Cucina Backoffice</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body style="background:#f4f5f7;">
+
+<nav class="navbar has-shadow" style="background:#fff;">
+  <div class="navbar-brand">
+    <span class="navbar-item" style="font-weight:700;font-size:1.15rem;">Bella Cucina <span style="color:#8a8a8a;font-weight:400;margin-left:.45rem;">Backoffice</span></span>
+  </div>
+  <div class="navbar-menu is-active" style="box-shadow:none;">
+    <div class="navbar-start">
+      <a class="navbar-item">Tables</a>
+      <a class="navbar-item" style="border-bottom:3px solid #3b82f6;font-weight:600;color:#3b82f6;">Menu</a>
+      <a class="navbar-item">Closures</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+<div class="container" style="max-width:960px;">
+
+  <div class="level" style="margin-bottom:1.5rem;">
+    <div class="level-left"><h1 class="title is-3">Menu versions</h1></div>
+    <div class="level-right"><a class="button is-primary">Upload new version</a></div>
+  </div>
+
+  <div class="box" style="border-left:4px solid #2ecc71;">
+    <p class="has-text-grey is-size-7" style="text-transform:uppercase;letter-spacing:.04em;">Currently published</p>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:.4rem;">
+      <div>
+        <span class="title is-4">Summer 2026</span>
+        <span class="has-text-grey" style="margin-left:.75rem;">v4 &middot; published 01 Jun 2026 &middot; valid from 05 Jun 2026</span>
+      </div>
+      <a class="button is-small is-light">View PDF</a>
+    </div>
+  </div>
+
+  <div class="box" style="padding:0;overflow:hidden;">
+    <table class="table is-fullwidth is-hoverable" style="margin-bottom:0;">
+      <thead style="background:#fafbfc;">
+        <tr><th style="padding:1rem;">Version</th><th>Label</th><th>Valid from</th><th>Uploaded</th><th>State</th><th style="text-align:right;padding-right:1rem;"></th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:#fffdf5;">
+          <td style="padding:.9rem 1rem;">v5</td>
+          <td>Autumn 2026</td><td>15 Sep 2026</td><td>08 Sep 2026</td>
+          <td><span class="tag is-warning is-light">Draft</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small is-primary">Publish</a></td>
+        </tr>
+        <tr>
+          <td style="padding:.9rem 1rem;">v4</td>
+          <td>Summer 2026</td><td>05 Jun 2026</td><td>01 Jun 2026</td>
+          <td><span class="tag is-success is-light">Published</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small is-light">View</a></td>
+        </tr>
+        <tr>
+          <td style="padding:.9rem 1rem;">v3</td>
+          <td>Spring 2026</td><td>01 Mar 2026</td><td>26 Feb 2026</td>
+          <td><span class="tag is-light">Superseded</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small is-light">View</a></td>
+        </tr>
+        <tr>
+          <td style="padding:.9rem 1rem;">v2</td>
+          <td>Winter 2025</td><td>15 Nov 2025</td><td>10 Nov 2025</td>
+          <td><span class="tag is-light">Superseded</span></td>
+          <td style="text-align:right;padding-right:1rem;"><a class="button is-small is-light">View</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</section>
+</body>
+</html>

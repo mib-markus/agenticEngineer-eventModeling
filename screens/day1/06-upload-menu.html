@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upload Menu — Bella Cucina Backoffice</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body style="background:#f4f5f7;">
+
+<nav class="navbar has-shadow" style="background:#fff;">
+  <div class="navbar-brand">
+    <span class="navbar-item" style="font-weight:700;font-size:1.15rem;">Bella Cucina <span style="color:#8a8a8a;font-weight:400;margin-left:.45rem;">Backoffice</span></span>
+  </div>
+  <div class="navbar-menu is-active" style="box-shadow:none;">
+    <div class="navbar-start">
+      <a class="navbar-item">Tables</a>
+      <a class="navbar-item" style="border-bottom:3px solid #3b82f6;font-weight:600;color:#3b82f6;">Menu</a>
+      <a class="navbar-item">Closures</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+<div class="container" style="max-width:660px;">
+
+  <h1 class="title is-3">Upload menu version</h1>
+  <p class="has-text-grey" style="margin-bottom:1.75rem;">Upload a new menu as a draft. Nothing changes for guests until the version is published.</p>
+
+  <div class="box" style="padding:2rem;">
+
+    <div class="field">
+      <label class="label">Menu file</label>
+      <div style="border:2px dashed #cfd6dd;border-radius:6px;padding:2.25rem;text-align:center;background:#fafbfc;">
+        <p style="font-weight:600;margin-bottom:.35rem;">autumn-menu-2026.pdf</p>
+        <p class="has-text-grey is-size-7">1.8 MB &middot; PDF &middot; ready to upload</p>
+        <a class="button is-small is-light" style="margin-top:.9rem;">Choose a different file</a>
+      </div>
+      <p class="help">PDF only, up to 10 MB.</p>
+    </div>
+
+    <div class="field" style="margin-top:1.5rem;">
+      <label class="label">Version label</label>
+      <div class="control"><input class="input" type="text" value="Autumn 2026"></div>
+    </div>
+
+    <div class="field">
+      <label class="label">Valid from</label>
+      <div class="control" style="max-width:220px;"><input class="input" type="date" value="2026-09-15"></div>
+    </div>
+
+    <div class="field">
+      <label class="label">Notes <span class="has-text-grey has-text-weight-normal">(optional)</span></label>
+      <div class="control"><textarea class="textarea" rows="2">Adds game dishes, removes summer salads.</textarea></div>
+    </div>
+
+    <div class="field" style="margin-top:2rem;">
+      <div class="control" style="display:flex;gap:.75rem;">
+        <a class="button is-primary">Upload draft</a>
+        <a class="button is-light">Cancel</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+</body>
+</html>

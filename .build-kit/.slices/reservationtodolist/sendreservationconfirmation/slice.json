@@ -1,0 +1,538 @@
+{
+  "id": "423c8e06-ef50-4198-816c-c7e63fcb6328",
+  "title": "SendReservationConfirmation",
+  "status": "Created",
+  "sliceType": "AUTOMATION",
+  "chapter": "ReservationToDoList",
+  "context": "ReservationToDoList",
+  "commands": [
+    {
+      "id": "b17e5364-8192-4eaf-9ac5-62438ebf7155",
+      "title": "SendReservationConfirmation",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.eMail"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.endTime"
+        },
+        {
+          "name": "numberOfPeople",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.numberOfPeople"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "a06d4253-7081-4d9e-8fb4-51327dae6044",
+          "type": "INBOUND",
+          "title": "Send Reservation Confirmation",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+          "type": "OUTBOUND",
+          "title": "ReservationConfirmationSent",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "ReservationToDoList",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SendReservationConfirmation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+      "title": "ReservationConfirmationSent",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "SendReservationConfirmation.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "SendReservationConfirmation.eMail"
+        },
+        {
+          "name": "sentAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "generated when the mail was handed over to the mail provider"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "b17e5364-8192-4eaf-9ac5-62438ebf7155",
+          "type": "INBOUND",
+          "title": "SendReservationConfirmation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "type": "OUTBOUND",
+          "title": "ConfirmationsToSend",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "ReservationToDoList",
+      "lane": "Swimlane",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SendReservationConfirmation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [
+    {
+      "id": "a06d4253-7081-4d9e-8fb4-51327dae6044",
+      "title": "Send Reservation Confirmation",
+      "type": "AUTOMATION",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "9e5c3142-6f70-4c8d-9ea3-40216c9d5f33",
+          "type": "INBOUND",
+          "title": "ConfirmationsToSend",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "b17e5364-8192-4eaf-9ac5-62438ebf7155",
+          "type": "OUTBOUND",
+          "title": "SendReservationConfirmation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "ReservationToDoList",
+      "lane": "Actor",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SendReservationConfirmation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "1b000001-0000-4000-8000-000000000001",
+      "title": "Send the confirmation for an open TODO item",
+      "chapter": "ReservationToDoList",
+      "sliceName": "SendReservationConfirmation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "id": "b17e5364-8192-4eaf-9ac5-62438ebf7155",
+          "title": "SendReservationConfirmation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+          "title": "ReservationConfirmationSent",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "sentAt",
+              "example": "10.09.2026 14:32"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ]
+    },
+    {
+      "id": "1b000001-0000-4000-8000-000000000002",
+      "title": "Reject sending a confirmation twice",
+      "chapter": "ReservationToDoList",
+      "sliceName": "SendReservationConfirmation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8d4b2031-5e6f-4b7c-8d92-3f105b8c4e22",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        },
+        {
+          "id": "c28f6475-92a3-4fb0-8bd6-73549fc08266",
+          "title": "ReservationConfirmationSent",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "sentAt",
+              "example": "10.09.2026 14:32"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "id": "b17e5364-8192-4eaf-9ac5-62438ebf7155",
+          "title": "SendReservationConfirmation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "714fb952-b47f-421c-ad02-6ab39b9d98be",
+          "title": "Reject sending a confirmation twice",
+          "description": "A confirmation for R-7K2Q was already sent - it must only be sent once",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "1b000001-0000-4000-8000-000000000003",
+      "title": "Reject sending a confirmation for an unknown reservation",
+      "chapter": "ReservationToDoList",
+      "sliceName": "SendReservationConfirmation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "b17e5364-8192-4eaf-9ac5-62438ebf7155",
+          "title": "SendReservationConfirmation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-XXXX"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "id": "97aa2861-9521-4839-a1cc-d4555de65335",
+          "title": "Reject sending a confirmation for an unknown reservation",
+          "description": "No reservation found for code R-XXXX",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

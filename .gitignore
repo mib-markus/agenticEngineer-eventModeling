@@ -1,0 +1,34 @@
+# --- Secrets & machine-local config ---------------------------------------
+# .eventmodelers/ holds the board token — it grants write access to every board
+# in the org, so it must never be tracked. Matches the dir at any depth.
+.eventmodelers/
+.env
+.env.*
+!.env.example
+
+# Claude Code local permission grants (machine-specific, may reference secrets).
+# .claude/settings.json and .mcp.json are safe — they hold no token.
+.claude/settings.local.json
+
+# --- Vendored agent skills ------------------------------------------------
+# Installed by `npx @eventmodelers/cli init` — Nebulit's content, not ours.
+# Re-create with the CLI rather than redistributing it here.
+.claude/skills/
+
+# --- Dependencies & build output ------------------------------------------
+node_modules/
+dist/
+*.tsbuildinfo
+
+# --- Logs & scratch -------------------------------------------------------
+*.log
+npm-debug.log*
+.playwright-mcp/
+
+# --- OS / editor cruft ----------------------------------------------------
+.DS_Store
+.idea/
+.vscode/
+
+# Stray dir from an unexpanded Windows env var in a tool call
+${local_app_data}*
