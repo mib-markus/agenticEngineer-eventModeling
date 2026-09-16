@@ -1,0 +1,260 @@
+{
+  "id": "62b4bd9a-4cad-41d7-9087-af359681b309",
+  "title": "ConfirmationsToSend",
+  "status": "Created",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day6",
+  "context": "Day6",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+      "title": "ConfirmationsToSend",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.eMail - the address the confirmation goes to"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.endTime"
+        },
+        {
+          "name": "numberOfPeople",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.numberOfPeople"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "type": "INBOUND",
+          "title": "ReservationPlaced",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "75393167-4811-4a42-9979-1eb751beeb6d",
+          "type": "OUTBOUND",
+          "title": "Send Reservation Confirmation",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+          "type": "INBOUND",
+          "title": "ReservationConfirmationSent",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ConfirmationsToSend",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": true,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "aa000002-0000-4000-8000-000000000001",
+      "title": "A placed reservation owes a confirmation",
+      "chapter": "Day6",
+      "sliceName": "ConfirmationsToSend",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "date": "15.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "endTime": "21:00",
+          "startTime": "19:00",
+          "numberOfPeople": "4",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "bb000002-0000-4000-8000-000000000001",
+          "title": "ConfirmationsToSendQuery",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+          "title": "ConfirmationsToSend",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000002-0000-4000-8000-000000000002",
+      "title": "A sent confirmation leaves the list",
+      "chapter": "Day6",
+      "sliceName": "ConfirmationsToSend",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [
+        {
+          "eMail": "max.mustermann@gmx.de",
+          "sentAt": "10.09.2026 14:32",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": true
+        },
+        {
+          "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+          "title": "ReservationConfirmationSent",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [
+        {
+          "id": "bb000002-0000-4000-8000-000000000002",
+          "title": "ConfirmationsToSendQuery",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+          "title": "ConfirmationsToSend",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

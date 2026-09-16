@@ -1,0 +1,565 @@
+{
+  "id": "bb8961b6-16ab-42ff-86f8-4a9f8306def2",
+  "title": "CancelReservation",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day6",
+  "context": "Day6",
+  "commands": [
+    {
+      "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+      "title": "CancelReservation",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user input - the code the guest received at placement"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+          "type": "OUTBOUND",
+          "title": "ReservationCancelled",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "b3981247-f1c3-4e99-bf7d-933572eba336",
+          "type": "INBOUND",
+          "elementType": "HTML_SCREEN"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CancelReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+      "title": "ReservationCancelled",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "CancelReservation.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.eMail - carried so the projection can drop the row from that guest's list"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationPlaced.startTime"
+        },
+        {
+          "name": "tableNumber",
+          "optional": true,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationConfirmed.tableNumber - carried so TableStatus can free the table; empty if never confirmed"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "type": "INBOUND",
+          "title": "CancelReservation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "834028f4-534b-4463-8392-c757d80780f7",
+          "type": "OUTBOUND",
+          "title": "ActiveReservations",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+          "type": "OUTBOUND",
+          "title": "TableStatus",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Swimlane",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CancelReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "b3981247-f1c3-4e99-bf7d-933572eba336",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "834028f4-534b-4463-8392-c757d80780f7",
+          "type": "INBOUND",
+          "title": "ActiveReservations",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "type": "OUTBOUND",
+          "title": "CancelReservation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Actor",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CancelReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "aa000008-0000-4000-8000-000000000001",
+      "title": "Cancel a reservation well before it starts",
+      "chapter": "Day6",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "now": "15.04.2026 10:00",
+          "date": "15.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "startTime": "19:00",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+          "title": "ReservationCancelled",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000008-0000-4000-8000-000000000002",
+      "title": "Cancel a confirmed reservation and release its table",
+      "chapter": "Day6",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "now": "15.04.2026 10:00",
+          "date": "15.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "startTime": "19:00",
+          "tableNumber": "12",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+          "title": "ReservationConfirmed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+          "title": "ReservationCancelled",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000008-0000-4000-8000-000000000003",
+      "title": "Cancel exactly 2 hours before the start time",
+      "chapter": "Day6",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "now": "15.04.2026 17:00",
+          "date": "15.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "startTime": "19:00",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+          "title": "ReservationCancelled",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000008-0000-4000-8000-000000000004",
+      "title": "Reject a cancellation less than 2 hours before the start",
+      "chapter": "Day6",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "now": "15.04.2026 18:30",
+          "date": "15.04.2026",
+          "startTime": "19:00",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "1b304254-909d-4a3b-89cf-49c065689319",
+          "title": "Reject a cancellation less than 2 hours before the start",
+          "description": "R-7K2Q starts at 19:00 on 15.04.2026 - cancellation closed at 17:00",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000008-0000-4000-8000-000000000005",
+      "title": "Reject a cancellation after the reservation has started",
+      "chapter": "Day6",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "now": "15.04.2026 20:00",
+          "date": "15.04.2026",
+          "startTime": "19:00",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "633837fe-79a9-43cf-a8be-3d5b00c35788",
+          "title": "Reject a cancellation after the reservation has started",
+          "description": "R-7K2Q starts at 19:00 on 15.04.2026 - cancellation closed at 17:00",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000008-0000-4000-8000-000000000006",
+      "title": "Reject cancelling an unknown reservation code",
+      "chapter": "Day6",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "now": "15.04.2026 10:00",
+          "reservationCode": "R-XXXX"
+        }
+      ],
+      "given": [],
+      "when": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "456c0fb4-0994-4d81-9e14-4409398be962",
+          "title": "Reject cancelling an unknown reservation code",
+          "description": "No reservation exists for code R-XXXX",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000008-0000-4000-8000-000000000007",
+      "title": "Reject cancelling an already cancelled reservation",
+      "chapter": "Day6",
+      "sliceName": "CancelReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "now": "15.04.2026 10:00",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+          "title": "ReservationCancelled",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+          "title": "CancelReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "97df95cf-c4f3-42ff-aa8f-8ceb942e7ab4",
+          "title": "Reject cancelling an already cancelled reservation",
+          "description": "R-7K2Q has already been cancelled",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

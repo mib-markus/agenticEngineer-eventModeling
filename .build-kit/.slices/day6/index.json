@@ -1,0 +1,3533 @@
+{
+  "slices": [
+    {
+      "id": "e64c9c3d-8624-4773-ac5c-ea473bd88b55",
+      "slice": "PlaceReservation",
+      "index": 0,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "placereservation",
+      "status": "Created",
+      "definition": {
+        "id": "e64c9c3d-8624-4773-ac5c-ea473bd88b55",
+        "title": "PlaceReservation",
+        "status": "Created",
+        "sliceType": "STATE_CHANGE",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [
+          {
+            "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+            "title": "PlaceReservation",
+            "type": "COMMAND",
+            "fields": [
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "user input - reservation form"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "user input - reservation form"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "user input - reservation form"
+              },
+              {
+                "name": "endTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "user input - reservation form"
+              },
+              {
+                "name": "numberOfPeople",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "user input - reservation form"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "type": "OUTBOUND",
+                "title": "ReservationPlaced",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "e48c6f01-8599-4ad6-b64f-978ccfbe2255",
+                "type": "INBOUND",
+                "elementType": "HTML_SCREEN"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "PlaceReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": true,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "events": [
+          {
+            "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+            "title": "ReservationPlaced",
+            "type": "EVENT",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": true,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "generated at placement - shown to the guest and used to cancel"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "PlaceReservation.eMail"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "PlaceReservation.date"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "PlaceReservation.startTime"
+              },
+              {
+                "name": "endTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "PlaceReservation.endTime"
+              },
+              {
+                "name": "numberOfPeople",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "PlaceReservation.numberOfPeople"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "type": "INBOUND",
+                "title": "PlaceReservation",
+                "elementType": "COMMAND"
+              },
+              {
+                "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+                "type": "OUTBOUND",
+                "title": "ConfirmationsToSend",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+                "type": "OUTBOUND",
+                "title": "ReservationsToConfirm",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "type": "OUTBOUND",
+                "title": "ActiveReservations",
+                "elementType": "READMODEL"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Swimlane",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "PlaceReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": true,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "readmodels": [],
+        "screens": [
+          {
+            "id": "e48c6f01-8599-4ad6-b64f-978ccfbe2255",
+            "title": "",
+            "type": "HTML_SCREEN",
+            "fields": [],
+            "dependencies": [
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "type": "OUTBOUND",
+                "title": "PlaceReservation",
+                "elementType": "COMMAND"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Actor",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "PlaceReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "processors": [],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000001-0000-4000-8000-000000000001",
+            "title": "Place a reservation successfully",
+            "chapter": "Day6",
+            "sliceName": "PlaceReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "numberOfPeople": "4",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [],
+            "when": [
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "title": "PlaceReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000001-0000-4000-8000-000000000002",
+            "title": "Reject a reservation ending before it starts",
+            "chapter": "Day6",
+            "sliceName": "PlaceReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "18:00",
+                "startTime": "19:00",
+                "numberOfPeople": "4"
+              }
+            ],
+            "given": [],
+            "when": [
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "title": "PlaceReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "7495c5f9-4620-49b0-b52a-a37961373f6f",
+                "title": "Reject a reservation ending before it starts",
+                "description": "endTime 18:00 must be after startTime 19:00",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000001-0000-4000-8000-000000000003",
+            "title": "Reject a reservation for zero people",
+            "chapter": "Day6",
+            "sliceName": "PlaceReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "numberOfPeople": "0"
+              }
+            ],
+            "given": [],
+            "when": [
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "title": "PlaceReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "73f21b01-dcab-4faa-b787-129fbfa4b95e",
+                "title": "Reject a reservation for zero people",
+                "description": "numberOfPeople must be at least 1",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000001-0000-4000-8000-000000000004",
+            "title": "Reject a reservation in the past",
+            "chapter": "Day6",
+            "sliceName": "PlaceReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "01.01.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "numberOfPeople": "4"
+              }
+            ],
+            "given": [],
+            "when": [
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "title": "PlaceReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "63fc39f7-0517-476e-a39a-a2299b2486c7",
+                "title": "Reject a reservation in the past",
+                "description": "Cannot reserve 01.01.2026 - the date is in the past",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000001-0000-4000-8000-000000000005",
+            "title": "Place a second reservation for the same guest on another date",
+            "chapter": "Day6",
+            "sliceName": "PlaceReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "22.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "22:00",
+                "startTime": "20:00",
+                "numberOfPeople": "2",
+                "reservationCode": "R-9M4P"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "title": "PlaceReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": []
+      }
+    },
+    {
+      "id": "62b4bd9a-4cad-41d7-9087-af359681b309",
+      "slice": "ConfirmationsToSend",
+      "index": 1,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "confirmationstosend",
+      "status": "Created",
+      "definition": {
+        "id": "62b4bd9a-4cad-41d7-9087-af359681b309",
+        "title": "ConfirmationsToSend",
+        "status": "Created",
+        "sliceType": "STATE_VIEW",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [],
+        "events": [],
+        "readmodels": [
+          {
+            "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+            "title": "ConfirmationsToSend",
+            "type": "READMODEL",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.reservationCode"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.eMail - the address the confirmation goes to"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.date"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.startTime"
+              },
+              {
+                "name": "endTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.endTime"
+              },
+              {
+                "name": "numberOfPeople",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.numberOfPeople"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "type": "INBOUND",
+                "title": "ReservationPlaced",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "75393167-4811-4a42-9979-1eb751beeb6d",
+                "type": "OUTBOUND",
+                "title": "Send Reservation Confirmation",
+                "elementType": "AUTOMATION"
+              },
+              {
+                "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+                "type": "INBOUND",
+                "title": "ReservationConfirmationSent",
+                "elementType": "EVENT"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "ConfirmationsToSend",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": true,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "screens": [],
+        "processors": [],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000002-0000-4000-8000-000000000001",
+            "title": "A placed reservation owes a confirmation",
+            "chapter": "Day6",
+            "sliceName": "ConfirmationsToSend",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "numberOfPeople": "4",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000002-0000-4000-8000-000000000001",
+                "title": "ConfirmationsToSendQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+                "title": "ConfirmationsToSend",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000002-0000-4000-8000-000000000002",
+            "title": "A sent confirmation leaves the list",
+            "chapter": "Day6",
+            "sliceName": "ConfirmationsToSend",
+            "vertical": false,
+            "expectEmptyList": true,
+            "examples": [
+              {
+                "eMail": "max.mustermann@gmx.de",
+                "sentAt": "10.09.2026 14:32",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+                "title": "ReservationConfirmationSent",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000002-0000-4000-8000-000000000002",
+                "title": "ConfirmationsToSendQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "then": [
+              {
+                "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+                "title": "ConfirmationsToSend",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": []
+      }
+    },
+    {
+      "id": "c574dc74-010e-4f9d-8c45-1dfb2cd15909",
+      "slice": "SendReservationConfirmation",
+      "index": 2,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "sendreservationconfirmation",
+      "status": "Created",
+      "definition": {
+        "id": "c574dc74-010e-4f9d-8c45-1dfb2cd15909",
+        "title": "SendReservationConfirmation",
+        "status": "Created",
+        "sliceType": "AUTOMATION",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [
+          {
+            "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+            "title": "SendReservationConfirmation",
+            "type": "COMMAND",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmationsToSend.reservationCode"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmationsToSend.eMail"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmationsToSend.date"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmationsToSend.startTime"
+              },
+              {
+                "name": "endTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmationsToSend.endTime"
+              },
+              {
+                "name": "numberOfPeople",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmationsToSend.numberOfPeople"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "75393167-4811-4a42-9979-1eb751beeb6d",
+                "type": "INBOUND",
+                "title": "Send Reservation Confirmation",
+                "elementType": "AUTOMATION"
+              },
+              {
+                "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+                "type": "OUTBOUND",
+                "title": "ReservationConfirmationSent",
+                "elementType": "EVENT"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "SendReservationConfirmation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "events": [
+          {
+            "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+            "title": "ReservationConfirmationSent",
+            "type": "EVENT",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "SendReservationConfirmation.reservationCode"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "SendReservationConfirmation.eMail"
+              },
+              {
+                "name": "sentAt",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": true,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "generated when the mail was handed over to the mail provider"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+                "type": "INBOUND",
+                "title": "SendReservationConfirmation",
+                "elementType": "COMMAND"
+              },
+              {
+                "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+                "type": "OUTBOUND",
+                "title": "ConfirmationsToSend",
+                "elementType": "READMODEL"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Swimlane",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "SendReservationConfirmation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "readmodels": [],
+        "screens": [],
+        "processors": [
+          {
+            "id": "75393167-4811-4a42-9979-1eb751beeb6d",
+            "title": "Send Reservation Confirmation",
+            "type": "AUTOMATION",
+            "fields": [],
+            "dependencies": [
+              {
+                "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+                "type": "INBOUND",
+                "title": "ConfirmationsToSend",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+                "type": "OUTBOUND",
+                "title": "SendReservationConfirmation",
+                "elementType": "COMMAND"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Actor",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "SendReservationConfirmation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000003-0000-4000-8000-000000000001",
+            "title": "Send the confirmation e-mail",
+            "chapter": "Day6",
+            "sliceName": "SendReservationConfirmation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "eMail": "max.mustermann@gmx.de",
+                "sentAt": "10.09.2026 14:32",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+                "title": "SendReservationConfirmation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+                "title": "ReservationConfirmationSent",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000003-0000-4000-8000-000000000002",
+            "title": "Reject sending a confirmation twice",
+            "chapter": "Day6",
+            "sliceName": "SendReservationConfirmation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "eMail": "max.mustermann@gmx.de",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+                "title": "ReservationConfirmationSent",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+                "title": "SendReservationConfirmation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "a464c695-3380-4d2f-bd02-9eca0855cf27",
+                "title": "Reject sending a confirmation twice",
+                "description": "A confirmation for R-7K2Q has already been sent",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": []
+      }
+    },
+    {
+      "id": "16a44d8b-fe57-441f-b5bd-0257841f4c50",
+      "slice": "ReservationsToConfirm",
+      "index": 3,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "reservationstoconfirm",
+      "status": "Created",
+      "definition": {
+        "id": "16a44d8b-fe57-441f-b5bd-0257841f4c50",
+        "title": "ReservationsToConfirm",
+        "status": "Created",
+        "sliceType": "STATE_VIEW",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [],
+        "events": [],
+        "readmodels": [
+          {
+            "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+            "title": "ReservationsToConfirm",
+            "type": "READMODEL",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.reservationCode"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.eMail - so staff can see who is waiting"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.date"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.startTime"
+              },
+              {
+                "name": "endTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.endTime"
+              },
+              {
+                "name": "numberOfPeople",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.numberOfPeople - staff need the party size to pick a table"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "type": "INBOUND",
+                "title": "ReservationPlaced",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "44886afe-3b41-49dd-9163-8c2a63802b3f",
+                "type": "OUTBOUND",
+                "elementType": "HTML_SCREEN"
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "type": "INBOUND",
+                "title": "ReservationConfirmed",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "a4538354-484b-46c1-9824-f8d7a1e84494",
+                "type": "OUTBOUND",
+                "elementType": "HTML_SCREEN"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "ReservationsToConfirm",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": true,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "screens": [
+          {
+            "id": "44886afe-3b41-49dd-9163-8c2a63802b3f",
+            "title": "",
+            "type": "HTML_SCREEN",
+            "fields": [],
+            "dependencies": [
+              {
+                "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+                "type": "INBOUND",
+                "title": "ReservationsToConfirm",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "type": "OUTBOUND",
+                "title": "ConfirmReservation",
+                "elementType": "COMMAND"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Actor",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "ReservationsToConfirm",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "processors": [],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000004-0000-4000-8000-000000000001",
+            "title": "A placed reservation waits for a table",
+            "chapter": "Day6",
+            "sliceName": "ReservationsToConfirm",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "numberOfPeople": "4",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000004-0000-4000-8000-000000000001",
+                "title": "ReservationsToConfirmQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+                "title": "ReservationsToConfirm",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000004-0000-4000-8000-000000000002",
+            "title": "A confirmed reservation leaves the list",
+            "chapter": "Day6",
+            "sliceName": "ReservationsToConfirm",
+            "vertical": false,
+            "expectEmptyList": true,
+            "examples": [
+              {
+                "tableNumber": "12",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000004-0000-4000-8000-000000000002",
+                "title": "ReservationsToConfirmQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "then": [
+              {
+                "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+                "title": "ReservationsToConfirm",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          },
+          {
+            "id": "aa000004-0000-4000-8000-000000000003",
+            "title": "A cancelled reservation leaves the list unconfirmed",
+            "chapter": "Day6",
+            "sliceName": "ReservationsToConfirm",
+            "vertical": false,
+            "expectEmptyList": true,
+            "examples": [
+              {
+                "eMail": "max.mustermann@gmx.de",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000004-0000-4000-8000-000000000003",
+                "title": "ReservationsToConfirmQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "then": [
+              {
+                "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+                "title": "ReservationsToConfirm",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": []
+      }
+    },
+    {
+      "id": "5397519f-d52a-4c54-9126-79216e20e5c3",
+      "slice": "ConfirmReservation",
+      "index": 4,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "confirmreservation",
+      "status": "Planned",
+      "definition": {
+        "id": "5397519f-d52a-4c54-9126-79216e20e5c3",
+        "title": "ConfirmReservation",
+        "status": "Planned",
+        "sliceType": "STATE_CHANGE",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [
+          {
+            "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+            "title": "ConfirmReservation",
+            "type": "COMMAND",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationsToConfirm.reservationCode - the row staff picked"
+              },
+              {
+                "name": "tableNumber",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "staff input - the table assigned to this reservation"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "type": "OUTBOUND",
+                "title": "ReservationConfirmed",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "44886afe-3b41-49dd-9163-8c2a63802b3f",
+                "type": "INBOUND",
+                "elementType": "HTML_SCREEN"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "ConfirmReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "events": [
+          {
+            "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+            "title": "ReservationConfirmed",
+            "type": "EVENT",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmReservation.reservationCode"
+              },
+              {
+                "name": "tableNumber",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ConfirmReservation.tableNumber"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.eMail - carried so the guest's list can show the table"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.date"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.startTime"
+              },
+              {
+                "name": "endTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.endTime"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "type": "INBOUND",
+                "title": "ConfirmReservation",
+                "elementType": "COMMAND"
+              },
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "type": "OUTBOUND",
+                "title": "TableStatus",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "type": "OUTBOUND",
+                "title": "ActiveReservations",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+                "type": "OUTBOUND",
+                "title": "ReservationsToConfirm",
+                "elementType": "READMODEL"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Swimlane",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "ConfirmReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "readmodels": [],
+        "screens": [],
+        "processors": [],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000005-0000-4000-8000-000000000001",
+            "title": "Confirm a reservation by assigning a table",
+            "chapter": "Day6",
+            "sliceName": "ConfirmReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "tableNumber": "12",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "title": "ConfirmReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000005-0000-4000-8000-000000000002",
+            "title": "Reject confirming an unknown reservation code",
+            "chapter": "Day6",
+            "sliceName": "ConfirmReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "tableNumber": "12",
+                "reservationCode": "R-XXXX"
+              }
+            ],
+            "given": [],
+            "when": [
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "title": "ConfirmReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "8c8036d0-d440-470e-b6c8-c02cad80c140",
+                "title": "Reject confirming an unknown reservation code",
+                "description": "No reservation exists for code R-XXXX",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000005-0000-4000-8000-000000000003",
+            "title": "Reject confirming the same reservation twice",
+            "chapter": "Day6",
+            "sliceName": "ConfirmReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "tableNumber": "15",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "title": "ConfirmReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "4ad6a907-bfa3-49ba-bfad-e856e8be2a94",
+                "title": "Reject confirming the same reservation twice",
+                "description": "R-7K2Q is already confirmed on table 12",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000005-0000-4000-8000-000000000004",
+            "title": "Reject confirming a cancelled reservation",
+            "chapter": "Day6",
+            "sliceName": "ConfirmReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "tableNumber": "12",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "title": "ConfirmReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "57858325-b157-40b1-a9c4-ba8815d34920",
+                "title": "Reject confirming a cancelled reservation",
+                "description": "R-7K2Q has been cancelled and cannot be confirmed",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000005-0000-4000-8000-000000000005",
+            "title": "Reject a table already held at an overlapping time",
+            "chapter": "Day6",
+            "sliceName": "ConfirmReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "endTime": "22:00",
+                "startTime": "20:00",
+                "tableNumber": "12",
+                "reservationCode": "R-9M4P"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "title": "ConfirmReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "be97c670-f8ee-4c8d-83b6-f8bfb45cc7d9",
+                "title": "Reject a table already held at an overlapping time",
+                "description": "Table 12 is already held on 15.04.2026 between 19:00 and 21:00",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": []
+      }
+    },
+    {
+      "id": "4dc1a9e2-1d64-4d2b-856a-05c00c0f0307",
+      "slice": "TableStatus",
+      "index": 5,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "tablestatus",
+      "status": "Created",
+      "definition": {
+        "id": "4dc1a9e2-1d64-4d2b-856a-05c00c0f0307",
+        "title": "TableStatus",
+        "status": "Created",
+        "sliceType": "STATE_VIEW",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [],
+        "events": [],
+        "readmodels": [
+          {
+            "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+            "title": "TableStatus",
+            "type": "READMODEL",
+            "fields": [
+              {
+                "name": "tableNumber",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": true,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationConfirmed.tableNumber - the table this row is about"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": true,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationConfirmed.date - status is per table per service day"
+              },
+              {
+                "name": "reservationCode",
+                "optional": true,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationConfirmed.reservationCode - cleared when the reservation is cancelled"
+              },
+              {
+                "name": "startTime",
+                "optional": true,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationConfirmed.startTime"
+              },
+              {
+                "name": "endTime",
+                "optional": true,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationConfirmed.endTime"
+              },
+              {
+                "name": "numberOfPeople",
+                "optional": true,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.numberOfPeople - the party the table is held for"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "type": "INBOUND",
+                "title": "ReservationConfirmed",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "0c7e7a6c-7953-445d-877e-94d91d1a8ec4",
+                "type": "OUTBOUND",
+                "elementType": "HTML_SCREEN"
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "type": "INBOUND",
+                "title": "ReservationCancelled",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "5536de3b-e243-45ef-a78e-15d9728a3f22",
+                "type": "OUTBOUND",
+                "elementType": "HTML_SCREEN"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "TableStatus",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": true,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "screens": [
+          {
+            "id": "0c7e7a6c-7953-445d-877e-94d91d1a8ec4",
+            "title": "",
+            "type": "HTML_SCREEN",
+            "fields": [],
+            "dependencies": [
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "type": "INBOUND",
+                "title": "TableStatus",
+                "elementType": "READMODEL"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Actor",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "TableStatus",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "processors": [],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000006-0000-4000-8000-000000000001",
+            "title": "A confirmed reservation holds its table",
+            "chapter": "Day6",
+            "sliceName": "TableStatus",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "tableNumber": "12",
+                "numberOfPeople": "4",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000006-0000-4000-8000-000000000001",
+                "title": "TableStatusQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [
+                  {
+                    "name": "date",
+                    "example": "15.04.2026"
+                  }
+                ]
+              }
+            ],
+            "then": [
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "title": "TableStatus",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000006-0000-4000-8000-000000000002",
+            "title": "An unconfirmed reservation holds no table",
+            "chapter": "Day6",
+            "sliceName": "TableStatus",
+            "vertical": false,
+            "expectEmptyList": true,
+            "examples": [
+              {
+                "date": "15.04.2026"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000006-0000-4000-8000-000000000002",
+                "title": "TableStatusQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [
+                  {
+                    "name": "date",
+                    "example": "15.04.2026"
+                  }
+                ],
+                "expectEmptyList": true
+              }
+            ],
+            "then": [
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "title": "TableStatus",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          },
+          {
+            "id": "aa000006-0000-4000-8000-000000000003",
+            "title": "Cancelling frees the table again",
+            "chapter": "Day6",
+            "sliceName": "TableStatus",
+            "vertical": false,
+            "expectEmptyList": true,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "tableNumber": "12"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000006-0000-4000-8000-000000000003",
+                "title": "TableStatusQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [
+                  {
+                    "name": "date",
+                    "example": "15.04.2026"
+                  }
+                ],
+                "expectEmptyList": true
+              }
+            ],
+            "then": [
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "title": "TableStatus",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": [],
+        "storylines": [
+          {
+            "id": "cc000001-0000-4000-8000-000000000001",
+            "title": "Life of table 12 on 15.04.2026",
+            "elements": [
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "title": "Table 12 is free \u2014 nothing booked yet",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+                "title": "A guest books 19:00\u201321:00 for 4",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced \u2014 but still no table",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "title": "Table 12 is still free \u2014 placing does not hold a table",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+                "title": "The reservation appears on the staff to-confirm list",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "title": "Staff assign table 12",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "c0c0a634-e202-45bb-b0d3-c5a7995cc9d3",
+                "title": "Alternative: table 12 is already held at an overlapping time \u2014 rejected",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed on table 12",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "title": "Table 12 now reads Held \u2014 R-7K2Q, 19:00\u201321:00",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "The guest cancels, more than 2h before 19:00",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled \u2014 table 12 carried along",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": false
+              },
+              {
+                "id": "e4eeb305-7a0e-422e-a0a2-70dea3e8a26b",
+                "title": "Table 12 is free again \u2014 ready for another party",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "f51da284-7f92-4e8b-8467-30aa83ab315f",
+      "slice": "ActiveReservations",
+      "index": 6,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "activereservations",
+      "status": "Created",
+      "definition": {
+        "id": "f51da284-7f92-4e8b-8467-30aa83ab315f",
+        "title": "ActiveReservations",
+        "status": "Created",
+        "sliceType": "STATE_VIEW",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [],
+        "events": [],
+        "readmodels": [
+          {
+            "id": "834028f4-534b-4463-8392-c757d80780f7",
+            "title": "ActiveReservations",
+            "type": "READMODEL",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.reservationCode"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": true,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.eMail - the query key a guest looks up by"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.date"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.startTime"
+              },
+              {
+                "name": "endTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.endTime"
+              },
+              {
+                "name": "numberOfPeople",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.numberOfPeople"
+              },
+              {
+                "name": "tableNumber",
+                "optional": true,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationConfirmed.tableNumber - empty until staff confirm"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "type": "INBOUND",
+                "title": "ReservationPlaced",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "type": "INBOUND",
+                "title": "ReservationConfirmed",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "type": "INBOUND",
+                "title": "ReservationCancelled",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "8118f4c0-0746-4b48-8d5e-e8bbb1091bc5",
+                "type": "OUTBOUND",
+                "elementType": "HTML_SCREEN"
+              },
+              {
+                "id": "b3981247-f1c3-4e99-bf7d-933572eba336",
+                "type": "OUTBOUND",
+                "elementType": "HTML_SCREEN"
+              },
+              {
+                "id": "8244399a-7049-4fbe-9497-354182a73145",
+                "type": "OUTBOUND",
+                "elementType": "HTML_SCREEN"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "ActiveReservations",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": true,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "screens": [
+          {
+            "id": "8118f4c0-0746-4b48-8d5e-e8bbb1091bc5",
+            "title": "",
+            "type": "HTML_SCREEN",
+            "fields": [],
+            "dependencies": [
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "type": "INBOUND",
+                "title": "ActiveReservations",
+                "elementType": "READMODEL"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Actor",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "ActiveReservations",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "processors": [],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000007-0000-4000-8000-000000000001",
+            "title": "A guest sees a reservation awaiting confirmation",
+            "chapter": "Day6",
+            "sliceName": "ActiveReservations",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "numberOfPeople": "4",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000007-0000-4000-8000-000000000001",
+                "title": "ActiveReservationsQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [
+                  {
+                    "name": "eMail",
+                    "example": "max.mustermann@gmx.de"
+                  }
+                ]
+              }
+            ],
+            "then": [
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "title": "ActiveReservations",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000007-0000-4000-8000-000000000002",
+            "title": "A confirmed reservation shows its table",
+            "chapter": "Day6",
+            "sliceName": "ActiveReservations",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "endTime": "21:00",
+                "startTime": "19:00",
+                "tableNumber": "12",
+                "numberOfPeople": "4",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000007-0000-4000-8000-000000000002",
+                "title": "ActiveReservationsQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [
+                  {
+                    "name": "eMail",
+                    "example": "max.mustermann@gmx.de"
+                  }
+                ]
+              }
+            ],
+            "then": [
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "title": "ActiveReservations",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000007-0000-4000-8000-000000000003",
+            "title": "A cancelled reservation is no longer listed",
+            "chapter": "Day6",
+            "sliceName": "ActiveReservations",
+            "vertical": false,
+            "expectEmptyList": true,
+            "examples": [
+              {
+                "eMail": "max.mustermann@gmx.de",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ],
+            "when": [
+              {
+                "id": "bb000007-0000-4000-8000-000000000003",
+                "title": "ActiveReservationsQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [
+                  {
+                    "name": "eMail",
+                    "example": "max.mustermann@gmx.de"
+                  }
+                ],
+                "expectEmptyList": true
+              }
+            ],
+            "then": [
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "title": "ActiveReservations",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          },
+          {
+            "id": "aa000007-0000-4000-8000-000000000004",
+            "title": "A guest with no bookings sees an empty list",
+            "chapter": "Day6",
+            "sliceName": "ActiveReservations",
+            "vertical": false,
+            "expectEmptyList": true,
+            "examples": [
+              {
+                "eMail": "nobody@gmx.de"
+              }
+            ],
+            "given": [],
+            "when": [
+              {
+                "id": "bb000007-0000-4000-8000-000000000004",
+                "title": "ActiveReservationsQuery",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "QUERY",
+                "fields": [
+                  {
+                    "name": "eMail",
+                    "example": "nobody@gmx.de"
+                  }
+                ],
+                "expectEmptyList": true
+              }
+            ],
+            "then": [
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "title": "ActiveReservations",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "READMODEL",
+                "fields": [],
+                "expectEmptyList": true
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": []
+      }
+    },
+    {
+      "id": "bb8961b6-16ab-42ff-86f8-4a9f8306def2",
+      "slice": "CancelReservation",
+      "index": 7,
+      "contextName": "Day6",
+      "contextSlug": "day6",
+      "folder": "cancelreservation",
+      "status": "Created",
+      "definition": {
+        "id": "bb8961b6-16ab-42ff-86f8-4a9f8306def2",
+        "title": "CancelReservation",
+        "status": "Created",
+        "sliceType": "STATE_CHANGE",
+        "chapter": "Day6",
+        "context": "Day6",
+        "commands": [
+          {
+            "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+            "title": "CancelReservation",
+            "type": "COMMAND",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "user input - the code the guest received at placement"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "type": "OUTBOUND",
+                "title": "ReservationCancelled",
+                "elementType": "EVENT"
+              },
+              {
+                "id": "b3981247-f1c3-4e99-bf7d-933572eba336",
+                "type": "INBOUND",
+                "elementType": "HTML_SCREEN"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Interaction",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "CancelReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "events": [
+          {
+            "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+            "title": "ReservationCancelled",
+            "type": "EVENT",
+            "fields": [
+              {
+                "name": "reservationCode",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": true,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "CancelReservation.reservationCode"
+              },
+              {
+                "name": "eMail",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.eMail - carried so the projection can drop the row from that guest's list"
+              },
+              {
+                "name": "date",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.date"
+              },
+              {
+                "name": "startTime",
+                "optional": false,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationPlaced.startTime"
+              },
+              {
+                "name": "tableNumber",
+                "optional": true,
+                "showAttributes": false,
+                "technicalAttribute": false,
+                "query": false,
+                "generated": false,
+                "edited": false,
+                "idAttribute": false,
+                "type": "String",
+                "cardinality": "Single",
+                "subfields": [],
+                "mapping": "ReservationConfirmed.tableNumber - carried so TableStatus can free the table; empty if never confirmed"
+              }
+            ],
+            "dependencies": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "type": "INBOUND",
+                "title": "CancelReservation",
+                "elementType": "COMMAND"
+              },
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "type": "OUTBOUND",
+                "title": "ActiveReservations",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "3264bb8e-630a-43e4-a721-bb27b436d6ce",
+                "type": "OUTBOUND",
+                "title": "TableStatus",
+                "elementType": "READMODEL"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Swimlane",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "CancelReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "readmodels": [],
+        "screens": [
+          {
+            "id": "b3981247-f1c3-4e99-bf7d-933572eba336",
+            "title": "",
+            "type": "HTML_SCREEN",
+            "fields": [],
+            "dependencies": [
+              {
+                "id": "834028f4-534b-4463-8392-c757d80780f7",
+                "type": "INBOUND",
+                "title": "ActiveReservations",
+                "elementType": "READMODEL"
+              },
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "type": "OUTBOUND",
+                "title": "CancelReservation",
+                "elementType": "COMMAND"
+              }
+            ],
+            "modelContext": "Day6",
+            "lane": "Actor",
+            "aggregate": "default",
+            "aggregateDependencies": [],
+            "triggers": [],
+            "tags": [],
+            "slice": "CancelReservation",
+            "description": "",
+            "context": "INTERNAL",
+            "elementContext": "INTERNAL",
+            "listElement": false,
+            "todoList": false,
+            "createsAggregate": false,
+            "elementCopy": false,
+            "sketched": false,
+            "comments": []
+          }
+        ],
+        "processors": [],
+        "tables": [],
+        "specifications": [
+          {
+            "id": "aa000008-0000-4000-8000-000000000001",
+            "title": "Cancel a reservation well before it starts",
+            "chapter": "Day6",
+            "sliceName": "CancelReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "now": "15.04.2026 10:00",
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "startTime": "19:00",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "CancelReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000008-0000-4000-8000-000000000002",
+            "title": "Cancel a confirmed reservation and release its table",
+            "chapter": "Day6",
+            "sliceName": "CancelReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "now": "15.04.2026 10:00",
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "startTime": "19:00",
+                "tableNumber": "12",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+                "title": "ReservationConfirmed",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "CancelReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000008-0000-4000-8000-000000000003",
+            "title": "Cancel exactly 2 hours before the start time",
+            "chapter": "Day6",
+            "sliceName": "CancelReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "now": "15.04.2026 17:00",
+                "date": "15.04.2026",
+                "eMail": "max.mustermann@gmx.de",
+                "startTime": "19:00",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "CancelReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000008-0000-4000-8000-000000000004",
+            "title": "Reject a cancellation less than 2 hours before the start",
+            "chapter": "Day6",
+            "sliceName": "CancelReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "now": "15.04.2026 18:30",
+                "date": "15.04.2026",
+                "startTime": "19:00",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "CancelReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "1b304254-909d-4a3b-89cf-49c065689319",
+                "title": "Reject a cancellation less than 2 hours before the start",
+                "description": "R-7K2Q starts at 19:00 on 15.04.2026 - cancellation closed at 17:00",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000008-0000-4000-8000-000000000005",
+            "title": "Reject a cancellation after the reservation has started",
+            "chapter": "Day6",
+            "sliceName": "CancelReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "now": "15.04.2026 20:00",
+                "date": "15.04.2026",
+                "startTime": "19:00",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "CancelReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "633837fe-79a9-43cf-a8be-3d5b00c35788",
+                "title": "Reject a cancellation after the reservation has started",
+                "description": "R-7K2Q starts at 19:00 on 15.04.2026 - cancellation closed at 17:00",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000008-0000-4000-8000-000000000006",
+            "title": "Reject cancelling an unknown reservation code",
+            "chapter": "Day6",
+            "sliceName": "CancelReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "now": "15.04.2026 10:00",
+                "reservationCode": "R-XXXX"
+              }
+            ],
+            "given": [],
+            "when": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "CancelReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "456c0fb4-0994-4d81-9e14-4409398be962",
+                "title": "Reject cancelling an unknown reservation code",
+                "description": "No reservation exists for code R-XXXX",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          },
+          {
+            "id": "aa000008-0000-4000-8000-000000000007",
+            "title": "Reject cancelling an already cancelled reservation",
+            "chapter": "Day6",
+            "sliceName": "CancelReservation",
+            "vertical": false,
+            "expectEmptyList": false,
+            "examples": [
+              {
+                "now": "15.04.2026 10:00",
+                "reservationCode": "R-7K2Q"
+              }
+            ],
+            "given": [
+              {
+                "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+                "title": "ReservationPlaced",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              },
+              {
+                "id": "d4d77f00-ab70-4626-b578-ca3a27302466",
+                "title": "ReservationCancelled",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "EVENT",
+                "fields": []
+              }
+            ],
+            "when": [
+              {
+                "id": "50421410-56a2-4c6c-90ff-06fdef8c1ab5",
+                "title": "CancelReservation",
+                "tags": [],
+                "index": 0,
+                "specRow": 0,
+                "type": "COMMAND",
+                "fields": []
+              }
+            ],
+            "then": [
+              {
+                "id": "97df95cf-c4f3-42ff-aa8f-8ceb942e7ab4",
+                "title": "Reject cancelling an already cancelled reservation",
+                "description": "R-7K2Q has already been cancelled",
+                "type": "SPEC_ERROR",
+                "fields": []
+              }
+            ]
+          }
+        ],
+        "actors": [],
+        "aggregates": [],
+        "screenImages": [],
+        "comments": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,361 @@
+{
+  "id": "c574dc74-010e-4f9d-8c45-1dfb2cd15909",
+  "title": "SendReservationConfirmation",
+  "status": "Created",
+  "sliceType": "AUTOMATION",
+  "chapter": "Day6",
+  "context": "Day6",
+  "commands": [
+    {
+      "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+      "title": "SendReservationConfirmation",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.eMail"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.endTime"
+        },
+        {
+          "name": "numberOfPeople",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ConfirmationsToSend.numberOfPeople"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "75393167-4811-4a42-9979-1eb751beeb6d",
+          "type": "INBOUND",
+          "title": "Send Reservation Confirmation",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+          "type": "OUTBOUND",
+          "title": "ReservationConfirmationSent",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SendReservationConfirmation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+      "title": "ReservationConfirmationSent",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "SendReservationConfirmation.reservationCode"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "SendReservationConfirmation.eMail"
+        },
+        {
+          "name": "sentAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "generated when the mail was handed over to the mail provider"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+          "type": "INBOUND",
+          "title": "SendReservationConfirmation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+          "type": "OUTBOUND",
+          "title": "ConfirmationsToSend",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Swimlane",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SendReservationConfirmation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [
+    {
+      "id": "75393167-4811-4a42-9979-1eb751beeb6d",
+      "title": "Send Reservation Confirmation",
+      "type": "AUTOMATION",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+          "type": "INBOUND",
+          "title": "ConfirmationsToSend",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+          "type": "OUTBOUND",
+          "title": "SendReservationConfirmation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Actor",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SendReservationConfirmation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "aa000003-0000-4000-8000-000000000001",
+      "title": "Send the confirmation e-mail",
+      "chapter": "Day6",
+      "sliceName": "SendReservationConfirmation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "eMail": "max.mustermann@gmx.de",
+          "sentAt": "10.09.2026 14:32",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+          "title": "SendReservationConfirmation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+          "title": "ReservationConfirmationSent",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000003-0000-4000-8000-000000000002",
+      "title": "Reject sending a confirmation twice",
+      "chapter": "Day6",
+      "sliceName": "SendReservationConfirmation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "eMail": "max.mustermann@gmx.de",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "2db02488-7871-40e8-b9ab-9025d6ae35c7",
+          "title": "ReservationConfirmationSent",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "6516f835-f69f-4238-b742-427ea0cfae40",
+          "title": "SendReservationConfirmation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "a464c695-3380-4d2f-bd02-9eca0855cf27",
+          "title": "Reject sending a confirmation twice",
+          "description": "A confirmation for R-7K2Q has already been sent",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

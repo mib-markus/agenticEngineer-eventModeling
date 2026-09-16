@@ -1,0 +1,498 @@
+{
+  "id": "e64c9c3d-8624-4773-ac5c-ea473bd88b55",
+  "title": "PlaceReservation",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day6",
+  "context": "Day6",
+  "commands": [
+    {
+      "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+      "title": "PlaceReservation",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user input - reservation form"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user input - reservation form"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user input - reservation form"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user input - reservation form"
+        },
+        {
+          "name": "numberOfPeople",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user input - reservation form"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "type": "OUTBOUND",
+          "title": "ReservationPlaced",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "e48c6f01-8599-4ad6-b64f-978ccfbe2255",
+          "type": "INBOUND",
+          "elementType": "HTML_SCREEN"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "PlaceReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": true,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+      "title": "ReservationPlaced",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "generated at placement - shown to the guest and used to cancel"
+        },
+        {
+          "name": "eMail",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PlaceReservation.eMail"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PlaceReservation.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PlaceReservation.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PlaceReservation.endTime"
+        },
+        {
+          "name": "numberOfPeople",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PlaceReservation.numberOfPeople"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+          "type": "INBOUND",
+          "title": "PlaceReservation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "29848eea-b8dc-4383-a733-91e143de76d5",
+          "type": "OUTBOUND",
+          "title": "ConfirmationsToSend",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "709d6870-ab26-4e7f-b4d3-c31ef114d416",
+          "type": "OUTBOUND",
+          "title": "ReservationsToConfirm",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "834028f4-534b-4463-8392-c757d80780f7",
+          "type": "OUTBOUND",
+          "title": "ActiveReservations",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Swimlane",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "PlaceReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": true,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "e48c6f01-8599-4ad6-b64f-978ccfbe2255",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+          "type": "OUTBOUND",
+          "title": "PlaceReservation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Day6",
+      "lane": "Actor",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "PlaceReservation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "aa000001-0000-4000-8000-000000000001",
+      "title": "Place a reservation successfully",
+      "chapter": "Day6",
+      "sliceName": "PlaceReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "date": "15.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "endTime": "21:00",
+          "startTime": "19:00",
+          "numberOfPeople": "4",
+          "reservationCode": "R-7K2Q"
+        }
+      ],
+      "given": [],
+      "when": [
+        {
+          "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+          "title": "PlaceReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000001-0000-4000-8000-000000000002",
+      "title": "Reject a reservation ending before it starts",
+      "chapter": "Day6",
+      "sliceName": "PlaceReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "date": "15.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "endTime": "18:00",
+          "startTime": "19:00",
+          "numberOfPeople": "4"
+        }
+      ],
+      "given": [],
+      "when": [
+        {
+          "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+          "title": "PlaceReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "7495c5f9-4620-49b0-b52a-a37961373f6f",
+          "title": "Reject a reservation ending before it starts",
+          "description": "endTime 18:00 must be after startTime 19:00",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000001-0000-4000-8000-000000000003",
+      "title": "Reject a reservation for zero people",
+      "chapter": "Day6",
+      "sliceName": "PlaceReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "date": "15.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "endTime": "21:00",
+          "startTime": "19:00",
+          "numberOfPeople": "0"
+        }
+      ],
+      "given": [],
+      "when": [
+        {
+          "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+          "title": "PlaceReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "73f21b01-dcab-4faa-b787-129fbfa4b95e",
+          "title": "Reject a reservation for zero people",
+          "description": "numberOfPeople must be at least 1",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000001-0000-4000-8000-000000000004",
+      "title": "Reject a reservation in the past",
+      "chapter": "Day6",
+      "sliceName": "PlaceReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "date": "01.01.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "endTime": "21:00",
+          "startTime": "19:00",
+          "numberOfPeople": "4"
+        }
+      ],
+      "given": [],
+      "when": [
+        {
+          "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+          "title": "PlaceReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "63fc39f7-0517-476e-a39a-a2299b2486c7",
+          "title": "Reject a reservation in the past",
+          "description": "Cannot reserve 01.01.2026 - the date is in the past",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aa000001-0000-4000-8000-000000000005",
+      "title": "Place a second reservation for the same guest on another date",
+      "chapter": "Day6",
+      "sliceName": "PlaceReservation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [
+        {
+          "date": "22.04.2026",
+          "eMail": "max.mustermann@gmx.de",
+          "endTime": "22:00",
+          "startTime": "20:00",
+          "numberOfPeople": "2",
+          "reservationCode": "R-9M4P"
+        }
+      ],
+      "given": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "fcffa343-dde4-43c6-b061-f8e9de33fda2",
+          "title": "PlaceReservation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "title": "ReservationPlaced",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}
