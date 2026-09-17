@@ -4,6 +4,7 @@ import {postgresUrl, getSharedPool} from "./db";
 import {TableStatusProjection} from "../slices/Day6/TableStatus/TableStatusProjection";
 import {ReservationLookupProjection} from "../slices/Day6/ConfirmReservation/ReservationLookupProjection";
 import {ActiveReservationsProjection} from "../slices/Day6/ActiveReservations/ActiveReservationsProjection";
+import {TableBlocksProjection} from "../slices/Day7/TableBlocks/TableBlocksProjection";
 
 let eventStoreInstance: ReturnType<typeof getPostgreSQLEventStore> | null = null;
 
@@ -21,6 +22,7 @@ export const findEventstore = async () => {
                 TableStatusProjection,
                 ReservationLookupProjection,
                 ActiveReservationsProjection,
+                TableBlocksProjection,
             ]),
         });
         await eventStoreInstance.schema.migrate();
