@@ -74,7 +74,11 @@ export const api = (): WebApiSetup => (router: Router): void => {
 
             const eMail = await findEMailByReservationCode(db, reservationCode);
             if (!eMail) {
-                return res.status(409).json({error: 'No reservation found for this code.'});
+                // Distinct from the handler's unknown_reservation_code below: there the
+                // stream was found but held no such reservation. Keeping the two apart
+                // is what makes a stream-id mismatch visible instead of looking like a
+                // missing reservation.
+                return res.status(409).json({error: 'No reservation is known under this code.'});
             }
 
             // The overlap rule spans all guests, but the command's stream holds only
