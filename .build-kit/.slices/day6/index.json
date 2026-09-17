@@ -2962,11 +2962,11 @@
       "contextName": "Day6",
       "contextSlug": "day6",
       "folder": "cancelreservation",
-      "status": "Created",
+      "status": "Done",
       "definition": {
         "id": "bb8961b6-16ab-42ff-86f8-4a9f8306def2",
         "title": "CancelReservation",
-        "status": "Created",
+        "status": "Done",
         "sliceType": "STATE_CHANGE",
         "chapter": "Day6",
         "context": "Day6",
