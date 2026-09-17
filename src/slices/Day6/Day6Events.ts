@@ -33,4 +33,14 @@ export type ReservationCancelled = Event<'ReservationCancelled', {
     tableNumber: string;
 }, CommonMeta>;
 
-export type Day6Events = ReservationPlaced | ReservationConfirmed | ReservationCancelled;
+export type ReservationConfirmationSent = Event<'ReservationConfirmationSent', {
+    reservationCode: string;
+    eMail: string;
+    sentAt: string;
+}, CommonMeta>;
+
+export type Day6Events =
+    | ReservationPlaced
+    | ReservationConfirmed
+    | ReservationCancelled
+    | ReservationConfirmationSent;
