@@ -42,10 +42,6 @@ export type OrderLineChanged = Event<'OrderLineChanged', {
     specialWishes: string;
 }, CommonMeta>;
 
-// Emitted by Remove Order Line, still Planned in this Day12 context. Declared here as a
-// pure-consumer type so Change Order Line's own guard ("a line already struck off cannot be
-// changed") can evolve on it — the field shape is copied verbatim from that slice's own
-// slice.json events[] block.
 export type OrderLineRemoved = Event<'OrderLineRemoved', {
     orderNumber: string;
     lineNumber: number;
