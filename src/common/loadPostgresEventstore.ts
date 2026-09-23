@@ -10,6 +10,7 @@ import {NoShowNotificationsToSendProjection} from "../slices/Day7/NoShowNotifica
 import {RemindersDueProjection} from "../slices/Day7/RemindersDue/RemindersDueProjection";
 import {TableStatusProjection as Day7TableStatusProjection} from "../slices/Day7/TableStatus/TableStatusProjection";
 import {AutoSeatingCandidatesProjection} from "../slices/Day7/AutoSeatingCandidates/AutoSeatingCandidatesProjection";
+import {HeldReservationsProjection} from "../slices/Day7/HeldReservations/HeldReservationsProjection";
 
 let eventStoreInstance: ReturnType<typeof getPostgreSQLEventStore> | null = null;
 
@@ -33,6 +34,7 @@ export const findEventstore = async () => {
                 RemindersDueProjection,
                 Day7TableStatusProjection,
                 AutoSeatingCandidatesProjection,
+                HeldReservationsProjection,
             ]),
         });
         await eventStoreInstance.schema.migrate();
