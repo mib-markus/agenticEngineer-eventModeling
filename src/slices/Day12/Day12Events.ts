@@ -77,6 +77,14 @@ export type ItemPreparationStarted = Event<'ItemPreparationStarted', {
     startedAt: string;
 }, CommonMeta>;
 
+export type ItemMarkedReady = Event<'ItemMarkedReady', {
+    orderNumber: string;
+    tableNumber: string;
+    lineNumber: number;
+    station: string;
+    readyAt: string;
+}, CommonMeta>;
+
 export type Day12Events =
     | OrderableItemAdded
     | OrderOpened
@@ -86,6 +94,7 @@ export type Day12Events =
     | OrderSubmittedToKitchen
     | OrderLineRoutedToStation
     | ItemPreparationStarted
+    | ItemMarkedReady
     | ReservationConfirmed;
 
 export type {ReservationConfirmed};
