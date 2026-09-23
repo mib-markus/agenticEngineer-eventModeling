@@ -41,6 +41,24 @@ export type ReservationReminderSent = Event<'ReservationReminderSent', {
     sentAt: string;
 }, CommonMeta>;
 
+export type TableHeldForReservation = Event<'TableHeldForReservation', {
+    tableNumber: string;
+    reservationCode: string;
+    eMail: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+}, CommonMeta>;
+
+export type TableHoldReleased = Event<'TableHoldReleased', {
+    tableNumber: string;
+    reservationCode: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    reason: string;
+}, CommonMeta>;
+
 // The reservation lifecycle events are Day6's, imported rather than redeclared: Day7's
 // rules react to the very events Day6 appends, so the shapes have to stay identical.
 export type Day7Events =
@@ -48,6 +66,8 @@ export type Day7Events =
     | ReservationReleasedAsNoShow
     | NoShowNotificationSent
     | ReservationReminderSent
+    | TableHeldForReservation
+    | TableHoldReleased
     | ReservationPlaced
     | ReservationConfirmed
     | ReservationCancelled;
