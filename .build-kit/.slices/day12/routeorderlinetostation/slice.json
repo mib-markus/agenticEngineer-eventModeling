@@ -1,7 +1,7 @@
 {
   "id": "7c001101-46e4-4352-b851-df5abedcae91",
   "title": "RouteOrderLineToStation",
-  "status": "Planned",
+  "status": "Done",
   "sliceType": "AUTOMATION",
   "chapter": "Day13",
   "context": "Day12",
