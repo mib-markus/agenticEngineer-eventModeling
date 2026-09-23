@@ -1292,3 +1292,40 @@
   of the TablesReadyToClose shape (insert-on-close-event, delete-on-later-event, downstream
   event type declared as pure-consumer ahead of its own still-Planned emitter).
 ---
+
+## 2026-09-23 - MarkTableCleaned
+
+- Picked the only Planned slice in Day12 context: MarkTableCleaned (STATE_CHANGE, drawn in
+  chapter Day13, staged under day12). Board sync worked (MCP tools already visible in-session,
+  board "markus.beck" 62c1fe42-f280-4fe4-9700-26c085a63d12) — claimed InProgress via
+  update_slice_status by sliceTitle, no race. Started branch `feature/marktablecleaned` from
+  `main`.
+- slice.json: command `Mark Table Cleaned` (tableNumber/orderNumber mapped from
+  TablesToClean.*, cleanedAt `generated: true`/`derived:now()`) emits `TableFreedForReassignment`.
+  Same `Day12-table-{tableNumber}` stream as CloseTable/PayOrder/ServeItem — guards ("not closed" /
+  "already cleaned") only need `closed`/`cleaned` booleans per orderNumber, tracked via
+  TableClosed/TableFreedForReassignment on that stream; command already carries tableNumber
+  directly (no lookup projection needed, same as CloseTable).
+- `TableFreedForReassignment` already existed in `Day12Events.ts` as a pure-consumer type (added
+  earlier by TablesToClean) — reused verbatim, dropped its and TableClosed's now-stale "still
+  Planned" comments since this slice now owns the TableFreedForReassignment emitter (same cleanup
+  pattern as prior slices completing a pure-consumer type).
+- `cleanedAt` stamped in `routes.ts` exactly like CloseTable stamps `closedAt` (pure-decider
+  pattern: stamp in the route, read back from `command.metadata.cleanedAt` in `decide()`).
+- Implemented: `MarkTableCleanedCommand.ts` (decide/evolve/handle, guards `table_not_closed`/
+  `already_cleaned`); `routes.ts` (`POST /api/day12/marktablecleaned/:tableNumber` with `@openapi`
+  block); `MarkTableCleaned.test.ts` (3 specs from slice.json, copied given-event helpers verbatim
+  from `CloseTable.test.ts` plus a new `freed()` helper). No new read model/projection needed.
+- `npx tsc --noEmit` / `npm run build` clean. `npx tsx --test
+  'src/slices/Day12/MarkTableCleaned/*.test.ts'` — all 3 pass (pure decider tests, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:` status
+  commit. Board synced to Done via `update_slice_status` by sliceTitle. FF-merged
+  `feature/marktablecleaned` into `main`, deleted the branch.
+
+**Learnings for future iterations:**
+- No new general pattern beyond what's already in AGENTS.md — this slice was a straight repeat
+  of the CloseTable/PayOrder/ServeItem shape (a plain closed/cleaned boolean-pair guard on the
+  shared table stream, generated timestamp stamped in routes.ts, event already declared as a
+  pure-consumer type by an earlier read-model slice).
+---
