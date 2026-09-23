@@ -544,3 +544,60 @@
   `result.newEvents` — check what "generated" means semantically (random vs. derived-from-state)
   before deciding where to compute it.
 ---
+
+## 2026-09-23 - Change Order Line
+
+- Picked next-highest-priority Planned slice in Day12 context: Change Order Line (STATE_CHANGE).
+  `.build-kit/.eventmodelers/config.json` is absent, so skipped board/MCP status sync. Started
+  branch `feature/changeorderline` from `main`.
+- Read slice.json: command `Change Order Line` (orderNumber, lineNumber, quantity, specialWishes)
+  emits `OrderLineChanged`. Five specifications: two happy-path changes (quantity bump, wishes
+  added after the fact), and three guards (SPEC_ERROR): line not on the pad, line already struck
+  off (given an `OrderLineRemoved` event), and order already submitted to the kitchen.
+- Same "command's own idAttribute (orderNumber) isn't the stream key" shape as AddOrderLine — the
+  guards need to see `OrderOpened`/`OrderLineAdded`/`OrderLineRemoved`/`OrderSubmittedToKitchen`
+  together, so `decide`/`evolve` replay `Day12-table-{tableNumber}` (same stream), and `routes.ts`
+  reuses AddOrderLine's existing `OrderLookupProjection`/`findTableNumberByOrderNumber` rather than
+  building a new one — no new lookup table needed since the two slices resolve the identical
+  orderNumber→tableNumber mapping.
+- `OrderLineChanged` and `OrderLineRemoved` did not exist yet in `Day12Events.ts`.
+  `OrderLineRemoved` is emitted by "Remove Order Line", still Planned in this same Day12 context —
+  copied its exact field shape (`orderNumber`/`lineNumber`/`reason`) from that slice's own
+  slice.json `events[]` block, per the established "downstream event type may not exist yet"
+  pattern.
+- slice.json's specifications never include an "unknown/never-opened order" case as its own
+  SPEC_ERROR (unlike AddOrderLine, which has one) — only "line not on the pad", "line already
+  removed", and "already submitted". Rather than inventing an `unknown_order` error code with no
+  backing specification, folded the never-opened-order case into the same `line_not_found` check
+  (`order?.lines[lineNumber]` is undefined either way) — one error code covers both "order doesn't
+  exist" and "order exists but this line doesn't", matching exactly what slice.json specifies.
+- Implemented: `ChangeOrderLineCommand.ts` (decide/evolve/handle, stream key
+  `Day12-table-{tableNumber}` reused from OpenOrder/AddOrderLine; state tracks
+  `Record<orderNumber, {open, lines: Record<lineNumber, {removed}>}>`), `routes.ts`
+  (`POST /api/day12/changeorderline/:orderNumber`, looks up tableNumber via AddOrderLine's own
+  `OrderLookupProjection` first, 409s with the `line_not_found` mapping if the lookup itself
+  misses), `ChangeOrderLine.test.ts` (one test per specification, 5, plus one extra covering the
+  never-opened-order case folding into `line_not_found`, 6 total) via `DeciderSpecification`.
+- `npx tsc --noEmit` and `npm run build` both clean. `npx tsx --test
+  'src/slices/Day12/ChangeOrderLine/*.test.ts'` — all 6 pass (pure DeciderSpecification test, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean after staging `Day12Events.ts` +
+  `src/slices/Day12/ChangeOrderLine/**`; single `feat:` commit (code) followed by a separate
+  `chore:` commit (index.json/slice.json status → Done), per the established slice-scope-guard
+  pattern. FF-merged `feature/changeorderline` into `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- Two sibling STATE_CHANGE slices resolving the same `orderNumber`→`tableNumber` mapping don't
+  each need their own lookup projection — reuse the existing one (here AddOrderLine's
+  `OrderLookupProjection`/`findTableNumberByOrderNumber`) by importing it across slice folders
+  rather than duplicating the table/projection.
+- When a slice's specifications don't include a guard for a case another sibling slice *does*
+  cover (e.g. AddOrderLine has an explicit "unknown order" SPEC_ERROR but Change Order Line does
+  not), don't add an error code with no backing specification just because it seems like a natural
+  parallel — fold the missing case into whichever existing guard already produces the correct
+  externally-observable behavior (here: an order that was never opened simply has no matching line,
+  so `line_not_found` already covers it) rather than inventing an `unknown_order` code slice.json
+  never specifies.
+---

@@ -166,6 +166,25 @@ replayed state (a `Record<parentId, count>` incremented per matching past event)
 recovers the value afterward by reading it back off `result.newEvents`. Check whether the field's
 value depends on this stream's own history before choosing where to generate it.
 
+## Sibling commands on the same stream can share one lookup projection
+
+If two STATE_CHANGE slices in the same context both key their stream by the same *other* id than
+the one their own command carries (e.g. `AddOrderLine` and `ChangeOrderLine` both carry only
+`orderNumber` but both need the `Day12-table-{tableNumber}` stream), don't build a second lookup
+projection — import and reuse the first slice's existing one
+(`OrderLookupProjection`/`findTableNumberByOrderNumber`) from the sibling's own folder. Only build
+a new lookup table when the id mapping it resolves is actually different.
+
+## Don't invent an error code a sibling slice has but this slice's specifications don't
+
+Two slices that look like near-duplicates (e.g. `AddOrderLine` guards against an unknown order,
+`ChangeOrderLine` does not list that as its own specification) can legitimately have different
+guard sets — check slice.json's own `specifications[]`, not what an analogous sibling slice
+implements. If a case a sibling covers explicitly isn't its own SPEC_ERROR here, look for whether
+an already-required guard produces the same externally-observable rejection anyway (here: an order
+that was never opened has no matching line, so the "line not found" guard already rejects it) —
+fold it in there instead of adding a new error code with no backing specification.
+
 ## A command whose data lacks the stream's key field needs a lookup projection
 
 If a command's own fields don't include the id the target stream is keyed by (e.g. `Add Order
