@@ -1,7 +1,7 @@
 {
   "id": "52586c5b-1586-454a-a796-c0f9533c7a54",
   "title": "Submit Order To Kitchen",
-  "status": "Planned",
+  "status": "Done",
   "sliceType": "STATE_CHANGE",
   "chapter": "Day12",
   "context": "Day12",
