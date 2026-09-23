@@ -185,6 +185,19 @@ an already-required guard produces the same externally-observable rejection anyw
 that was never opened has no matching line, so the "line not found" guard already rejects it) —
 fold it in there instead of adding a new error code with no backing specification.
 
+## A mixed Single/List-cardinality read model is a header + lines, built as two tables
+
+When a slice.json read model has both `Single`-cardinality fields (order/parent-level, e.g.
+orderNumber, tableNumber) and `List`-cardinality fields (a repeating group, e.g. per-line
+itemNumber/quantity), there is no JSONB/`json_agg` precedent in this codebase — every existing
+projection writes flat SQL rows via knex with no query-layer aggregation helper. Build it as two
+plain tables (header + lines, composite PK `(parentId, lineId)` on the lines table), join them in
+application code inside `routes.ts`, and return each List-cardinality field as a JSON array under
+its own slice.json field name (e.g. `quantity: number[]`) — not as an invented nested `lines: [...]`
+object. A header row can legitimately have zero lines (e.g. after every line is removed); a single
+denormalized table can't represent that without a nullable placeholder row, so don't reach for one
+just because the fields all "belong" to one screen/query.
+
 ## A command whose data lacks the stream's key field needs a lookup projection
 
 If a command's own fields don't include the id the target stream is keyed by (e.g. `Add Order

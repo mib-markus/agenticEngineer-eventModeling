@@ -635,3 +635,51 @@
   this slice is actually built — the type itself needs no changes if the shape already matches
   slice.json exactly.
 ---
+
+## 2026-09-23 - OrderPad
+
+- Picked next-highest-priority Planned slice in Day12 context: OrderPad (STATE_VIEW).
+  `.build-kit/.eventmodelers/config.json` is absent, so skipped board/MCP status sync. Started
+  branch `feature/orderpad` from `main`.
+- Read slice.json: a read model with a mix of `Single`-cardinality header fields (orderNumber,
+  tableNumber, serverName, submitted) and `List`-cardinality line fields (lineNumber, itemNumber,
+  quantity, specialWishes) sourced from OrderOpened/OrderLineAdded/OrderLineChanged/
+  OrderLineRemoved/OrderSubmittedToKitchen — one order "pad" with a list of order lines nested
+  under it. No other slice in this board has built this shape before (KitchenQueue has an
+  identical header+list shape but is also still Planned/unbuilt).
+- No JSONB/json_agg precedent exists anywhere in the codebase's migrations or query layer.
+  Verified via a research agent: every existing List-cardinality read model (TablesToServe) is
+  actually a flat list of independent rows, not a nested parent+children shape — this slice is the
+  first genuine header+lines case. Chose a two-table design (`day12_order_pad` header +
+  `day12_order_pad_lines`, composite PK `(order_number, line_number)`) over JSONB since the
+  codebase's query layer (`knex`) has no aggregation helper and every other projection here writes
+  flat SQL rows — a header row can exist with zero lines (see "struck-off line" spec), which a
+  single denormalized table can't represent without a nullable line row.
+- `routes.ts` returns the read model as parallel arrays (`lineNumber: number[]`,
+  `itemNumber: string[]`, etc.) keyed by array index, matching slice.json's own field names and
+  cardinalities literally (List cardinality -> JSON array under that same field name) rather than
+  inventing a nested `lines: [...]` field slice.json never declares.
+- Implemented: migration `V15__day12_order_pad.sql` (two tables), `OrderPadProjection.ts`
+  (OrderOpened -> insert header; OrderLineAdded -> insert line; OrderLineChanged -> update line;
+  OrderLineRemoved -> delete line; OrderSubmittedToKitchen -> update header submitted=true),
+  `routes.ts` (`GET /api/query/day12-orderpad-collection`, filters by `orderNumber`, joins lines
+  per header in application code), registered in `loadPostgresEventstore.ts`.
+- 4 tests (one per specification), all passing under Testcontainers with the Podman env vars.
+- `npm run run:checks -- --staged` passed cleanly; split into `feat:` code commit then `chore:`
+  status commit, per the established slice-scope-guard pattern. FF-merged `feature/orderpad` into
+  `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- A read model with mixed Single/List cardinality fields (a header plus a repeating group of
+  lines, e.g. OrderPad's order + order lines) has no JSONB/json_agg precedent anywhere in this
+  codebase — build it as two plain SQL tables (header + lines with a composite PK
+  `(parentId, lineId)`), joined in application code inside `routes.ts`, not as a single table with
+  a JSON array column. This matches every other projection's "flat SQL rows, no query-layer
+  aggregation helper" convention.
+- When a read model's response has to represent a List-cardinality field, return it as a JSON array
+  under that exact field name from slice.json (e.g. `quantity: number[]`) rather than restructuring
+  into an invented nested object shape (e.g. `lines: [{quantity, ...}]`) — the field name and
+  cardinality slice.json declares is the contract, not a convenient shape.
+---
