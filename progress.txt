@@ -124,3 +124,41 @@
   with `.build-kit/.slices/**` metadata changes — always split into two commits (code first, then a
   `chore:` for the board/status JSON) even when they're part of the same logical unit of work.
 ---
+
+## 2026-09-23 - HoldTableForReservation (retry after unblock)
+
+- Board had resolved the previous blocker: AutoSeatingCandidates was built (commit `5355bac`) and
+  HoldTableForReservation's own status was back to `Planned`. Started from `day12`.
+- Implemented as an AUTOMATION with a polling processor (no `triggerEvent`, single INBOUND
+  dependency on the `AutoSeatingCandidates` READMODEL) — same pattern as
+  RemindersDue/SendReservationReminder: `HoldTableForReservationCommand.ts` (stream key
+  `Day7-table-{tableNumber}`, the same stream `BlockTable` uses, so a block and a hold on the same
+  table see one another — copied the overlap-checking `decide`/`evolve` shape directly from
+  `BlockTableCommand.ts`), `processor.ts` (drains `AutoSeatingCandidates` rows with
+  `autoSeatingOutcome: 'Pending'` every minute, walks table numbers 1–20 ascending, issues the
+  command for the first untried table, treats `table_blocked`/`table_already_held`/
+  `hold_already_exists` as expected rejections that just move to the next table number, DLQs
+  anything else).
+- `HoldTableForReservation`'s own error codes (`table_blocked`, `table_already_held`,
+  `hold_already_exists`) are new — not copied from BlockTable's — since the two commands reject
+  for the same reason but through a distinct command name; slice.json's specifications didn't name
+  the codes explicitly, so they were derived from each spec's `description`.
+- 5 tests (one per specification), all passing.
+- No `routes.ts` — automations have no HTTP surface (per build-automation skill), so no `@openapi`
+  block was needed here.
+- FF-merged into `day12`. Board slice status InProgress → Done via
+  `mcp__eventmodelers__update_slice_status` (board `62c1fe42-f280-4fe4-9700-26c085a63d12`, slice
+  `c4df296d-03bd-4579-8ee4-d65186b32cab`).
+
+**Learnings for future iterations:**
+- A polling automation whose upstream READMODEL exposes an enum-like status field (here
+  `autoSeatingOutcome: 'Pending'`) drains rows filtered by that status, same as RemindersDue
+  filtering by its due-time predicate — the row itself, not a separate queue table, is the
+  work list.
+- When a table-number range has no backing "published table configuration" data (see
+  AutoSeatingCandidates's own resolution — no seat-capacity concept exists in this codebase), a
+  processor that must "walk table numbers" can only use a fixed bound; 1–20 here matches the
+  numbers already used across BlockTable/TableStatus test fixtures and board examples. This is a
+  processor-internal implementation constant, not a slice.json field, so it doesn't need a
+  slice.json entry — the command still takes `tableNumber` as an opaque string per spec.
+---

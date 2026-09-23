@@ -35,6 +35,24 @@ side of that event.
 code first (`feat: [SliceName]`), then a separate `chore:` commit for the
 `index.json`/`slice.json` status change to `Done`.
 
+## Two commands sharing one stream reuse the same overlap-checking shape
+
+When a new command's `decide`/`evolve` targets the same stream key an existing command already
+uses (e.g. `Day7-table-{tableNumber}`, shared by `BlockTable` and `HoldTableForReservation`), copy
+that existing command's time-overlap helpers (`toMinutes`, `overlaps`) and state-accumulation
+pattern (a list of ranges plus a `Record` of active/released-or-cancelled holds) rather than
+reinventing them — the two commands reject for the same underlying reason (the stream's other
+events), just through different error codes and command names.
+
+## A polling automation's "no capacity data" workaround is a processor constant, not a slice.json field
+
+When a processor must pick from a range that has no backing configuration in the codebase (e.g.
+walking table numbers 1–20 because there is no published table/seat-capacity concept — see
+`AutoSeatingCandidates`'s own resolution), the range bound is an internal implementation constant
+in `processor.ts`, not something to add to slice.json or the command's fields. Match the bound to
+whatever numbers are already used across the context's existing test fixtures/board examples so it
+stays consistent.
+
 ## Resolving board/MCP credentials when `.build-kit/.eventmodelers/config.json` is absent
 
 The Ralph loop instructions say to skip all platform communication when that specific file is
