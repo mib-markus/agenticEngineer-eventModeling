@@ -389,3 +389,46 @@
   AddOrderableItem/menu-catalogue). Match by the actual node/context id, not by a similar-sounding
   chapter name.
 ---
+
+## 2026-09-23 - TablesToServe
+
+- Picked next-highest-priority Planned slice in Day12 context: TablesToServe (STATE_VIEW). Started
+  on `main` (day12 staging content is already merged into main, unlike the earlier Day7 situation
+  where `day12`/`day7` branches held content not yet on main) — verified with
+  `git merge-base --is-ancestor day12 main`. Branch `feature/tablestoserve`.
+- Read slice.json: a plain READMODEL over `ReservationConfirmed` (Day6's own event), fields
+  `date`/`tableNumber`/`reservationCode`/`startTime`/`endTime`. `date` is marked `idAttribute: true`
+  but `reservationCode` is actually the natural primary key (globally unique, one row per
+  reservation) — same reasoning as HeldReservations using `reservationCode` as PK rather than the
+  field flagged `idAttribute`. No delete/removal event listed as a dependency, so rows are
+  insert-only (no ReservationCancelled handling — that event exists but isn't in this slice's
+  `dependencies[]`, so per slice.json it is out of scope here).
+- `ReservationConfirmed` already existed in `Day6Events.ts` but not yet in `Day12Events.ts` —
+  imported and re-exported it there (same pattern as Day7Events.ts re-exporting Day6's
+  ReservationConfirmed/ReservationCancelled/ReservationPlaced), rather than declaring a duplicate
+  pure-consumer type.
+- Implemented: migration `V13__day12_tables_to_serve.sql` (`day12_tables_to_serve` table, PK
+  `reservation_code`, indexed on `date`), `TablesToServeProjection.ts` (canHandle:
+  ReservationConfirmed → upsert on `reservation_code`), `routes.ts`
+  (`GET /api/query/day12-tablestoserve-collection`, filters by `date`), registered in
+  `loadPostgresEventstore.ts`. No manual route-registration file exists — root `server.ts` glob-
+  discovers every `src/slices/**/routes.ts`, so no extra wiring was needed there.
+- 2 tests (one per specification), all passing under Testcontainers with the Podman env vars.
+- `npm run run:checks -- --staged` passed cleanly with only `src/slices/**` + migration +
+  `loadPostgresEventstore.ts` staged; split into `feat:` code commit followed by a separate
+  `chore:` status commit, per the established slice-scope-guard pattern.
+- Board slice status InProgress → Done via `mcp__eventmodelers__update_slice_status`
+  (board `62c1fe42-f280-4fe4-9700-26c085a63d12`, slice `e2ef4a4a-2dff-4fcb-90ed-d8f9e27524bc`).
+
+**Learnings for future iterations:**
+- Unlike the Day7 staging branches, this project's `day12` context data (`.build-kit/.slices/day12/**`)
+  is already merged into `main` — check with `git merge-base --is-ancestor day12 main` before
+  assuming a feature branch must start from a staging branch; for Day12 slices, start from `main`.
+- When a read model's `idAttribute: true` field isn't actually the natural key (see HeldReservations
+  precedent), pick the field that's genuinely unique per row — here `reservationCode`, matching
+  `date`'s own semantics of "many tables share one date".
+- A read model whose slice.json `dependencies[]` lists only one INBOUND event (no
+  cancellation/removal event) is insert-only by design — do not add handling for a same-named
+  domain event (e.g. ReservationCancelled) just because it exists elsewhere in `{Context}Events.ts`;
+  only react to what slice.json's own dependencies declare.
+---

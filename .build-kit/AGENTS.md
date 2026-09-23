@@ -128,3 +128,28 @@ resolve MCP credentials for slices that do need board sync (e.g. `request-feedba
 needs to be found on a specific board and no config pins one, use
 `mcp__eventmodelers__list_boards` then `mcp__eventmodelers__list_slices { boardId }` for each
 candidate board and match by slice id/title.
+
+## A `idAttribute: true` field isn't always the natural primary key
+
+Check whether the field flagged `idAttribute: true` is actually unique per row before using it as
+the table's PK. `TablesToServe`/`HeldReservations` both flag a shared field (`date`/nothing) while
+the genuinely unique key is a different field already in the read model (`reservationCode`) —
+many rows share one date/table, but each reservation code is unique. Pick the PK by reasoning about
+the domain, not by trusting the flag alone.
+
+## A read model reacts only to the events in its own slice.json `dependencies[]`
+
+If a domain event with the same subject exists elsewhere in `{Context}Events.ts` (e.g.
+`ReservationCancelled` next to `ReservationConfirmed`) but isn't listed as an INBOUND dependency on
+the slice being built, do not add handling for it "to be safe" — a read model with only one INBOUND
+event dependency and no matching removal event is insert-only by design. Only wire up
+`canHandle`/`evolve` cases for events slice.json's own `dependencies[]` actually names.
+
+## Not every Day context's staging data lives on a branch — check main first
+
+Earlier Day7 slices required starting `feature/<slice>` branches from the `day7`/`day12` staging
+branches because `main` didn't yet contain that context's `.build-kit/.slices/**` files. This isn't
+universal: some contexts (e.g. Day12's own slice metadata) are already merged into `main`. Run
+`git merge-base --is-ancestor <staging-branch> main` before assuming a feature branch needs a
+non-main base — starting from the wrong base either misses files (if staging is ahead) or is
+simply unnecessary (if main already has everything).

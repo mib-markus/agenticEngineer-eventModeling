@@ -396,11 +396,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "tablestoserve",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "e2ef4a4a-2dff-4fcb-90ed-d8f9e27524bc",
         "title": "TablesToServe",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day12",
         "context": "Day12",
