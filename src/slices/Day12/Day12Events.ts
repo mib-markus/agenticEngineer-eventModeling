@@ -101,6 +101,15 @@ export type OrderPaid = Event<'OrderPaid', {
     paidAt: string;
 }, CommonMeta>;
 
+// Emitted by Close Table, still Planned in this Day12 context. Declared here as a
+// pure-consumer type so TablesReadyToClose can react to it — the field shape is
+// copied verbatim from that slice's own slice.json events[] block.
+export type TableClosed = Event<'TableClosed', {
+    orderNumber: string;
+    tableNumber: string;
+    closedAt: string;
+}, CommonMeta>;
+
 export type Day12Events =
     | OrderableItemAdded
     | OrderOpened
@@ -113,6 +122,7 @@ export type Day12Events =
     | ItemMarkedReady
     | ItemServed
     | OrderPaid
+    | TableClosed
     | ReservationConfirmed;
 
 export type {ReservationConfirmed};
