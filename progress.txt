@@ -1215,3 +1215,44 @@
   compare via `Number(new Date(...))` with a tolerance, not `assert.strictEqual` against a literal
   ISO string.
 ---
+## 2026-09-23 - CloseTable (start)
+
+- Picked highest-priority Planned slice in Day12 context: CloseTable (STATE_CHANGE, drawn in
+  chapter Day13, staged under day12). Config found at `.eventmodelers/config.json` (agentIds
+  only) plus root `.mcp.json`/`.claude/settings.local.json` already wired for MCP — board
+  sync available. Board "markus.beck" (62c1fe42-f280-4fe4-9700-26c085a63d12) has the slice at
+  id 8efca3cc-b6cb-47e9-af96-017839acc039; claimed via update_slice_status -> InProgress
+  (succeeded, no race). Also set index.json's closetable entry to InProgress. Started branch
+  `feature/closetable` from `main` (day12 branch already ancestor of main).
+- slice.json: command `Close Table` (orderNumber/tableNumber mapped from
+  TablesReadyToClose.*, closedAt `generated: true`/`derived:now()`) emits `TableClosed`.
+  Same `Day12-table-{tableNumber}` stream as PayOrder/ServeItem — guards ("unpaid table" /
+  "already closed") only need `paid`/`closed` booleans per orderNumber, tracked via
+  OrderPaid/TableClosed on that stream; command already carries tableNumber directly (no
+  lookup projection needed, same as PayOrder/ServeItem).
+- `TableClosed` already existed in `Day12Events.ts` as a pure-consumer type (added earlier
+  by TablesReadyToClose) — reused verbatim, no change needed to the events file.
+- `closedAt` stamped in `routes.ts` exactly like PayOrder stamps `paidAt` (pure-decider
+  pattern: stamp in the route, read back from `command.metadata.closedAt` in `decide()`).
+- Implemented: `CloseTableCommand.ts` (decide/evolve/handle, guards `unpaid_table`/
+  `already_closed`); `routes.ts` (`POST /api/day12/closetable/:tableNumber` with `@openapi`
+  block); `CloseTable.test.ts` (3 specs from slice.json, copied given-event helpers verbatim
+  from `PayOrder.test.ts`/`ServeItem.test.ts` plus a new `closed()` helper).
+- `npx tsc --noEmit` / `npm run build` clean. `TESTCONTAINERS_RYUK_DISABLED=true npx tsx
+  --test 'src/slices/Day12/CloseTable/*.test.ts'` — all 3 pass (pure decider tests, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:`
+  status commit. Board sync worked this time (root `.mcp.json`/`.claude/settings.local.json`
+  already had `EVENTMODELERS_TOKEN` wired, board "markus.beck" resolved via
+  `list_boards`/`list_slices`) — claimed InProgress then set Done via
+  `update_slice_status` with `sliceId`, no `boardId`/config file walk needed since MCP tools
+  were already visible in-session.
+
+**Learnings for future iterations:**
+- Even when `.build-kit/.eventmodelers/config.json` is absent, board sync can still work if
+  `mcp__eventmodelers__*` tools are already visible in the session (registered via the root
+  `.mcp.json` + `.claude/settings.local.json`'s `EVENTMODELERS_TOKEN`, one level up from
+  `.build-kit/`) — `list_boards` then `list_slices { boardId }` per candidate board finds the
+  slice by title without needing any config file. Don't skip board sync just because the
+  build-kit-specific config file is missing; check whether the MCP tools resolve first.
+---

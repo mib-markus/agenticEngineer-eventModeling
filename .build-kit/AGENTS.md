@@ -354,6 +354,16 @@ process's local timezone, not UTC — so `assert.strictEqual(new Date(row.someFi
 existing Day12 projection test asserts an exact ISO string against one of these columns for this
 reason; assert existence (`assert.ok(row.someTimestampField)`) instead.
 
+## Board sync can work even when `.build-kit/.eventmodelers/config.json` is absent
+
+Beyond the "resolving credentials" entry above: if `mcp__eventmodelers__*` tools are already
+visible in the session (registered via the *root* `.mcp.json` + `.claude/settings.local.json`'s
+`EVENTMODELERS_TOKEN`, one level up from `.build-kit/`), board sync works with zero config-file
+reads — `list_boards` then `list_slices { boardId }` per candidate finds the slice by title, and
+`update_slice_status { boardId, sliceId, newStatus }` claims/closes it directly. Don't skip the
+`update-slice-status` step just because the build-kit-specific config file is missing; check
+whether the MCP tools already resolve before falling back to "local-only, no board sync."
+
 ## A `user:session.*` field mapping doesn't require building session/auth infrastructure
 
 A command field mapped `user:session.<field>` (distinct from `user:input`) describes where a

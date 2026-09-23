@@ -13063,11 +13063,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "closetable",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "8efca3cc-b6cb-47e9-af96-017839acc039",
         "title": "CloseTable",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_CHANGE",
         "chapter": "Day13",
         "context": "Day12",
