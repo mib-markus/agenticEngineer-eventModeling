@@ -1043,3 +1043,47 @@
   this slice's own evolve() case for it now. Don't wait for the other slice to be built
   first.
 ---
+## 2026-09-23 - ServeItem
+
+- Picked highest-priority Planned slice in Day12 context: ServeItem (STATE_CHANGE, drawn
+  in chapter Day13, staged under day12). `.build-kit/.eventmodelers/config.json` is absent,
+  so skipped board/MCP status sync. Started branch `feature/serveitem` from `main`.
+- slice.json: command `Serve Item` (orderNumber/tableNumber/lineNumber mapped from
+  ReadyItemsForServer.*, serverName mapped `user:session.serverName`, servedAt
+  `generated: true`/`derived:now()`) emits `ItemServed`. Same Day12-table-{tableNumber}
+  stream as MarkItemReady/StartItemPreparation — guards ("not ready" / "already served")
+  need to see ItemMarkedReady + ItemServed together; command already carries tableNumber
+  directly (no lookup projection needed).
+- `ItemServed` was already declared in `Day12Events.ts` as a pure-consumer type (added
+  earlier by ReadyItemsForServer, since that read model's dependencies[] lists it as a
+  delete trigger even though its own emitter, ServeItem, was still Planned). Removed the
+  now-stale "still Planned" comment since this slice now owns the emitter (same cleanup
+  pattern as RouteOrderLineToStation/RemoveOrderLine did previously).
+- `user:session.serverName` has no session/auth infrastructure anywhere in this codebase
+  (grepped for express-session/req.session/passport — no matches). Treated it the same way
+  OpenOrder already treats its own plain `serverName` field (no `user:` mapping prefix
+  there, just a normal command field): read straight from `req.body.serverName`. No new
+  auth/session middleware invented — the `user:session.` mapping prefix is descriptive of
+  where a real UI would source it (the logged-in server's own session), not a directive to
+  build session infra for this slice.
+- Implemented: `ServeItemCommand.ts` (decide/evolve/handle, guards `item_not_ready`/
+  `already_served`); `routes.ts` (`POST /api/day12/serveitem/:tableNumber` with `@openapi`
+  block); `ServeItem.test.ts` (3 specs from slice.json). No new read model/projection —
+  ServeItem only emits the event; ReadyItemsForServer's existing projection already
+  consumes it.
+- `npx tsc --noEmit` / `npm run build` clean. `TESTCONTAINERS_RYUK_DISABLED=true npx tsx
+  --test 'src/slices/Day12/ServeItem/*.test.ts'` — all 3 pass (pure decider tests, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:`
+  status commit. FF-merged `feature/serveitem` into `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- A command field mapped `user:session.<field>` (as opposed to `user:input`) is not a
+  directive to build session/auth infrastructure — this codebase has none anywhere, and no
+  sibling slice's mapping implies one exists. Treat it exactly like a plain staff-supplied
+  field read from the request body (same as OpenOrder's own unprefixed `serverName`); the
+  `session.` qualifier just documents where a real UI would source the value from a logged-
+  in user, not a build requirement.
+---

@@ -320,3 +320,12 @@ consume or emit that event for a specification implying the removal behavior (St
 sibling `StartItemPreparation`/`ReadyItemsForServer` both independently confirm "once
 preparation starts, the line stops waiting/appearing elsewhere") and add `evolve()`'s delete
 case plus a test for it, even though it's not literally one of this slice's own listed specs.
+
+## A `user:session.*` field mapping doesn't require building session/auth infrastructure
+
+A command field mapped `user:session.<field>` (distinct from `user:input`) describes where a
+real UI would source the value (a logged-in user's own session), not a build requirement. If
+the codebase has no session/auth infra anywhere (grep for `express-session`/`req.session`/
+`passport` first), treat the field exactly like a plain staff-supplied value read from the
+request body — e.g. ServeItem's `serverName` is read from `req.body.serverName`, same as
+OpenOrder's own unprefixed `serverName` field.
