@@ -1,0 +1,488 @@
+{
+  "id": "68b6b0c6-26d4-40b0-9540-d0806da643f6",
+  "title": "ReleaseTableHold",
+  "status": "Planned",
+  "sliceType": "AUTOMATION",
+  "chapter": "Day7",
+  "context": "Day7",
+  "commands": [
+    {
+      "id": "60b0a688-b9a7-4bda-88b8-001fc2c91720",
+      "title": "ReleaseTableHold",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "HeldReservations.tableNumber - the held table being given back"
+        },
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "HeldReservations.reservationCode"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "HeldReservations.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "HeldReservations.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "HeldReservations.endTime"
+        },
+        {
+          "name": "reason",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "the second-step check that failed - blacklist, invalid upfront-payment details, or the hold outliving its window"
+        }
+      ],
+      "dependencies": [
+        {"id": "34033ca7-af29-45e1-9271-ce1bf29c0e72", "type": "INBOUND", "title": "Release Table Hold", "elementType": "AUTOMATION"},
+        {"id": "c6d378c0-7f94-4c7e-8195-a7877e961241", "type": "OUTBOUND", "title": "TableHoldReleased", "elementType": "EVENT"}
+      ],
+      "modelContext": "Day7",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ReleaseTableHold",
+      "description": "Keyed by tableNumber and appended to the same table stream the hold and the TableBlocked events use, so releasing a hold makes the table takeable again.",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "c6d378c0-7f94-4c7e-8195-a7877e961241",
+      "title": "TableHoldReleased",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "ReleaseTableHold.tableNumber - appended to the same table stream as the hold, so the table becomes takeable again"
+        },
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "ReleaseTableHold.reservationCode"
+        },
+        {
+          "name": "date",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "ReleaseTableHold.date"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "ReleaseTableHold.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "ReleaseTableHold.endTime"
+        },
+        {
+          "name": "reason",
+          "optional": false,
+          "query": false,
+          "generated": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "mapping": "ReleaseTableHold.reason"
+        }
+      ],
+      "dependencies": [
+        {"id": "ad4be24c-28fa-4f0e-a803-9d05539f99d7", "type": "OUTBOUND", "title": "AutoSeatingCandidates", "elementType": "READMODEL"},
+        {"id": "60b0a688-b9a7-4bda-88b8-001fc2c91720", "type": "INBOUND", "title": "ReleaseTableHold", "elementType": "COMMAND"},
+        {"id": "18776c50-d9f0-43de-a913-98f838a0884b", "type": "OUTBOUND", "title": "HeldReservations", "elementType": "READMODEL"}
+      ],
+      "modelContext": "Day7",
+      "lane": "Swimlane",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ReleaseTableHold",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [
+    {
+      "id": "34033ca7-af29-45e1-9271-ce1bf29c0e72",
+      "title": "Release Table Hold",
+      "type": "AUTOMATION",
+      "fields": [],
+      "dependencies": [
+        {"id": "18776c50-d9f0-43de-a913-98f838a0884b", "type": "INBOUND", "title": "HeldReservations", "elementType": "READMODEL"},
+        {"id": "60b0a688-b9a7-4bda-88b8-001fc2c91720", "type": "OUTBOUND", "title": "ReleaseTableHold", "elementType": "COMMAND"}
+      ],
+      "modelContext": "Day7",
+      "lane": "Actor",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ReleaseTableHold",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "1712959e-275c-4125-9d94-41fa54aa63b7",
+      "title": "Release the table when the guest is on the blacklist",
+      "chapter": "Day7",
+      "sliceName": "ReleaseTableHold",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "995ee9b1-2fe5-4a99-a122-cde19a2ff8d4",
+          "title": "TableHeldForReservation",
+          "type": "EVENT",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "eMail", "example": "max.mustermann@gmx.de"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"}
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "60b0a688-b9a7-4bda-88b8-001fc2c91720",
+          "title": "ReleaseTableHold",
+          "type": "COMMAND",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Guest is on the blacklist"}
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "c6d378c0-7f94-4c7e-8195-a7877e961241",
+          "title": "TableHoldReleased",
+          "type": "EVENT",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Guest is on the blacklist"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "22fdefd4-505a-4c12-b2e7-f5ba6d46b187",
+      "title": "Release the table when the upfront payment details are not valid",
+      "chapter": "Day7",
+      "sliceName": "ReleaseTableHold",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "995ee9b1-2fe5-4a99-a122-cde19a2ff8d4",
+          "title": "TableHeldForReservation",
+          "type": "EVENT",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "eMail", "example": "max.mustermann@gmx.de"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"}
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "60b0a688-b9a7-4bda-88b8-001fc2c91720",
+          "title": "ReleaseTableHold",
+          "type": "COMMAND",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Upfront payment details could not be validated"}
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "c6d378c0-7f94-4c7e-8195-a7877e961241",
+          "title": "TableHoldReleased",
+          "type": "EVENT",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Upfront payment details could not be validated"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b57bc9d3-4443-4bce-be39-4cdc53fca38b",
+      "title": "Reject releasing a hold that does not exist",
+      "chapter": "Day7",
+      "sliceName": "ReleaseTableHold",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "60b0a688-b9a7-4bda-88b8-001fc2c91720",
+          "title": "ReleaseTableHold",
+          "type": "COMMAND",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Guest is on the blacklist"}
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "d4bebdf5-8260-46d5-a7b8-e33af1463589",
+          "title": "Reject releasing a hold that does not exist",
+          "description": "Table 12 is not held for reservation R-7K2Q - there is no hold to release. Releasing a table that nobody holds would free somebody else's table.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "99c8af57-72c0-4a6f-b96f-9bafc73fd2e4",
+      "title": "Reject releasing a hold that was already released",
+      "chapter": "Day7",
+      "sliceName": "ReleaseTableHold",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "995ee9b1-2fe5-4a99-a122-cde19a2ff8d4",
+          "title": "TableHeldForReservation",
+          "type": "EVENT",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "eMail", "example": "max.mustermann@gmx.de"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"}
+          ]
+        },
+        {
+          "id": "c6d378c0-7f94-4c7e-8195-a7877e961241",
+          "title": "TableHoldReleased",
+          "type": "EVENT",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Guest is on the blacklist"}
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "60b0a688-b9a7-4bda-88b8-001fc2c91720",
+          "title": "ReleaseTableHold",
+          "type": "COMMAND",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Guest is on the blacklist"}
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "39ec869d-af80-45c4-9aaf-2c5d5928245e",
+          "title": "Reject releasing a hold that was already released",
+          "description": "The hold on table 12 for reservation R-7K2Q was already released - re-running the processor must not release it twice.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "bd9a54eb-5cef-4bbc-a610-32285a995e07",
+      "title": "Reject releasing a hold for a reservation that is already confirmed",
+      "chapter": "Day7",
+      "sliceName": "ReleaseTableHold",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "995ee9b1-2fe5-4a99-a122-cde19a2ff8d4",
+          "title": "TableHeldForReservation",
+          "type": "EVENT",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "eMail", "example": "max.mustermann@gmx.de"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"}
+          ]
+        },
+        {
+          "id": "9c482727-62a5-4223-82fa-66dea24bb34c",
+          "title": "ReservationConfirmed",
+          "type": "EVENT",
+          "fields": [
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "tableNumber", "example": "12"},
+            {"name": "eMail", "example": "max.mustermann@gmx.de"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"}
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "60b0a688-b9a7-4bda-88b8-001fc2c91720",
+          "title": "ReleaseTableHold",
+          "type": "COMMAND",
+          "fields": [
+            {"name": "tableNumber", "example": "12"},
+            {"name": "reservationCode", "example": "R-7K2Q"},
+            {"name": "date", "example": "15.04.2026"},
+            {"name": "startTime", "example": "19:00"},
+            {"name": "endTime", "example": "21:00"},
+            {"name": "reason", "example": "Guest is on the blacklist"}
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "93004b57-9eac-4b8a-b30b-d25cf7d87289",
+          "title": "Reject releasing a hold for a reservation that is already confirmed",
+          "description": "Reservation R-7K2Q is already confirmed for table 12 - the hold has been turned into a seating and must not be released underneath a guest who has been told their table is booked.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}
