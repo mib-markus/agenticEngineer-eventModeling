@@ -13517,11 +13517,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "tablestoclean",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "4102e2a2-b3fb-42c0-8653-c2f703829d11",
         "title": "TablesToClean",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day13",
         "context": "Day12",
