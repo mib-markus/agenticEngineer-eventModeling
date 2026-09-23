@@ -7,11 +7,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "autoseatingcandidates",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "8937fa23-81ed-470d-8e97-c8aa3fb83de5",
         "title": "AutoSeatingCandidates",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day7",
         "context": "Day7",

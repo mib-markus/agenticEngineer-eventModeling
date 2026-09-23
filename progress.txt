@@ -85,3 +85,42 @@
   `mcp__eventmodelers__list_boards` + `list_slices` to find which board a given slice id lives on
   when the config file doesn't pin one.
 ---
+
+## 2026-09-23 - AutoSeatingCandidates (retry after unblock)
+
+- Board had resolved the previous blocker: `.build-kit/.slices/day7/autoseatingcandidates/slice.json`
+  was already updated (commit `d0fd878`) to drop the invented `candidateTableNumber` field, so the
+  read model now only tracks `autoSeatingOutcome` (Pending/Held/Failed) with no seat-capacity concept.
+  Status was back to `Planned`. Started from `day12` (the Day7 staging branch), not `main` — `main`
+  does not yet contain the Day7 slice.json/index.json files at all.
+- Implemented as a STATE_VIEW: migration `V10__day7_auto_seating_candidates.sql`,
+  `AutoSeatingCandidatesProjection.ts` (canHandle: ReservationPlaced → insert Pending,
+  TableHeldForReservation → update Held, TableHoldReleased → update Failed), `routes.ts`
+  (`GET /api/query/day7-autoseatingcandidates-collection`, filters by `date`/`_id`), registered in
+  `loadPostgresEventstore.ts`.
+- `TableHeldForReservation` and `TableHoldReleased` did not exist yet in `Day7Events.ts` (they belong
+  to slices that are still Planned downstream) — added both event types there, using the exact field
+  shapes already specified in `holdtableforreservation/slice.json` and `releasetablehold/slice.json`,
+  since those are the authoritative shapes for events this projection only consumes.
+- 3 tests (one per specification), all passing under Testcontainers with the Podman env vars.
+- `npm run run:checks -- --staged` rejected the first attempt because `.build-kit/.slices/**` files
+  were staged alongside `src/slices/**` — split into two commits: `feat: [AutoSeatingCandidates]`
+  (code only) then a follow-up `chore:` commit for the `Done` status change to slice.json/index.json.
+- FF-merged into `day12`. Updated board slice status InProgress → Done via
+  `mcp__eventmodelers__update_slice_status` (board `62c1fe42-f280-4fe4-9700-26c085a63d12`, slice
+  `8937fa23-81ed-470d-8e97-c8aa3fb83de5`).
+
+**Learnings for future iterations:**
+- This project's Day7 staging data (`.build-kit/.slices/day7/**`, `.build-kit/AGENTS.md`,
+  `progress.txt`) lives on branch `day12`, not `main`. Any `feature/<slice>` branch for a Day7 slice
+  must start from `day12` — starting from `main` gives a tree with none of these files and the
+  commit-scope checks and slice lookups all fail silently confusing ways.
+- When a downstream slice's event type doesn't exist yet in `{Context}Events.ts` because the slice
+  that emits it (e.g. HoldTableForReservation, ReleaseTableHold) is still Planned, it's fine to add
+  the event type as a pure consumer — copy the field shape verbatim from that other slice's own
+  `slice.json` (the `events[]` block), don't invent it. The emitting slice's own build will reuse the
+  same type rather than redeclaring it.
+- The commit-scope guard's `slice-scope` check rejects any commit that mixes `src/slices/**` changes
+  with `.build-kit/.slices/**` metadata changes — always split into two commits (code first, then a
+  `chore:` for the board/status JSON) even when they're part of the same logical unit of work.
+---
