@@ -58,10 +58,6 @@ export type OrderSubmittedToKitchen = Event<'OrderSubmittedToKitchen', {
     submittedAt: string;
 }, CommonMeta>;
 
-// Emitted by Route Order Line To Station, still Planned in this Day12 context. Declared
-// here as a pure-consumer type so OrderLinesToRoute can drop a line once it has been
-// routed — the field shape is copied verbatim from that slice's own slice.json events[]
-// block.
 export type OrderLineRoutedToStation = Event<'OrderLineRoutedToStation', {
     orderNumber: string;
     tableNumber: string;
