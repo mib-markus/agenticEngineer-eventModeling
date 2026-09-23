@@ -1,0 +1,295 @@
+{
+  "id": "e2ef4a4a-2dff-4fcb-90ed-d8f9e27524bc",
+  "title": "TablesToServe",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day12",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "d47e02fd-86d2-4354-af0c-f91f7ef4e18c",
+      "title": "TablesToServe",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "date",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationConfirmed.date"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationConfirmed.tableNumber"
+        },
+        {
+          "name": "reservationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationConfirmed.reservationCode"
+        },
+        {
+          "name": "startTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationConfirmed.startTime"
+        },
+        {
+          "name": "endTime",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReservationConfirmed.endTime"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "6eba4496-31c3-4bf3-93ab-343a9a2a86d7",
+          "type": "OUTBOUND",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
+          "type": "INBOUND",
+          "title": "ReservationConfirmed",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "ddb1d859-97ef-4040-a8ee-39796d0e3dc5",
+          "type": "OUTBOUND",
+          "elementType": "HTML_SCREEN"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TablesToServe",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [
+    {
+      "id": "6eba4496-31c3-4bf3-93ab-343a9a2a86d7",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "d47e02fd-86d2-4354-af0c-f91f7ef4e18c",
+          "type": "INBOUND",
+          "title": "TablesToServe",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Server / Kitchen",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TablesToServe",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "c199170f-dfcc-4ec0-a391-9512140ba048",
+      "title": "A confirmed reservation puts its table on the server's round",
+      "chapter": "Day12",
+      "sliceName": "TablesToServe",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "435e7cfd-3400-4056-809f-59ddcf441d26",
+          "title": "ReservationConfirmed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d4000001-0000-4000-8000-000000000001",
+          "title": "Which tables do I serve today?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "d47e02fd-86d2-4354-af0c-f91f7ef4e18c",
+          "title": "TablesToServe",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "be4d0eef-d016-4124-9e8b-c2dcef5f8d65",
+      "title": "A day with no confirmed reservations shows no reserved tables",
+      "chapter": "Day12",
+      "sliceName": "TablesToServe",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "d4000001-0000-4000-8000-000000000002",
+          "title": "Which tables do I serve today?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "date",
+              "example": "16.04.2026"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "d47e02fd-86d2-4354-af0c-f91f7ef4e18c",
+          "title": "TablesToServe",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

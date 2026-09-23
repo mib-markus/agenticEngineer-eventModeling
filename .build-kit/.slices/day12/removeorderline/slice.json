@@ -1,0 +1,757 @@
+{
+  "id": "db8cc198-3c62-4449-9dc6-98a69fe463c4",
+  "title": "Remove Order Line",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day12",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+      "title": "Remove Order Line",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "reason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "9517419f-8eab-4bee-8a76-c16aa544cc3e",
+          "type": "INBOUND",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "8d9c885f-b8a0-4e38-b776-d57511543bec",
+          "type": "OUTBOUND",
+          "title": "OrderLineRemoved",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Remove Order Line",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "8d9c885f-b8a0-4e38-b776-d57511543bec",
+      "title": "OrderLineRemoved",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Remove Order Line.orderNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Remove Order Line.lineNumber"
+        },
+        {
+          "name": "reason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Remove Order Line.reason"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+          "type": "OUTBOUND",
+          "title": "KitchenQueue",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "882ddf57-93f3-42ed-9cae-88ea6f10d3ff",
+          "type": "OUTBOUND",
+          "title": "OrderPad",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+          "type": "INBOUND",
+          "title": "Remove Order Line",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Remove Order Line",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "9517419f-8eab-4bee-8a76-c16aa544cc3e",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+          "type": "OUTBOUND",
+          "title": "Remove Order Line",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Server / Kitchen",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Remove Order Line",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "85e47961-b899-45a7-a34f-d8dcf6dd18a6",
+      "title": "The guest changes their mind and the line is struck off",
+      "chapter": "Day12",
+      "sliceName": "Remove Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+          "title": "Remove Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "8d9c885f-b8a0-4e38-b776-d57511543bec",
+          "title": "OrderLineRemoved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b31fe491-a739-4a6a-a99f-767231c26dd6",
+      "title": "A line the waiter wrote on the wrong pad is struck off",
+      "chapter": "Day12",
+      "sliceName": "Remove Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+          "title": "Remove Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "reason",
+              "example": "Written on the wrong pad"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "8d9c885f-b8a0-4e38-b776-d57511543bec",
+          "title": "OrderLineRemoved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "reason",
+              "example": "Written on the wrong pad"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "79d52638-fb3b-4a7b-a1c2-ac3adec76057",
+      "title": "A line that is not on the pad cannot be removed",
+      "chapter": "Day12",
+      "sliceName": "Remove Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+          "title": "Remove Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "7"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "4a70bf6b-6262-4061-b15d-d0adffb4e64f",
+          "title": "A line that is not on the pad cannot be removed",
+          "description": "Order O-1042 has no line 7",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "0df06acf-217a-46b8-843e-a9fca3df5fdd",
+      "title": "The same line cannot be struck off twice",
+      "chapter": "Day12",
+      "sliceName": "Remove Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        },
+        {
+          "id": "8d9c885f-b8a0-4e38-b776-d57511543bec",
+          "title": "OrderLineRemoved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+          "title": "Remove Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "078efba2-de6e-4ee6-a86f-a0ddaa5a261b",
+          "title": "The same line cannot be struck off twice",
+          "description": "Line 1 of order O-1042 was already removed",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "714f5e9b-7e80-4eda-96e5-2e6c684010ad",
+      "title": "Nothing can be removed once the order went to the kitchen",
+      "chapter": "Day12",
+      "sliceName": "Remove Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        },
+        {
+          "id": "8a196e25-1ca0-4832-b50a-bbdfefa02eee",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "9ae0a191-000e-4c8b-a35b-04ebb1a02b2e",
+          "title": "Remove Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "790178b4-ad5f-4932-b228-330b9a1b210b",
+          "title": "Nothing can be removed once the order went to the kitchen",
+          "description": "Order O-1042 was already submitted to the kitchen",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

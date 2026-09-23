@@ -1,0 +1,380 @@
+{
+  "id": "86a6155b-5f59-4ee0-829c-e483b4c7ee2a",
+  "title": "OrderableItems",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day12",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "c720bac7-a057-4d84-accd-4414fadef8b9",
+      "title": "OrderableItems",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "restaurantId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderableItemAdded.restaurantId"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderableItemAdded.itemNumber"
+        },
+        {
+          "name": "name",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderableItemAdded.name"
+        },
+        {
+          "name": "category",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderableItemAdded.category"
+        },
+        {
+          "name": "price",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderableItemAdded.price"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "d8ad1cf1-9e3f-44a3-a31d-358cdb6dbb59",
+          "type": "OUTBOUND",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "dbf90fad-3b54-4114-90ce-27b071f2fd6a",
+          "type": "INBOUND",
+          "title": "OrderableItemAdded",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "63a29a6f-8f67-44cd-9f8c-00f9d283ee8b",
+          "type": "OUTBOUND",
+          "elementType": "HTML_SCREEN"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "OrderableItems",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [
+    {
+      "id": "d8ad1cf1-9e3f-44a3-a31d-358cdb6dbb59",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "c720bac7-a057-4d84-accd-4414fadef8b9",
+          "type": "INBOUND",
+          "title": "OrderableItems",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Server / Kitchen",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "OrderableItems",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "cc6df2fd-28d1-48e4-8864-7c918fd7e6f5",
+      "title": "A menu item published by the backoffice is orderable",
+      "chapter": "Day12",
+      "sliceName": "OrderableItems",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "4640d584-603c-4caf-979c-9bf48735fc3c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-1"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d3000001-0000-4000-8000-000000000001",
+          "title": "What can the guest order?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "restaurantId",
+              "example": "rest-1"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "c720bac7-a057-4d84-accd-4414fadef8b9",
+          "title": "OrderableItems",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "restaurantId",
+              "example": "rest-1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "778debdc-45e5-44c0-9102-4c81c8db17ca",
+      "title": "A drink published by the backoffice is orderable",
+      "chapter": "Day12",
+      "sliceName": "OrderableItems",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "4640d584-603c-4caf-979c-9bf48735fc3c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "name",
+              "example": "Fanta"
+            },
+            {
+              "name": "category",
+              "example": "Drink"
+            },
+            {
+              "name": "price",
+              "example": "3.20"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-1"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d3000001-0000-4000-8000-000000000002",
+          "title": "What can the guest order?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "restaurantId",
+              "example": "rest-1"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "c720bac7-a057-4d84-accd-4414fadef8b9",
+          "title": "OrderableItems",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "restaurantId",
+              "example": "rest-1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "name",
+              "example": "Fanta"
+            },
+            {
+              "name": "category",
+              "example": "Drink"
+            },
+            {
+              "name": "price",
+              "example": "3.20"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "589b8e77-2af9-4b56-842d-5aa59319ffcb",
+      "title": "A restaurant with no published catalogue has nothing orderable",
+      "chapter": "Day12",
+      "sliceName": "OrderableItems",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "d3000001-0000-4000-8000-000000000003",
+          "title": "What can the guest order?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "restaurantId",
+              "example": "rest-2"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "c720bac7-a057-4d84-accd-4414fadef8b9",
+          "title": "OrderableItems",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

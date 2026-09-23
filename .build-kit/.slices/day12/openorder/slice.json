@@ -1,0 +1,561 @@
+{
+  "id": "3f1e1943-6b8c-463e-b259-76b6433b028a",
+  "title": "Open Order",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day12",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "eb1bbd74-e8fc-4a58-8ca9-a4bab211b32d",
+      "title": "Open Order",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "serverName",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "openedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": []
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "ddb1d859-97ef-4040-a8ee-39796d0e3dc5",
+          "type": "INBOUND",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "type": "OUTBOUND",
+          "title": "OrderOpened",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Open Order",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+      "title": "OrderOpened",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Open Order.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Open Order.tableNumber"
+        },
+        {
+          "name": "serverName",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Open Order.serverName"
+        },
+        {
+          "name": "openedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Open Order.openedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "eb1bbd74-e8fc-4a58-8ca9-a4bab211b32d",
+          "type": "INBOUND",
+          "title": "Open Order",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "882ddf57-93f3-42ed-9cae-88ea6f10d3ff",
+          "type": "OUTBOUND",
+          "title": "OrderPad",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Open Order",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "ddb1d859-97ef-4040-a8ee-39796d0e3dc5",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "eb1bbd74-e8fc-4a58-8ca9-a4bab211b32d",
+          "type": "OUTBOUND",
+          "title": "Open Order",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "d47e02fd-86d2-4354-af0c-f91f7ef4e18c",
+          "type": "INBOUND",
+          "title": "TablesToServe",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Server / Kitchen",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Open Order",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "557ae621-561b-4a4e-abd9-8058306802ed",
+      "title": "A server opens a fresh order for a seated table",
+      "chapter": "Day12",
+      "sliceName": "Open Order",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "eb1bbd74-e8fc-4a58-8ca9-a4bab211b32d",
+          "title": "Open Order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "30d6ecbb-043d-41a4-856b-1930597b2f95",
+      "title": "A walk-in table with no reservation can still be served",
+      "chapter": "Day12",
+      "sliceName": "Open Order",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "eb1bbd74-e8fc-4a58-8ca9-a4bab211b32d",
+          "title": "Open Order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1043"
+            },
+            {
+              "name": "tableNumber",
+              "example": "3"
+            },
+            {
+              "name": "serverName",
+              "example": "Ben"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:07:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1043"
+            },
+            {
+              "name": "tableNumber",
+              "example": "3"
+            },
+            {
+              "name": "serverName",
+              "example": "Ben"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:07:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9822f16d-8f43-436e-8f4e-ffd68a336c5d",
+      "title": "A second pad cannot be opened while the table still has an open order",
+      "chapter": "Day12",
+      "sliceName": "Open Order",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "eb1bbd74-e8fc-4a58-8ca9-a4bab211b32d",
+          "title": "Open Order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1044"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Ben"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:09:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "0ab2e5c8-a89b-4f07-8298-4e0f7ff13cdf",
+          "title": "A second pad cannot be opened while the table still has an open order",
+          "description": "An open, not yet submitted order already exists for table 12 - a waiter carries one pad per table",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "3155e285-3807-4f10-8b07-188029a97e0a",
+      "title": "After the first round went to the kitchen a new pad may be opened",
+      "chapter": "Day12",
+      "sliceName": "Open Order",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "8a196e25-1ca0-4832-b50a-bbdfefa02eee",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "eb1bbd74-e8fc-4a58-8ca9-a4bab211b32d",
+          "title": "Open Order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1051"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T20:02:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1051"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T20:02:00Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

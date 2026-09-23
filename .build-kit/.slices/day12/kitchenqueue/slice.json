@@ -1,0 +1,789 @@
+{
+  "id": "3282f88e-8fe7-4128-b872-4f7ed7447251",
+  "title": "KitchenQueue",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day12",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+      "title": "KitchenQueue",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderSubmittedToKitchen.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderSubmittedToKitchen.tableNumber"
+        },
+        {
+          "name": "submittedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderSubmittedToKitchen.submittedAt"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderLineAdded.itemNumber of the lines still on the order at submission"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "the quantity of that line at submission time"
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "the specialWishes of that line at submission time"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "type": "INBOUND",
+          "title": "OrderLineAdded",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "ef6f299a-e654-4919-9e39-e84a1043c788",
+          "type": "INBOUND",
+          "title": "OrderLineChanged",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "8d9c885f-b8a0-4e38-b776-d57511543bec",
+          "type": "INBOUND",
+          "title": "OrderLineRemoved",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "b1ae6b77-f390-4b53-b626-78849bbd15ba",
+          "type": "OUTBOUND",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "8a196e25-1ca0-4832-b50a-bbdfefa02eee",
+          "type": "INBOUND",
+          "title": "OrderSubmittedToKitchen",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "KitchenQueue",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [
+    {
+      "id": "b1ae6b77-f390-4b53-b626-78849bbd15ba",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+          "type": "INBOUND",
+          "title": "KitchenQueue",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Server / Kitchen",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "KitchenQueue",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "f218d2e6-026d-4107-9bdd-b0bfcb0bd9e8",
+      "title": "A submitted order appears in the kitchen queue",
+      "chapter": "Day12",
+      "sliceName": "KitchenQueue",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        },
+        {
+          "id": "8a196e25-1ca0-4832-b50a-bbdfefa02eee",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d2000001-0000-4000-8000-000000000001",
+          "title": "What does the kitchen have to prepare?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+          "title": "KitchenQueue",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "543608c6-96e4-4c5e-96d5-284078f1d717",
+      "title": "The kitchen sees the corrected quantity, not the original one",
+      "chapter": "Day12",
+      "sliceName": "KitchenQueue",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        },
+        {
+          "id": "ef6f299a-e654-4919-9e39-e84a1043c788",
+          "title": "OrderLineChanged",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "quantity",
+              "example": "3"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions, extra fries"
+            }
+          ]
+        },
+        {
+          "id": "8a196e25-1ca0-4832-b50a-bbdfefa02eee",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d2000001-0000-4000-8000-000000000002",
+          "title": "What does the kitchen have to prepare?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+          "title": "KitchenQueue",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "3"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions, extra fries"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2f0a629a-beff-49ad-83bc-f7e82dbb9c2c",
+      "title": "The kitchen never sees a line that was struck off before submission",
+      "chapter": "Day12",
+      "sliceName": "KitchenQueue",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        },
+        {
+          "id": "8d9c885f-b8a0-4e38-b776-d57511543bec",
+          "title": "OrderLineRemoved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        },
+        {
+          "id": "8a196e25-1ca0-4832-b50a-bbdfefa02eee",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d2000001-0000-4000-8000-000000000003",
+          "title": "What does the kitchen have to prepare?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+          "title": "KitchenQueue",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c27224c2-179b-4729-82ec-9ac66bef6564",
+      "title": "An order still being written is not in the kitchen queue",
+      "chapter": "Day12",
+      "sliceName": "KitchenQueue",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ],
+          "expectEmptyList": true
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [
+        {
+          "id": "d2000001-0000-4000-8000-000000000004",
+          "title": "What does the kitchen have to prepare?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+          "title": "KitchenQueue",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

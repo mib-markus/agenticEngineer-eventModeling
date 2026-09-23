@@ -1,0 +1,787 @@
+{
+  "id": "43efa16a-e83e-491f-9024-6de59ae0dee5",
+  "title": "Add Order Line",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day12",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+      "title": "Add Order Line",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": []
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": []
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "63a29a6f-8f67-44cd-9f8c-00f9d283ee8b",
+          "type": "INBOUND",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "type": "OUTBOUND",
+          "title": "OrderLineAdded",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Add Order Line",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+      "title": "OrderLineAdded",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Add Order Line.orderNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Add Order Line.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Add Order Line.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Add Order Line.quantity"
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Add Order Line.specialWishes"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "3d6342e6-73de-4dd2-a829-707a32eb6dca",
+          "type": "OUTBOUND",
+          "title": "KitchenQueue",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+          "type": "INBOUND",
+          "title": "Add Order Line",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "882ddf57-93f3-42ed-9cae-88ea6f10d3ff",
+          "type": "OUTBOUND",
+          "title": "OrderPad",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Add Order Line",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "63a29a6f-8f67-44cd-9f8c-00f9d283ee8b",
+      "title": "",
+      "type": "HTML_SCREEN",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+          "type": "OUTBOUND",
+          "title": "Add Order Line",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "c720bac7-a057-4d84-accd-4414fadef8b9",
+          "type": "INBOUND",
+          "title": "OrderableItems",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Day12",
+      "lane": "Server / Kitchen",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "Add Order Line",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "7e30214f-581e-4391-a000-e84fa8cf4207",
+      "title": "A menu item is written onto the open pad",
+      "chapter": "Day12",
+      "sliceName": "Add Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+          "title": "Add Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3fdca428-f54e-4023-81be-161907378222",
+      "title": "A drink is added as its own line with no special wishes",
+      "chapter": "Day12",
+      "sliceName": "Add Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+          "title": "Add Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "52f3d5b4-2ea8-4252-a52c-c9940d4ca37d",
+      "title": "The same dish ordered twice with different wishes becomes two lines",
+      "chapter": "Day12",
+      "sliceName": "Add Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+          "title": "Add Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": "extra crispy"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "2ec211b9-ddb5-4ea6-86ba-d3aa157eb5cd",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": "extra crispy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69ea05d3-f445-4fc2-905a-7cd92f2675d6",
+      "title": "Nothing can be written on a pad that was never opened",
+      "chapter": "Day12",
+      "sliceName": "Add Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+          "title": "Add Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-9999"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "98dd3761-15c7-4a61-97b1-cb5107d616bd",
+          "title": "Nothing can be written on a pad that was never opened",
+          "description": "No open order exists for O-9999",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "a9afd78a-fbad-48ab-a9ec-d388e1279eca",
+      "title": "Nothing can be added once the order went to the kitchen",
+      "chapter": "Day12",
+      "sliceName": "Add Order Line",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ca2d5225-50e3-48ba-9cf0-8b28ee8aa165",
+          "title": "OrderOpened",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "openedAt",
+              "example": "2026-04-15T19:05:00Z"
+            }
+          ]
+        },
+        {
+          "id": "8a196e25-1ca0-4832-b50a-bbdfefa02eee",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "1fad9fe5-515a-4362-baa0-2b87e4d64e6c",
+          "title": "Add Order Line",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "3"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "e414798b-c635-4c75-b3f0-692058502783",
+          "title": "Nothing can be added once the order went to the kitchen",
+          "description": "Order O-1042 was already submitted to the kitchen - a new pad has to be opened for further rounds",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}
