@@ -1256,3 +1256,39 @@
   slice by title without needing any config file. Don't skip board sync just because the
   build-kit-specific config file is missing; check whether the MCP tools resolve first.
 ---
+## 2026-09-23 - TablesToClean
+
+- Picked highest-priority Planned slice in Day12 context: TablesToClean (STATE_VIEW, drawn in
+  chapter Day13, staged under day12). Board sync worked (MCP tools already visible in-session,
+  board "markus.beck" 62c1fe42-f280-4fe4-9700-26c085a63d12) — claimed InProgress via
+  update_slice_status by sliceTitle, no race. Started branch `feature/tablestoclean` from `main`
+  (day12 confirmed ancestor of main).
+- slice.json: a plain insert-on-TableClosed, delete-on-TableFreedForReassignment read model
+  (tableNumber/orderNumber/closedAt, all mapped from `TableClosed.*`), same shape as
+  TablesReadyToClose (seed on one event, leave the list for good on another).
+  `TableFreedForReassignment` is an INBOUND dependency emitted by `Mark Table Cleaned`, itself
+  still Planned in this same context — declared as a pure-consumer type in `Day12Events.ts` per
+  the established "downstream event type may not exist yet" pattern, copying the field shape
+  verbatim from `marktablecleaned/slice.json`'s own `events[]` block.
+- Implemented: migration `V22__day12_tables_to_clean.sql` (`day12_tables_to_clean`, PK
+  `table_number`), `TablesToCleanProjection.ts` (canHandle: TableClosed -> upsert,
+  TableFreedForReassignment -> delete), `routes.ts`
+  (`GET /api/query/day12-tablestoclean-collection`, filters by `_id`=tableNumber, same shape as
+  TablesReadyToClose's routes.ts), registered in `loadPostgresEventstore.ts`.
+- 3 tests: the 2 slice.json specifications ("a closed table appears", "a table that was only
+  paid does not appear" — the latter proven via `given([])` since OrderPaid isn't in this
+  projection's canHandle list at all) plus 1 extra covering TableFreedForReassignment's own
+  delete behavior (an INBOUND dependency with no field mapping — same "delete trigger" shape as
+  TablesReadyToClose's TableClosed).
+- `npx tsc --noEmit` / `npm run build` clean. `TESTCONTAINERS_RYUK_DISABLED=true npx tsx --test
+  'src/slices/Day12/TablesToClean/*.test.ts'` — all 3 pass (Podman DOCKER_HOST already set in
+  the shell env).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:` status
+  commit. Board synced to Done via `update_slice_status` by sliceTitle. FF-merged
+  `feature/tablestoclean` into `main`, deleted the branch.
+
+**Learnings for future iterations:**
+- No new general pattern beyond what's already in AGENTS.md — this slice was a straight repeat
+  of the TablesReadyToClose shape (insert-on-close-event, delete-on-later-event, downstream
+  event type declared as pure-consumer ahead of its own still-Planned emitter).
+---
