@@ -2066,11 +2066,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "changeorderline",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "b0f27679-b221-4f56-8a0a-6a4d898b10a6",
         "title": "Change Order Line",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_CHANGE",
         "chapter": "Day12",
         "context": "Day12",
