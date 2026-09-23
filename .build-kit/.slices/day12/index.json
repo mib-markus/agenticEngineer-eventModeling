@@ -9879,11 +9879,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "readyitemsforserver",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "b1816324-e147-4871-bbda-32afccbcd6ab",
         "title": "ReadyItemsForServer",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day13",
         "context": "Day12",

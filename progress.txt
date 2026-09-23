@@ -999,3 +999,47 @@
   state shape, stream key, and route pattern wholesale rather than re-deriving from scratch;
   only the event names/guard codes change.
 ---
+## 2026-09-23 - ReadyItemsForServer
+
+- Picked highest-priority Planned slice in Day12 context: ReadyItemsForServer (STATE_VIEW).
+- Read slice.json: read model keyed on (orderNumber, lineNumber), fields tableNumber/
+  orderNumber/lineNumber/station/readyAt from ItemMarkedReady, plus itemNumber mapped from
+  OrderLineRoutedToStation (ItemMarkedReady itself never carries itemNumber). INBOUND also
+  lists ItemServed (removes the row) even though its producing slice ServeItem is itself
+  still Planned in this same context.
+- Same "command's data lacks the stream's key field needs a lookup" shape but on the
+  read-model side (see StationQueue/OrderLinesToRoute precedent in AGENTS.md): built a
+  small `day12_ready_items_catalog` lookup table fed by OrderLineRoutedToStation
+  (order_number, line_number -> item_number), joined at ItemMarkedReady time to populate
+  itemNumber into the frozen `day12_ready_items_for_server` row.
+- ItemServed had no type anywhere in `Day12Events.ts` (ServeItem is Planned, no code yet).
+  Added it as a pure-consumer type with the field shape copied verbatim from
+  `serveitem/slice.json`'s own `events[]` block (orderNumber/tableNumber/lineNumber/
+  serverName/servedAt) — same pattern already used for OrderSubmittedToKitchen before
+  SubmitOrderToKitchen existed.
+- Implemented: migration `V19__day12_ready_items_for_server.sql` (catalog + read model
+  tables); `ReadyItemsForServerProjection.ts` (canHandle OrderLineRoutedToStation/
+  ItemMarkedReady/ItemServed); `routes.ts` (`GET
+  /api/query/day12-readyitemsforserver-collection?tableNumber=`, `@openapi` block);
+  `ReadyItemsForServer.test.ts` (3 tests: the 2 slice.json specs plus one extra covering
+  the ItemServed removal, which is an INBOUND dependency with no field mapping — same
+  "delete trigger with no field mapping" shape as StationQueue's ItemPreparationStarted).
+  Registered projection in `loadPostgresEventstore.ts`.
+- `npx tsc --noEmit` / `npm run build` clean. `TESTCONTAINERS_RYUK_DISABLED=true npx tsx
+  --test 'src/slices/Day12/ReadyItemsForServer/*.test.ts'` — all 3 pass (podman env vars
+  from AGENTS.md pattern, no DOCKER_HOST override needed since already exported).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:`
+  status commit (pending). FF-merge into `main` pending.
+- No board sync performed (`.build-kit/.eventmodelers/config.json` absent) — status is
+  Done only in the local `.build-kit/.slices/day12/**` files, not on the eventmodelers
+  board.
+
+**Learnings for future iterations:**
+- A STATE_VIEW's `dependencies[]` can list an INBOUND event whose producing slice is
+  itself still Planned in the same context (here: ItemServed / ServeItem). That's fine —
+  add the event's type to `{Context}Events.ts` as a pure-consumer type copied verbatim
+  from the other slice's own `slice.json` events[] block (see existing
+  OrderSubmittedToKitchen/OrderableItemAdded comments for the same pattern), and build
+  this slice's own evolve() case for it now. Don't wait for the other slice to be built
+  first.
+---
