@@ -1164,3 +1164,54 @@
   `command.metadata` inside `decide()` — see ServeItem's `servedAt` and now PayOrder's
   `paidAt`, both plain HTTP-triggered commands, not processors.
 ---
+## 2026-09-23 - TablesReadyToClose
+
+- Picked highest-priority Planned slice in Day12 context: TablesReadyToClose
+  (STATE_VIEW, drawn in chapter Day13, staged under day12). `.build-kit/.eventmodelers/config.json`
+  is absent, so skipped board/MCP status sync. Started branch `feature/tablesreadytoclose` from
+  `main`.
+- Read slice.json: a plain insert-on-OrderPaid, delete-on-TableClosed read model (tableNumber/
+  orderNumber/amountPaid/paidAt, all mapped from `OrderPaid.*`), same shape as Day7's
+  HeldReservations (seed on one event, leave the list for good on another). `TableClosed` is an
+  INBOUND dependency emitted by `Close Table`, itself still Planned in this same context — declared
+  as a pure-consumer type in `Day12Events.ts` per the established "downstream event type may not
+  exist yet" pattern, copying the field shape verbatim from `closetable/slice.json`'s own
+  `events[]` block.
+- Implemented: migration `V21__day12_tables_ready_to_close.sql` (`day12_tables_ready_to_close`,
+  PK `order_number`), `TablesReadyToCloseProjection.ts` (canHandle: OrderPaid -> upsert,
+  TableClosed -> delete), `routes.ts` (`GET /api/query/day12-tablesreadytoclose-collection`,
+  filters by `_id`=orderNumber, same shape as HeldReservations's routes.ts), registered in
+  `loadPostgresEventstore.ts`.
+- 3 tests: the 2 slice.json specifications ("a paid table appears", "an unpaid table does not
+  appear" — the latter proven via `given([])` since OrderLineRoutedToStation/ItemServed aren't in
+  this projection's canHandle list at all) plus 1 extra covering TableClosed's own delete
+  behavior (an INBOUND dependency with no field mapping — same "delete trigger" shape as
+  StationQueue's ItemPreparationStarted).
+- Gotcha: the test file's Postgres container is shared across all `it()` blocks in one `describe`,
+  so reusing the same `orderNumber` across tests leaks rows between them — each test needs its own
+  unique id even when the events given differ. Also: no sibling test in this codebase asserts an
+  exact TIMESTAMP column's string value after a read (only `assert.ok(row.paidAt)`) — a first
+  attempt at `assert.strictEqual(new Date(row.paidAt).toISOString(), ...)` failed because Postgres
+  returned the value read back shifted by the test runner's local timezone (a `TIMESTAMP` column
+  has no timezone, so the driver applies the local zone on parse); dropped to an existence check
+  instead, matching every other Day12 projection test's own convention.
+- `npx tsc --noEmit` / `npm run build` clean. `npx tsx --test
+  'src/slices/Day12/TablesReadyToClose/*.test.ts'` — all 3 pass (Podman env vars from AGENTS.md
+  pattern).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:` status
+  commit. FF-merged `feature/tablesreadytoclose` into `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- `PostgreSQLProjectionSpec`'s container is shared across every `it()` in one `describe` block —
+  rows from an earlier test's `given([...])` are still in the table for a later test unless the id
+  used is unique. Give every test its own unique business id even when the two tests exercise
+  different event sequences (a shared default like `orderNumber = 'O-1042'` across two `it()`s in
+  the same file caused a false positive/negative pair here).
+- A `TIMESTAMP` (no timezone) column read back through node-postgres/knex is shifted by the test
+  process's local timezone on parse — no existing Day12 test asserts an exact ISO string against
+  one of these columns for this reason. Assert existence (`assert.ok(row.someTimestampField)`) or
+  compare via `Number(new Date(...))` with a tolerance, not `assert.strictEqual` against a literal
+  ISO string.
+---

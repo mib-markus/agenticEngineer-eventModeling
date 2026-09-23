@@ -338,6 +338,22 @@ codebase (no generated columns, no window functions in any projection's `evolve(
 the total in the route handler after joining header + lines, right where OrderPad/KitchenQueue
 already assemble their own List-cardinality arrays from the lines table.
 
+## A projection test's Postgres container is shared across every `it()` in one `describe`
+
+`PostgreSQLProjectionSpec` starts one container in `before()` for the whole `describe` block, not
+per test — rows inserted by an earlier test's `given([...])` are still there for a later test
+unless the business id used is unique. Give every test its own unique id even when two tests
+exercise different event sequences; reusing a shared default (e.g. `orderNumber = 'O-1042'` across
+two `it()`s) causes one test to see the other's leftover row.
+
+## A `TIMESTAMP` (no timezone) column reads back shifted by the process's local timezone
+
+Knex/node-postgres parses a schema `TIMESTAMP` column (as opposed to `TIMESTAMPTZ`) using the test
+process's local timezone, not UTC — so `assert.strictEqual(new Date(row.someField).toISOString(),
+'2026-04-15T20:15:00.000Z')` can fail even though the projection wrote the value correctly. No
+existing Day12 projection test asserts an exact ISO string against one of these columns for this
+reason; assert existence (`assert.ok(row.someTimestampField)`) instead.
+
 ## A `user:session.*` field mapping doesn't require building session/auth infrastructure
 
 A command field mapped `user:session.<field>` (distinct from `user:input`) describes where a
