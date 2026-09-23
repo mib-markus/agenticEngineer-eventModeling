@@ -27,6 +27,14 @@ export type OrderOpened = Event<'OrderOpened', {
     openedAt: string;
 }, CommonMeta>;
 
+export type OrderLineAdded = Event<'OrderLineAdded', {
+    orderNumber: string;
+    lineNumber: number;
+    itemNumber: string;
+    quantity: number;
+    specialWishes: string;
+}, CommonMeta>;
+
 // Emitted by Submit Order To Kitchen, still Planned in this Day12 context. Declared here
 // as a pure-consumer type so Open Order's own guard ("a new pad may be opened once the
 // first round went to the kitchen") can evolve on it — the field shape is copied verbatim
@@ -40,6 +48,7 @@ export type OrderSubmittedToKitchen = Event<'OrderSubmittedToKitchen', {
 export type Day12Events =
     | OrderableItemAdded
     | OrderOpened
+    | OrderLineAdded
     | OrderSubmittedToKitchen
     | ReservationConfirmed;
 
