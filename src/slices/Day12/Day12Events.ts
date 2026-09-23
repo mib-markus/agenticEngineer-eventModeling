@@ -1,4 +1,5 @@
 import type {Event} from '@event-driven-io/emmett';
+import type {ReservationConfirmed} from '../Day6/Day6Events';
 
 type CommonMeta = {
     stream_name?: string;
@@ -20,4 +21,7 @@ export type OrderableItemAdded = Event<'OrderableItemAdded', {
 }, CommonMeta>;
 
 export type Day12Events =
-    | OrderableItemAdded;
+    | OrderableItemAdded
+    | ReservationConfirmed;
+
+export type {ReservationConfirmed};
