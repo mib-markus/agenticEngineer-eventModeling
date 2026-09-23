@@ -93,6 +93,14 @@ export type ItemServed = Event<'ItemServed', {
     servedAt: string;
 }, CommonMeta>;
 
+export type OrderPaid = Event<'OrderPaid', {
+    orderNumber: string;
+    tableNumber: string;
+    amountPaid: string;
+    paymentMethod: string;
+    paidAt: string;
+}, CommonMeta>;
+
 export type Day12Events =
     | OrderableItemAdded
     | OrderOpened
@@ -104,6 +112,7 @@ export type Day12Events =
     | ItemPreparationStarted
     | ItemMarkedReady
     | ItemServed
+    | OrderPaid
     | ReservationConfirmed;
 
 export type {ReservationConfirmed};
