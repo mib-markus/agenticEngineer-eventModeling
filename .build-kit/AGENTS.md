@@ -102,6 +102,24 @@ model's date/time fields against `now`. If the read model has no precomputed sor
 the specific threshold (unlike NoShowsDue's own `grace_ends_at_sortable`), filter in the
 processor's drain loop instead of adding a SQL predicate.
 
+## Not every unbuilt cross-context event emitter is a blocker
+
+An INBOUND event dependency whose emitting command/context isn't built yet is only a blocker if
+the event's *shape itself* is underspecified (see the AutoSeatingCandidates-style "derived field
+with no backing concept" cases above). If slice.json's own `given`/`then` examples already fully
+pin down the event's fields, declare it as a pure-consumer type in `{Context}Events.ts` (per the
+existing "downstream event type may not exist yet" entry) and build normally — do not escalate
+just because the emitter lives in a different, still-unbuilt context/chapter.
+
+## `search_board_events` can miss a node that exists
+
+It matches by title and can return an empty result for an event that is visibly present on the
+board. Don't conclude "not built" from an empty search alone — walk from a known id instead: the
+slice's own `dependencies[]` in slice.json carries the INBOUND event's board node id directly, so
+`get_node`/`get_connected_nodes` on that id resolves it even when full-text search fails. Also
+watch for multiple similarly-named contexts/chapters (e.g. two different "...Backoffice..."
+chapters on the same board) — match by node/context id, not by name similarity.
+
 ## Resolving board/MCP credentials when `.build-kit/.eventmodelers/config.json` is absent
 
 The Ralph loop instructions say to skip all platform communication when that specific file is

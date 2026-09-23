@@ -331,3 +331,61 @@
   in the future) rather than adding a SQL predicate, since the read model has no precomputed
   sortable column for this particular threshold (unlike NoShowsDue's own `grace_ends_at_sortable`).
 ---
+
+## 2026-09-23T11:22:27Z - OrderableItems
+
+- Switched context to Day12 (Order Management). Picked highest-priority Planned slice:
+  OrderableItems (STATE_VIEW). Started a fresh `src/slices/Day12/` — no Day12 code existed yet.
+- Read slice.json: read model `restaurantId`/`itemNumber`/`name`/`category`/`price`, sourced
+  entirely from `OrderableItemAdded`. `restaurantId` is marked `idAttribute: true` but the
+  specs make clear the real identity is `(restaurantId, itemNumber)` — a restaurant has many
+  items — so used a composite primary key, same shape as `TableBlocks`
+  (`(table_number, date, start_time, end_time)`).
+- Checked the codebase first (`grep -rn OrderableItemAdded src/`) — no emitter exists locally.
+  Checked the eventmodelers board directly rather than assuming a block: `search_board_events`
+  found nothing by that name, but `get_node`/`get_connected_nodes` on the slice's own INBOUND
+  dependency id (`dbf90fad-...`) resolved it — the event is emitted by `AddOrderableItem`, a
+  COMMAND in a different chapter/context ("Backoffice Restaurant", linked to context
+  `cc2061ff-...`), not the "Restaurant Backoffice" AddTable/PublishTables context seen in the
+  AutoSeatingCandidates blocker. This is not a blocker: the event's field shape is already fully
+  specified in slice.json's own given/then examples (and confirmed identical on the board node),
+  so consumption doesn't need that other context to be built first — same rule as the "downstream
+  event type may not exist yet" AGENTS.md entry.
+- Declared `OrderableItemAdded` as a pure-consumer type in a new `src/slices/Day12/Day12Events.ts`,
+  copying fields verbatim from slice.json (and cross-checked against the board node).
+- Implemented as a STATE_VIEW: `migrations/V12__day12_orderable_items.sql` (composite PK,
+  `price NUMERIC`), `OrderableItemsProjection.ts` (`OrderableItemAdded` → upsert on
+  `(restaurant_id, item_number)`), `routes.ts` (`GET /api/query/day12-orderableitems-collection`,
+  filters by `restaurantId`), registered in `loadPostgresEventstore.ts`.
+- Wrote one test per specification (3) in `OrderableItems.test.ts` using
+  `PostgreSQLProjectionSpec`/Testcontainers, matching the `AutoSeatingCandidates`/`HeldReservations`
+  reference shape.
+- `npx tsc --noEmit` and `npm run build` both clean. Tests run via
+  `DOCKER_HOST=unix://$(podman machine inspect podman-machine-default --format
+  '{{.ConnectionInfo.PodmanSocket.Path}}') TESTCONTAINERS_RYUK_DISABLED=true npx tsx --test
+  'src/slices/Day12/OrderableItems/*.test.ts'` — all 3 pass.
+- `npm run run:checks -- --staged` clean after staging only the slice-code files (migration +
+  `src/slices/Day12/**` + `loadPostgresEventstore.ts`); split into `feat:` code commit followed by
+  a separate `chore:` status commit, per the established slice-scope-guard pattern.
+- Board slice status Planned → InProgress → Done via `mcp__eventmodelers__update_slice_status`
+  (board `62c1fe42-f280-4fe4-9700-26c085a63d12`, slice `86a6155b-5f59-4ee0-829c-e483b4c7ee2a`).
+
+**Learnings for future iterations:**
+- `search_board_events` matches by node **title** only — it missed `OrderableItemAdded` even
+  though the node exists, seemingly because the search didn't return it (possibly a title/name
+  mismatch or index lag). When a direct name search comes back empty, don't conclude the event is
+  unbuilt: walk from a *known* node id instead — the slice's own `dependencies[]` array in
+  slice.json gives the INBOUND event's board node id directly, so `get_node`/`get_connected_nodes`
+  on that id resolves it even when full-text search fails.
+- Not every cross-context event dependency is a blocker like AutoSeatingCandidates was. That case
+  was blocked because a *derived field* had no backing concept anywhere. Here the dependency is a
+  plain event whose shape is already fully pinned down by slice.json's own examples — building the
+  emitting command/context is a separate, later concern (see AGENTS.md "A downstream event type may
+  not exist yet"). Check whether slice.json's own given/then already fully specifies the event
+  before treating an unbuilt emitter as ambiguity worth escalating.
+- This board has more than one "Restaurant Backoffice"-flavoured context/chapter — the
+  AutoSeatingCandidates blocker referenced a *different* one (`cc2061ff-...`, AddTable/
+  PublishTables/seatCount) than OrderableItems's emitter chapter ("Backoffice Restaurant",
+  AddOrderableItem/menu-catalogue). Match by the actual node/context id, not by a similar-sounding
+  chapter name.
+---
