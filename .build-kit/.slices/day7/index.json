@@ -525,11 +525,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "holdtableforreservation",
-      "status": "InProgress",
+      "status": "Done",
       "definition": {
         "id": "c4df296d-03bd-4579-8ee4-d65186b32cab",
         "title": "HoldTableForReservation",
-        "status": "InProgress",
+        "status": "Done",
         "sliceType": "AUTOMATION",
         "chapter": "Day7",
         "context": "Day7",
