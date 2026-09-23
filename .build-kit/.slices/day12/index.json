@@ -10419,11 +10419,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "serveitem",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "4be5de71-eb44-45ee-8027-067a41083b01",
         "title": "ServeItem",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_CHANGE",
         "chapter": "Day13",
         "context": "Day12",
