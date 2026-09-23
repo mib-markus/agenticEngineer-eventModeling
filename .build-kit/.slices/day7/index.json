@@ -2239,11 +2239,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "releasetablehold",
-      "status": "Planned",
+      "status": "InProgress",
       "definition": {
         "id": "68b6b0c6-26d4-40b0-9540-d0806da643f6",
         "title": "ReleaseTableHold",
-        "status": "Planned",
+        "status": "InProgress",
         "sliceType": "AUTOMATION",
         "chapter": "Day7",
         "context": "Day7",
