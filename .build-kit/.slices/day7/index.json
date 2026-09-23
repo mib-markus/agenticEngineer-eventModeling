@@ -2239,11 +2239,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "releasetablehold",
-      "status": "Blocked",
+      "status": "Planned",
       "definition": {
         "id": "68b6b0c6-26d4-40b0-9540-d0806da643f6",
         "title": "ReleaseTableHold",
-        "status": "Blocked",
+        "status": "Planned",
         "sliceType": "AUTOMATION",
         "chapter": "Day7",
         "context": "Day7",
@@ -2311,7 +2311,7 @@
                 "idAttribute": false,
                 "type": "String",
                 "cardinality": "Single",
-                "mapping": "the second-step check that failed - blacklist, invalid upfront-payment details, or the hold outliving its window"
+                "mapping": "the check that failed. The processor only ever derives 'The hold outlived its reservation window' from HeldReservations.date and startTime; a blacklist or upfront-payment reason is supplied by a staff caller, since neither has a data source in this model."
               }
             ],
             "dependencies": [
@@ -2480,7 +2480,7 @@
             "triggers": [],
             "tags": [],
             "slice": "ReleaseTableHold",
-            "description": "",
+            "description": "Polls HeldReservations for holds that have outlived their reservation window - the same wall-clock derivation NoShowsDue already does from date and startTime - and issues ReleaseTableHold for each with reason 'The hold outlived its reservation window'. This is the only release trigger the processor evaluates on its own. The blacklist and upfront-payment checks named in the reason field are staff decisions made outside this system: there is no blacklist and no payment-validation data anywhere in the model, so the processor never derives those reasons - it only ever passes them through when a caller supplies one. The command accepts any reason string, which is why its specifications still cover all three.",
             "context": "INTERNAL",
             "elementContext": "INTERNAL",
             "listElement": false,
