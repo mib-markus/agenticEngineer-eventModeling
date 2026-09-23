@@ -292,3 +292,14 @@ A command that only exists to be fired by a processor (no `routes.ts` at all, e.
 role instead, stamping the value into `command.metadata` at the point it constructs the command,
 and `decide()` reads it back from metadata exactly as `SendReservationReminder` already does for
 `sentAt`.
+
+## A STATE_VIEW's INBOUND dependency with no field mapping can still be a delete trigger
+
+Not every INBOUND event on a read model's `dependencies[]` contributes a field — one can exist
+solely to remove a row (see StationQueue's `ItemPreparationStarted`: no field in the read model
+maps from it, and this slice's own `specifications[]` never exercises it directly). Don't treat
+the absence of a field mapping as "this dependency does nothing." Check sibling slices that also
+consume or emit that event for a specification implying the removal behavior (StationQueue's
+sibling `StartItemPreparation`/`ReadyItemsForServer` both independently confirm "once
+preparation starts, the line stops waiting/appearing elsewhere") and add `evolve()`'s delete
+case plus a test for it, even though it's not literally one of this slice's own listed specs.
