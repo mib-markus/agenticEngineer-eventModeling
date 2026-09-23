@@ -244,3 +244,40 @@
   will read from. Read forward into still-Planned sibling slices' specs when a stream-key decision
   is ambiguous from the current slice alone.
 ---
+
+## 2026-09-23 - ReleaseTableHold
+
+- Picked next-highest-priority Planned slice in Day7 context: ReleaseTableHold (AUTOMATION).
+- Read slice.json: processor `34033ca7` polls `HeldReservations` (INBOUND) and fires
+  `ReleaseTableHold` with a `reason` field described as "the second-step check that failed -
+  blacklist, invalid upfront-payment details, or the hold outliving its window". Unlike
+  HoldTableForReservation (always tries to hold) or ConfirmHeldReservation (always confirms), this
+  processor cannot decide unconditionally — it needs a data source to know *which* check failed,
+  if any, per row.
+- `HeldReservations`'s read model only carries reservationCode/tableNumber/eMail/date/startTime/
+  endTime — no blacklist flag, no payment-validation result, no hold-created timestamp/window.
+  Searched the entire codebase (all Day6/Day7 slices, migrations, other bounded contexts,
+  `.build-kit/AGENTS.md`, `progress.txt`) for "blacklist", "payment"/"upfront", and "expire"/
+  "timeout"/"window" concepts — none exist anywhere as a field, event, read model, or service. The
+  three reason strings only appear as example text inside ReleaseTableHold's own slice.json.
+- This is the same class of ambiguity that blocked AutoSeatingCandidates (a derived concept named
+  in a mapping/description with no backing data anywhere), but for an AUTOMATION's polling
+  condition rather than a STATE_VIEW's derived field. Escalated via `request-feedback`:
+  - Found the board by matching slice id `68b6b0c6-26d4-40b0-9540-d0806da643f6` via
+    `mcp__eventmodelers__list_slices` — board `markus.beck` (`62c1fe42-f280-4fe4-9700-26c085a63d12`).
+  - Posted comment `8f548501-7b52-450a-bdcc-3fdc34c26ca6` on the slice node asking whether
+    HeldReservations/TableHeldForReservation should gain a new field (e.g. a hold-created
+    timestamp for the window check), whether the blacklist/payment checks should look up another
+    not-yet-modeled read model, or whether a simplified stand-in is intended.
+  - Set slice status to `Blocked` on the board via `mcp__eventmodelers__update_slice_status`.
+  - Mirrored `Blocked` status locally in `.build-kit/.slices/day7/index.json` and
+    `.build-kit/.slices/day7/releasetablehold/slice.json`.
+- No code was written. No branch was created or merged. Remained on `day12` throughout.
+
+**Learnings for future iterations:**
+- A polling AUTOMATION's processor description can name a business rule ("second-step checks")
+  that has no field on its INBOUND read model to evaluate it — do not assume this is an
+  implementation detail to invent; grep the whole codebase for the named concept the same way you
+  would for a STATE_VIEW's derived-field mapping before concluding it's missing, then escalate the
+  same way.
+---

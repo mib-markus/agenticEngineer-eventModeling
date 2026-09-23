@@ -72,6 +72,17 @@ id that only appears on some of them. A still-`Planned` downstream sibling slice
 specifications can be the tie-breaker: if its guard only makes sense when a given event lands on a
 specific stream, that's evidence for which stream the upstream command must use too.
 
+## A polling automation's business rule needs a field to evaluate it, not just a description
+
+The AutoSeatingCandidates-style ambiguity (a derived concept named only in prose, with no backing
+field/event anywhere) also applies to a polling AUTOMATION's condition for firing its command, not
+just a STATE_VIEW's derived field. If a processor's `description` names a rule (e.g. "release the
+hold when it fails a second-step check: blacklist / payment / window expiry") but its INBOUND
+READMODEL has no field encoding that rule's outcome, the processor cannot decide unconditionally —
+grep the whole codebase for the named concept (blacklist, payment, expiry/window, etc.) the same
+way you would for a derived-field mapping before concluding it's genuinely unbuilt, then escalate
+via `request-feedback` rather than inventing a stand-in data source.
+
 ## Resolving board/MCP credentials when `.build-kit/.eventmodelers/config.json` is absent
 
 The Ralph loop instructions say to skip all platform communication when that specific file is
