@@ -1123,3 +1123,44 @@
   header + lines, the same place OrderPad/KitchenQueue already assemble List-cardinality
   arrays from their own lines table.
 ---
+## 2026-09-23 - PayOrder
+
+- Picked highest-priority Planned slice in Day12 context: PayOrder (STATE_CHANGE, drawn in
+  chapter Day13, staged under day12). `.build-kit/.eventmodelers/config.json` absent, so
+  skipped board/MCP status sync. `day12` branch is already an ancestor of `main`, so started
+  branch `feature/payorder` from `main` directly.
+- slice.json: command `Pay Order` (orderNumber/tableNumber mapped from TableBill.*,
+  amountPaid/paymentMethod `user:input`, paidAt `generated: true`/`derived:now()`) emits
+  `OrderPaid`. Same `Day12-table-{tableNumber}` stream as ServeItem/MarkItemReady/
+  StartItemPreparation — guards ("unprepared item" / "already paid") need to see every
+  routed line, whether each was served, and whether the order was already paid; command
+  already carries tableNumber directly (no lookup projection needed, same as ServeItem).
+- `OrderPaid` had no type yet in `Day12Events.ts` — added it as a normal (non-pure-consumer)
+  type since this slice is its own emitter, following the field shape from slice.json's
+  `events[]` block verbatim.
+- `paidAt` stamped in `routes.ts` exactly like ServeItem stamps `servedAt` (pure-decider
+  pattern from AGENTS.md's "pure-AUTOMATION command's generated field" entry extended to a
+  regular command with an HTTP route: stamp in the route, read back from
+  `command.metadata.paidAt` in `decide()`).
+- Implemented: `PayOrderCommand.ts` (decide/evolve/handle, guards `unprepared_item`/
+  `already_paid`); `routes.ts` (`POST /api/day12/payorder/:tableNumber` with `@openapi`
+  block); `PayOrder.test.ts` (3 specs from slice.json, copied given-event helpers verbatim
+  from `ServeItem.test.ts` plus a new `paid()` helper). No new read model/projection —
+  PayOrder only emits the event; no existing projection consumes `OrderPaid` yet
+  (TablesReadyToClose, still Planned, is its first consumer).
+- `npx tsc --noEmit` / `npm run build` clean. `TESTCONTAINERS_RYUK_DISABLED=true npx tsx
+  --test 'src/slices/Day12/PayOrder/*.test.ts'` — all 3 pass (pure decider tests, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:`
+  status commit. FF-merge into `main` pending.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- The "pure-AUTOMATION command's `generated: true` field is stamped by the processor, not
+  `decide()`" entry in AGENTS.md generalizes further: any command with a `generated: true`/
+  `derived:now()` field and no HTTP body field for it stamps the value in `routes.ts`
+  (regardless of whether it's a plain STATE_CHANGE or an automation) and reads it back from
+  `command.metadata` inside `decide()` — see ServeItem's `servedAt` and now PayOrder's
+  `paidAt`, both plain HTTP-triggered commands, not processors.
+---
