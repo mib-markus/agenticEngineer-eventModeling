@@ -35,6 +35,23 @@ export type OrderLineAdded = Event<'OrderLineAdded', {
     specialWishes: string;
 }, CommonMeta>;
 
+export type OrderLineChanged = Event<'OrderLineChanged', {
+    orderNumber: string;
+    lineNumber: number;
+    quantity: number;
+    specialWishes: string;
+}, CommonMeta>;
+
+// Emitted by Remove Order Line, still Planned in this Day12 context. Declared here as a
+// pure-consumer type so Change Order Line's own guard ("a line already struck off cannot be
+// changed") can evolve on it — the field shape is copied verbatim from that slice's own
+// slice.json events[] block.
+export type OrderLineRemoved = Event<'OrderLineRemoved', {
+    orderNumber: string;
+    lineNumber: number;
+    reason: string;
+}, CommonMeta>;
+
 // Emitted by Submit Order To Kitchen, still Planned in this Day12 context. Declared here
 // as a pure-consumer type so Open Order's own guard ("a new pad may be opened once the
 // first round went to the kitchen") can evolve on it — the field shape is copied verbatim
@@ -49,6 +66,8 @@ export type Day12Events =
     | OrderableItemAdded
     | OrderOpened
     | OrderLineAdded
+    | OrderLineChanged
+    | OrderLineRemoved
     | OrderSubmittedToKitchen
     | ReservationConfirmed;
 
