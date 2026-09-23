@@ -69,9 +69,6 @@ export type OrderLineRoutedToStation = Event<'OrderLineRoutedToStation', {
     routedAt: string;
 }, CommonMeta>;
 
-// Emitted by Start Item Preparation, still Planned in this Day12 context. Declared here
-// as a pure-consumer type so StationQueue can react to it — the field shape is copied
-// verbatim from that slice's own slice.json events[] block.
 export type ItemPreparationStarted = Event<'ItemPreparationStarted', {
     orderNumber: string;
     tableNumber: string;
