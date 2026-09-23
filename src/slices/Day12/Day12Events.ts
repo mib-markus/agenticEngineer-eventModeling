@@ -20,8 +20,27 @@ export type OrderableItemAdded = Event<'OrderableItemAdded', {
     restaurantId: string;
 }, CommonMeta>;
 
+export type OrderOpened = Event<'OrderOpened', {
+    orderNumber: string;
+    tableNumber: string;
+    serverName: string;
+    openedAt: string;
+}, CommonMeta>;
+
+// Emitted by Submit Order To Kitchen, still Planned in this Day12 context. Declared here
+// as a pure-consumer type so Open Order's own guard ("a new pad may be opened once the
+// first round went to the kitchen") can evolve on it — the field shape is copied verbatim
+// from that slice's own slice.json events[] block.
+export type OrderSubmittedToKitchen = Event<'OrderSubmittedToKitchen', {
+    orderNumber: string;
+    tableNumber: string;
+    submittedAt: string;
+}, CommonMeta>;
+
 export type Day12Events =
     | OrderableItemAdded
+    | OrderOpened
+    | OrderSubmittedToKitchen
     | ReservationConfirmed;
 
 export type {ReservationConfirmed};
