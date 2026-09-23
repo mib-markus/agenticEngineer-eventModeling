@@ -11155,11 +11155,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "tablebill",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "70993460-34cd-4c10-befa-21424d973f00",
         "title": "TableBill",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day13",
         "context": "Day12",
