@@ -16,6 +16,7 @@ import {TablesToServeProjection} from "../slices/Day12/TablesToServe/TablesToSer
 import {OrderLookupProjection} from "../slices/Day12/AddOrderLine/OrderLookupProjection";
 import {OrderPadProjection} from "../slices/Day12/OrderPad/OrderPadProjection";
 import {KitchenQueueProjection} from "../slices/Day12/KitchenQueue/KitchenQueueProjection";
+import {OrderLinesToRouteProjection} from "../slices/Day12/OrderLinesToRoute/OrderLinesToRouteProjection";
 
 let eventStoreInstance: ReturnType<typeof getPostgreSQLEventStore> | null = null;
 
@@ -45,6 +46,7 @@ export const findEventstore = async () => {
                 OrderLookupProjection,
                 OrderPadProjection,
                 KitchenQueueProjection,
+                OrderLinesToRouteProjection,
             ]),
         });
         await eventStoreInstance.schema.migrate();
