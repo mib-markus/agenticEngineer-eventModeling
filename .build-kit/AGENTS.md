@@ -219,3 +219,25 @@ from whichever event first links the two ids, read it in `routes.ts` before cons
 command, and 409 with a distinct message if the lookup itself misses (stream not found) versus if
 `decide()`'s own precondition fails (stream found, but the guard rejects) — collapsing the two
 hides a stream-id mismatch behind what looks like a normal business rejection.
+
+## A read model that must "freeze" a snapshot on a later event needs a working table plus a frozen table
+
+When a header+lines read model (see "A mixed Single/List-cardinality read model is a header +
+lines" above) must additionally (a) stay invisible until some later triggering event, and (b) show
+values frozen at that trigger's moment, immune to edits afterward, a single lines table filtered by
+a boolean flag isn't enough — that only covers "gains a flag once visible" (OrderPad's
+`submitted`), not "doesn't exist yet, then never changes again" (KitchenQueue). Use a working table
+(mutated by the same add/change/remove events as any other lines table) plus a separate pair of
+frozen tables populated exactly once, at the triggering event, via `INSERT INTO ... SELECT`
+(in knex: pass a `.select()` query builder as the argument to `.insert()`). This makes both
+invariants structural rather than relying on route-level filtering or an upstream command's own
+guards to prevent further mutation.
+
+## A STATE_VIEW's missing dependency (vs. a similar sibling's) is a signal, not an oversight
+
+If a read model's `dependencies[]` omits an event that a structurally similar sibling slice does
+list (e.g. KitchenQueue has no `OrderOpened` INBOUND, while OrderPad — the other header+lines view
+over the same order — does), don't add it "to be consistent." It means this read model genuinely
+doesn't need that event's fields (KitchenQueue never surfaces `serverName`/`openedAt`). Reinforces
+the existing "only react to declared dependencies" rule at the sibling-comparison level, not just
+when checking a single slice against `{Context}Events.ts`.

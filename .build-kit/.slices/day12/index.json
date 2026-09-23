@@ -5138,11 +5138,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "kitchenqueue",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "3282f88e-8fe7-4128-b872-4f7ed7447251",
         "title": "KitchenQueue",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day12",
         "context": "Day12",

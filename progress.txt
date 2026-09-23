@@ -729,3 +729,50 @@
   slice.json's own two specifications both map to the same externally-observable rejection
   (`pad_is_empty`).
 ---
+
+## 2026-09-23 - KitchenQueue
+
+- Picked the only Planned slice in Day12 context: KitchenQueue (STATE_VIEW).
+  `.build-kit/.eventmodelers/config.json` is absent, so skipped board/MCP status sync. Started
+  branch `feature/kitchenqueue` from `main`.
+- Read slice.json: another header+lines read model (see OrderPad), but with two twists not
+  present there: (1) the row must not exist at all until `OrderSubmittedToKitchen` fires - its own
+  `dependencies[]` doesn't even list `OrderOpened` as INBOUND, only `OrderLineAdded`/`Changed`/
+  `Removed`/`OrderSubmittedToKitchen` - and (2) once submitted, the lines shown are a frozen
+  snapshot at that moment ("the corrected quantity, not the original" / "never sees a line struck
+  off before submission"), immune to any further edits (which can't happen anyway per Submit Order
+  To Kitchen's own guards, but the read model shouldn't rely on that).
+- Implemented with three tables instead of OrderPad's two: a working-lines table
+  (`day12_kitchen_working_lines`, mutated by OrderLineAdded/Changed/Removed exactly like OrderPad's
+  own lines table) that is never queried by routes.ts, plus a frozen `day12_kitchen_queue` header +
+  `day12_kitchen_queue_lines` pair populated only once, by `OrderSubmittedToKitchen`, via
+  `INSERT ... SELECT` copying the working table's current rows for that order (knex: pass a
+  `.select()` query builder as the `.insert()` argument to get `INSERT INTO ... SELECT`). This
+  keeps the "invisible until submitted" and "frozen after submitted" rules structurally
+  guaranteed rather than relying on route-level filtering or the upstream command's own guards.
+- No new event types needed - `OrderLineAdded`/`OrderLineChanged`/`OrderLineRemoved`/
+  `OrderSubmittedToKitchen` all already existed in `Day12Events.ts`.
+- `routes.ts` (`GET /api/query/day12-kitchenqueue-collection`, filters by `orderNumber`) follows
+  OrderPad's own parallel-array response shape (`itemNumber: string[]`, etc.) for the List-
+  cardinality fields, joined in application code.
+- 4 tests (one per specification), all passing under Testcontainers with the Podman env vars.
+- `npm run run:checks -- --staged` passed cleanly; split into `feat:` code commit then local-only
+  status update (`chore:` commit), per the established slice-scope-guard pattern.
+- No board sync performed (config absent) - status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- A read model that must stay invisible until a later "commit" event, then show a value frozen at
+  that moment (KitchenQueue's submission snapshot), needs a working table plus a separate frozen
+  table - not just the working table filtered by a `submitted` boolean (that's OrderPad's own,
+  different shape, where the row is visible throughout and only gains a flag). Copy the working
+  rows into the frozen tables via knex's `insert(selectQueryBuilder)` (produces `INSERT INTO ...
+  SELECT`) at the triggering event, rather than joining/filtering the working table at query time -
+  this makes "immune to later edits" a structural guarantee instead of something the route or an
+  upstream command's guards have to uphold.
+- A STATE_VIEW's own `dependencies[]` omitting an event that a sibling slice with a similar shape
+  *does* list (here: KitchenQueue has no `OrderOpened` INBOUND, unlike OrderPad) is a deliberate
+  signal, not an oversight - it means this read model doesn't need that event's fields at all
+  (KitchenQueue never shows `serverName`/`openedAt`), reinforcing the existing "only react to
+  declared dependencies" rule rather than copying a sibling's dependency list wholesale.
+---
