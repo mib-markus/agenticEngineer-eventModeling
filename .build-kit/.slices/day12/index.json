@@ -5936,11 +5936,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "orderlinestoroute",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "3ee3fec7-9b6d-4936-b57a-f228aa6241e8",
         "title": "OrderLinesToRoute",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day13",
         "context": "Day12",
