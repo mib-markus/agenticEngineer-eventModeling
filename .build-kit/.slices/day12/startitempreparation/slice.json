@@ -1,0 +1,664 @@
+{
+  "id": "db9faf93-1b18-4b26-9bdc-fcd78fcc3ac5",
+  "title": "StartItemPreparation",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "c997fc06-f7a2-42be-9feb-46bed44165e8",
+      "title": "Start Item Preparation",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.lineNumber"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.station"
+        },
+        {
+          "name": "startedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "92a336fe-818c-433d-b71a-34a3f7cbc1ef",
+          "type": "INBOUND",
+          "title": "StationDisplay",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "type": "OUTBOUND",
+          "title": "ItemPreparationStarted",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "StartItemPreparation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+      "title": "ItemPreparationStarted",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Start Item Preparation.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Start Item Preparation.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Start Item Preparation.lineNumber"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Start Item Preparation.station"
+        },
+        {
+          "name": "startedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Start Item Preparation.startedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "c997fc06-f7a2-42be-9feb-46bed44165e8",
+          "type": "INBOUND",
+          "title": "Start Item Preparation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "92e2b3de-2f11-44f8-b865-d482c24d7d39",
+          "type": "OUTBOUND",
+          "title": "StationQueue",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "StartItemPreparation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "92a336fe-818c-433d-b71a-34a3f7cbc1ef",
+      "title": "StationDisplay",
+      "type": "SCREEN",
+      "fields": [
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.station"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.quantity"
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.specialWishes"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "92e2b3de-2f11-44f8-b865-d482c24d7d39",
+          "type": "INBOUND",
+          "title": "StationQueue",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "c997fc06-f7a2-42be-9feb-46bed44165e8",
+          "type": "OUTBOUND",
+          "title": "Start Item Preparation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Kitchen / Bar",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "StartItemPreparation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": true,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "077a5d0b-d5a5-4e56-ada5-4c354956f07b",
+      "title": "Kitchen starts preparing a routed line",
+      "chapter": "Day13",
+      "sliceName": "StartItemPreparation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "c997fc06-f7a2-42be-9feb-46bed44165e8",
+          "title": "Start Item Preparation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f354ccdd-ea8d-48ae-9c33-7ddc3dbd833b",
+      "title": "A line that was never routed cannot be started",
+      "chapter": "Day13",
+      "sliceName": "StartItemPreparation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "c997fc06-f7a2-42be-9feb-46bed44165e8",
+          "title": "Start Item Preparation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "9"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "fb433707-50fe-416f-be1c-e7e582f8c98a",
+          "title": "A line that was never routed cannot be started",
+          "description": "The line was never routed to this station, so there is nothing to prepare.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "37ba722d-8bcb-4e02-9ff3-9c82d84c6387",
+      "title": "A line already in preparation cannot be started again",
+      "chapter": "Day13",
+      "sliceName": "StartItemPreparation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "c997fc06-f7a2-42be-9feb-46bed44165e8",
+          "title": "Start Item Preparation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:22:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "67b91862-90e1-4f80-adf3-ffd4d53b764f",
+          "title": "A line already in preparation cannot be started again",
+          "description": "Preparation of this line has already started.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

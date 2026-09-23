@@ -1,0 +1,727 @@
+{
+  "id": "4be5de71-eb44-45ee-8027-067a41083b01",
+  "title": "ServeItem",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "3b83e0fd-73bf-47e6-b4da-6ad74672422a",
+      "title": "Serve Item",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.lineNumber"
+        },
+        {
+          "name": "serverName",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user:session.serverName"
+        },
+        {
+          "name": "servedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "f5484dcd-e92d-4a62-913c-6c0d2e2ee77f",
+          "type": "INBOUND",
+          "title": "ReadyItemsBoard",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "type": "OUTBOUND",
+          "title": "ItemServed",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ServeItem",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+      "title": "ItemServed",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Serve Item.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Serve Item.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Serve Item.lineNumber"
+        },
+        {
+          "name": "serverName",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Serve Item.serverName"
+        },
+        {
+          "name": "servedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Serve Item.servedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "3b83e0fd-73bf-47e6-b4da-6ad74672422a",
+          "type": "INBOUND",
+          "title": "Serve Item",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "1088749f-58fc-4c34-af1b-1d2b2a6b5ed0",
+          "type": "OUTBOUND",
+          "title": "TableBill",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "860e201a-e250-4353-92ca-8395398024d9",
+          "type": "OUTBOUND",
+          "title": "ReadyItemsForServer",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ServeItem",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "96698120-0f9d-418a-a65a-d25a523a37a5",
+      "title": "Server serves a ready item",
+      "chapter": "Day13",
+      "sliceName": "ServeItem",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        },
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "title": "ItemMarkedReady",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "3b83e0fd-73bf-47e6-b4da-6ad74672422a",
+          "title": "Serve Item",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01f9d275-a622-415a-8764-be0512a76a7a",
+      "title": "An item that is not ready cannot be served",
+      "chapter": "Day13",
+      "sliceName": "ServeItem",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "3b83e0fd-73bf-47e6-b4da-6ad74672422a",
+          "title": "Serve Item",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "cfa06343-6289-4ad4-847c-c44638baf013",
+          "title": "An item that is not ready cannot be served",
+          "description": "The item has not been marked ready by its station yet.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "aee38129-0224-4c32-9716-e4206bf2d3db",
+      "title": "An already served item cannot be served again",
+      "chapter": "Day13",
+      "sliceName": "ServeItem",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        },
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "title": "ItemMarkedReady",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "3b83e0fd-73bf-47e6-b4da-6ad74672422a",
+          "title": "Serve Item",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Ben"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:40:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "7208e5ab-d7a7-41c1-960f-e1d2138fb81a",
+          "title": "An already served item cannot be served again",
+          "description": "This item has already been served.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

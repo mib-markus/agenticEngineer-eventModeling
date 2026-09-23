@@ -1,0 +1,531 @@
+{
+  "id": "b1816324-e147-4871-bbda-32afccbcd6ab",
+  "title": "ReadyItemsForServer",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "860e201a-e250-4353-92ca-8395398024d9",
+      "title": "ReadyItemsForServer",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ItemMarkedReady.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ItemMarkedReady.orderNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ItemMarkedReady.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.itemNumber"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ItemMarkedReady.station"
+        },
+        {
+          "name": "readyAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ItemMarkedReady.readyAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "type": "INBOUND",
+          "title": "ItemMarkedReady",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "type": "INBOUND",
+          "title": "OrderLineRoutedToStation",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "f5484dcd-e92d-4a62-913c-6c0d2e2ee77f",
+          "type": "OUTBOUND",
+          "title": "ReadyItemsBoard",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "type": "INBOUND",
+          "title": "ItemServed",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "23655531-3586-4ef8-97bc-5f5af6c0cb97",
+          "type": "OUTBOUND",
+          "title": "ReadyItemsBoard",
+          "elementType": "SCREEN"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ReadyItemsForServer",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": true,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [
+    {
+      "id": "f5484dcd-e92d-4a62-913c-6c0d2e2ee77f",
+      "title": "ReadyItemsBoard",
+      "type": "SCREEN",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.orderNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.itemNumber"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.station"
+        },
+        {
+          "name": "readyAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "ReadyItemsForServer.readyAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "860e201a-e250-4353-92ca-8395398024d9",
+          "type": "INBOUND",
+          "title": "ReadyItemsForServer",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "3b83e0fd-73bf-47e6-b4da-6ad74672422a",
+          "type": "OUTBOUND",
+          "title": "Serve Item",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Server",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "ReadyItemsForServer",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": true,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "9b26f4e1-4db8-4e90-bf98-14e1977e41c5",
+      "title": "A ready item appears on the server's board",
+      "chapter": "Day13",
+      "sliceName": "ReadyItemsForServer",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "title": "ItemMarkedReady",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d7000001-0000-4000-8000-000000000001",
+          "title": "Which ready items do I have to bring out?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "860e201a-e250-4353-92ca-8395398024d9",
+          "title": "ReadyItemsForServer",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "25173f7d-05db-4540-9d7e-494790f61746",
+      "title": "An item still in preparation does not appear",
+      "chapter": "Day13",
+      "sliceName": "ReadyItemsForServer",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ],
+          "expectEmptyList": true
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [
+        {
+          "id": "d7000001-0000-4000-8000-000000000002",
+          "title": "Which ready items do I have to bring out?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "860e201a-e250-4353-92ca-8395398024d9",
+          "title": "ReadyItemsForServer",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

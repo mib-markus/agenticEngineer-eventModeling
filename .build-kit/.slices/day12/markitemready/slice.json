@@ -1,0 +1,767 @@
+{
+  "id": "19b6126c-1151-4342-ab50-23993e8ca1da",
+  "title": "MarkItemReady",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "2ba3d4e1-649d-43cc-9d8d-84ffd2682d23",
+      "title": "Mark Item Ready",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.lineNumber"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.station"
+        },
+        {
+          "name": "readyAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "4c5a2f9f-a622-4642-acba-d00226938d5e",
+          "type": "INBOUND",
+          "title": "StationDisplay",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "type": "OUTBOUND",
+          "title": "ItemMarkedReady",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "MarkItemReady",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+      "title": "ItemMarkedReady",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Item Ready.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Item Ready.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Item Ready.lineNumber"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Item Ready.station"
+        },
+        {
+          "name": "readyAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Item Ready.readyAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "2ba3d4e1-649d-43cc-9d8d-84ffd2682d23",
+          "type": "INBOUND",
+          "title": "Mark Item Ready",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "860e201a-e250-4353-92ca-8395398024d9",
+          "type": "OUTBOUND",
+          "title": "ReadyItemsForServer",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "MarkItemReady",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "4c5a2f9f-a622-4642-acba-d00226938d5e",
+      "title": "StationDisplay",
+      "type": "SCREEN",
+      "fields": [
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.station"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.quantity"
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "StationQueue.specialWishes"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "92e2b3de-2f11-44f8-b865-d482c24d7d39",
+          "type": "INBOUND",
+          "title": "StationQueue",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "2ba3d4e1-649d-43cc-9d8d-84ffd2682d23",
+          "type": "OUTBOUND",
+          "title": "Mark Item Ready",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Kitchen / Bar",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "MarkItemReady",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": true,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "3abc0034-3a25-4d77-8cab-6fb04d9bc8b4",
+      "title": "Kitchen marks a line in preparation as ready",
+      "chapter": "Day13",
+      "sliceName": "MarkItemReady",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "2ba3d4e1-649d-43cc-9d8d-84ffd2682d23",
+          "title": "Mark Item Ready",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "title": "ItemMarkedReady",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f92e5d23-59dc-4b04-9cdd-8db86c5dc6ab",
+      "title": "A line that was never started cannot be marked ready",
+      "chapter": "Day13",
+      "sliceName": "MarkItemReady",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "2ba3d4e1-649d-43cc-9d8d-84ffd2682d23",
+          "title": "Mark Item Ready",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "c6e534b4-e0f8-4399-8eaa-974bd8c92212",
+          "title": "A line that was never started cannot be marked ready",
+          "description": "Preparation of this line has not started, so it cannot be ready.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "efa7c868-6714-4e1d-9887-4aa69719b9c5",
+      "title": "A line already ready cannot be marked ready again",
+      "chapter": "Day13",
+      "sliceName": "MarkItemReady",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        },
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "title": "ItemMarkedReady",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "2ba3d4e1-649d-43cc-9d8d-84ffd2682d23",
+          "title": "Mark Item Ready",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:35:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "d1ff67d1-dcd0-4f4b-bce0-bf2b2851b91d",
+          "title": "A line already ready cannot be marked ready again",
+          "description": "This line is already marked ready.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

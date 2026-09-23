@@ -1,0 +1,409 @@
+{
+  "id": "e3a09b1e-752f-4e82-88bf-1515043e41a4",
+  "title": "TablesReadyToClose",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "977584a8-6846-4526-bc6c-94cd56ffc8bb",
+      "title": "TablesReadyToClose",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderPaid.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderPaid.orderNumber"
+        },
+        {
+          "name": "amountPaid",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderPaid.amountPaid"
+        },
+        {
+          "name": "paidAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderPaid.paidAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "type": "INBOUND",
+          "title": "OrderPaid",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "9688f54b-e40c-4213-8571-3536d2a3d42e",
+          "type": "OUTBOUND",
+          "title": "TableClosingScreen",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "type": "INBOUND",
+          "title": "TableClosed",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "4aa25361-1744-48c6-a7c0-3ac24a70a759",
+          "type": "OUTBOUND",
+          "title": "TableClosingScreen",
+          "elementType": "SCREEN"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TablesReadyToClose",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": true,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [
+    {
+      "id": "9688f54b-e40c-4213-8571-3536d2a3d42e",
+      "title": "TableClosingScreen",
+      "type": "SCREEN",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesReadyToClose.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesReadyToClose.orderNumber"
+        },
+        {
+          "name": "amountPaid",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesReadyToClose.amountPaid"
+        },
+        {
+          "name": "paidAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesReadyToClose.paidAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "977584a8-6846-4526-bc6c-94cd56ffc8bb",
+          "type": "INBOUND",
+          "title": "TablesReadyToClose",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "837fe7b0-ee85-47ee-be10-3fd9dd1eb484",
+          "type": "OUTBOUND",
+          "title": "Close Table",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Server",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TablesReadyToClose",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": true,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "bb1a4c86-0d98-4e8d-967b-de2754688e1e",
+      "title": "A paid table appears as ready to close",
+      "chapter": "Day13",
+      "sliceName": "TablesReadyToClose",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d9000001-0000-4000-8000-000000000001",
+          "title": "Which tables can be closed?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "977584a8-6846-4526-bc6c-94cd56ffc8bb",
+          "title": "TablesReadyToClose",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1b076ae9-55d1-48f9-af48-4d306087cc0c",
+      "title": "An unpaid table does not appear",
+      "chapter": "Day13",
+      "sliceName": "TablesReadyToClose",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ],
+          "expectEmptyList": true
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [
+        {
+          "id": "d9000001-0000-4000-8000-000000000002",
+          "title": "Which tables can be closed?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "977584a8-6846-4526-bc6c-94cd56ffc8bb",
+          "title": "TablesReadyToClose",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

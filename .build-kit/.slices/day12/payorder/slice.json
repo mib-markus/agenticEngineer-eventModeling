@@ -1,0 +1,781 @@
+{
+  "id": "bfb606a5-f609-4720-b14e-6a2ff5096b7a",
+  "title": "PayOrder",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "d0423599-a594-4b18-be2f-8865f5375951",
+      "title": "Pay Order",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.tableNumber"
+        },
+        {
+          "name": "amountPaid",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user:input"
+        },
+        {
+          "name": "paymentMethod",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user:input"
+        },
+        {
+          "name": "paidAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "b275b3a5-be6d-4b66-9999-5291cdd6420d",
+          "type": "INBOUND",
+          "title": "TableBillScreen",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "type": "OUTBOUND",
+          "title": "OrderPaid",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "PayOrder",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+      "title": "OrderPaid",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.tableNumber"
+        },
+        {
+          "name": "amountPaid",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.amountPaid"
+        },
+        {
+          "name": "paymentMethod",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.paymentMethod"
+        },
+        {
+          "name": "paidAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.paidAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "d0423599-a594-4b18-be2f-8865f5375951",
+          "type": "INBOUND",
+          "title": "Pay Order",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "977584a8-6846-4526-bc6c-94cd56ffc8bb",
+          "type": "OUTBOUND",
+          "title": "TablesReadyToClose",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "PayOrder",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "03b96f50-340b-4a32-9121-7df2975ab0e6",
+      "title": "The bill is paid once every item was served",
+      "chapter": "Day13",
+      "sliceName": "PayOrder",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        },
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "title": "ItemMarkedReady",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d0423599-a594-4b18-be2f-8865f5375951",
+          "title": "Pay Order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4027a5b6-7d34-462e-9f2a-d6812753a511",
+      "title": "An order with an unprepared item cannot be paid",
+      "chapter": "Day13",
+      "sliceName": "PayOrder",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d0423599-a594-4b18-be2f-8865f5375951",
+          "title": "Pay Order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "b2f63a52-1773-47dd-889f-e5c9f93583de",
+          "title": "An order with an unprepared item cannot be paid",
+          "description": "At least one routed line has not been served yet, so the bill is not final.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "85761979-f825-45a7-8773-12a404f0c553",
+      "title": "An already paid order cannot be paid again",
+      "chapter": "Day13",
+      "sliceName": "PayOrder",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "title": "ItemPreparationStarted",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "startedAt",
+              "example": "2026-04-15T19:20:00Z"
+            }
+          ]
+        },
+        {
+          "id": "930a2a31-1898-4cbb-a1cb-000766115faf",
+          "title": "ItemMarkedReady",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "readyAt",
+              "example": "2026-04-15T19:34:00Z"
+            }
+          ]
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        },
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d0423599-a594-4b18-be2f-8865f5375951",
+          "title": "Pay Order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "cash"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:16:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "bc1cf05f-9b2d-4e18-8404-6c37b9aa1a54",
+          "title": "An already paid order cannot be paid again",
+          "description": "This order has already been paid.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

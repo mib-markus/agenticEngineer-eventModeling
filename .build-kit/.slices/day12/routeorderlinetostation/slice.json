@@ -1,0 +1,1205 @@
+{
+  "id": "7c001101-46e4-4352-b851-df5abedcae91",
+  "title": "RouteOrderLineToStation",
+  "status": "Planned",
+  "sliceType": "AUTOMATION",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+      "title": "Route Order Line To Station",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLinesToRoute.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLinesToRoute.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLinesToRoute.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLinesToRoute.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLinesToRoute.quantity"
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLinesToRoute.specialWishes"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:OrderLinesToRoute.category (Menu->kitchen, Drink->bar, Dessert->dessert)"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "2295868a-1129-40ad-b9f7-450618942732",
+          "type": "INBOUND",
+          "title": "Route Order Lines To Stations",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "type": "OUTBOUND",
+          "title": "OrderLineRoutedToStation",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RouteOrderLineToStation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+      "title": "OrderLineRoutedToStation",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.quantity"
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.specialWishes"
+        },
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.station"
+        },
+        {
+          "name": "routedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Route Order Line To Station.routedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "bffdaf1a-d82c-49dc-97c4-e500f0787226",
+          "type": "OUTBOUND",
+          "title": "OrderLinesToRoute",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+          "type": "INBOUND",
+          "title": "Route Order Line To Station",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "92e2b3de-2f11-44f8-b865-d482c24d7d39",
+          "type": "OUTBOUND",
+          "title": "StationQueue",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "860e201a-e250-4353-92ca-8395398024d9",
+          "type": "OUTBOUND",
+          "title": "ReadyItemsForServer",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "1088749f-58fc-4c34-af1b-1d2b2a6b5ed0",
+          "type": "OUTBOUND",
+          "title": "TableBill",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RouteOrderLineToStation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [
+    {
+      "id": "2295868a-1129-40ad-b9f7-450618942732",
+      "title": "Route Order Lines To Stations",
+      "type": "AUTOMATION",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "bffdaf1a-d82c-49dc-97c4-e500f0787226",
+          "type": "INBOUND",
+          "title": "OrderLinesToRoute",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+          "type": "OUTBOUND",
+          "title": "Route Order Line To Station",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "System",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RouteOrderLineToStation",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "580facae-b59d-4494-ba2b-db3d946a7e21",
+      "title": "A submitted menu item is routed to the kitchen",
+      "chapter": "Day13",
+      "sliceName": "RouteOrderLineToStation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ]
+        },
+        {
+          "id": "e61cb316-bc88-49da-bdbf-1debf3136779",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        },
+        {
+          "id": "c44eb0ca-e68f-49fc-a0ee-b2efab4bc072",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+          "title": "Route Order Line To Station",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a220e0a6-baac-4ffd-9881-f0ef6d07b723",
+      "title": "A submitted drink is routed to the bar",
+      "chapter": "Day13",
+      "sliceName": "RouteOrderLineToStation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "name",
+              "example": "Fanta"
+            },
+            {
+              "name": "category",
+              "example": "Drink"
+            },
+            {
+              "name": "price",
+              "example": "3.20"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ]
+        },
+        {
+          "id": "e61cb316-bc88-49da-bdbf-1debf3136779",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        },
+        {
+          "id": "c44eb0ca-e68f-49fc-a0ee-b2efab4bc072",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+          "title": "Route Order Line To Station",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            },
+            {
+              "name": "station",
+              "example": "bar"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "2"
+            },
+            {
+              "name": "itemNumber",
+              "example": "D-7"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            },
+            {
+              "name": "station",
+              "example": "bar"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:06Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3ba5c31e-035a-4cf1-be3a-b9eb530b6d1d",
+      "title": "An already routed line is not routed twice",
+      "chapter": "Day13",
+      "sliceName": "RouteOrderLineToStation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ]
+        },
+        {
+          "id": "e61cb316-bc88-49da-bdbf-1debf3136779",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        },
+        {
+          "id": "c44eb0ca-e68f-49fc-a0ee-b2efab4bc072",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        },
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+          "title": "Route Order Line To Station",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "2ce4233d-664b-445f-ad12-1a07747b389f",
+          "title": "An already routed line is not routed twice",
+          "description": "The line was already routed to a station - routing is idempotent per (orderNumber, lineNumber).",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "7d19972f-6be3-474d-b66b-1e36fdf4b58b",
+      "title": "An item whose category maps to no station is rejected",
+      "chapter": "Day13",
+      "sliceName": "RouteOrderLineToStation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "X-1"
+            },
+            {
+              "name": "name",
+              "example": "Gift Voucher"
+            },
+            {
+              "name": "category",
+              "example": "Merchandise"
+            },
+            {
+              "name": "price",
+              "example": "25.00"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ]
+        },
+        {
+          "id": "e61cb316-bc88-49da-bdbf-1debf3136779",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "3"
+            },
+            {
+              "name": "itemNumber",
+              "example": "X-1"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            }
+          ]
+        },
+        {
+          "id": "c44eb0ca-e68f-49fc-a0ee-b2efab4bc072",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+          "title": "Route Order Line To Station",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "3"
+            },
+            {
+              "name": "itemNumber",
+              "example": "X-1"
+            },
+            {
+              "name": "quantity",
+              "example": "1"
+            },
+            {
+              "name": "specialWishes",
+              "example": ""
+            },
+            {
+              "name": "station",
+              "example": ""
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "fdcbdea8-09e1-4582-9701-1b8db1e4cfdd",
+          "title": "An item whose category maps to no station is rejected",
+          "description": "The item's category is not one of Menu/Drink/Dessert, so no preparation station can be determined.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "f9a49d8f-9c19-44c5-9da7-718940144cc3",
+      "title": "A line removed before submission is never routed",
+      "chapter": "Day13",
+      "sliceName": "RouteOrderLineToStation",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ]
+        },
+        {
+          "id": "e61cb316-bc88-49da-bdbf-1debf3136779",
+          "title": "OrderLineAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            }
+          ]
+        },
+        {
+          "id": "1a51eecc-0e79-42e4-a925-79e4b723a7ae",
+          "title": "OrderLineRemoved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "reason",
+              "example": "Guest changed their mind"
+            }
+          ]
+        },
+        {
+          "id": "c44eb0ca-e68f-49fc-a0ee-b2efab4bc072",
+          "title": "OrderSubmittedToKitchen",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "submittedAt",
+              "example": "2026-04-15T19:18:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "4d9c94b9-029b-4ec4-b53b-abf9e3b169f7",
+          "title": "Route Order Line To Station",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "63e1e44f-d364-4720-9a6c-e2971265fc0a",
+          "title": "A line removed before submission is never routed",
+          "description": "The line no longer exists on the order at submission time, so there is nothing to route.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

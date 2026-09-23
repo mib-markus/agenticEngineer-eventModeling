@@ -1,0 +1,334 @@
+{
+  "id": "311a1dd1-8119-4ea6-9b0b-5f0cc52b499f",
+  "title": "StationQueue",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "92e2b3de-2f11-44f8-b865-d482c24d7d39",
+      "title": "StationQueue",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "station",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.station"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.quantity"
+        },
+        {
+          "name": "specialWishes",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.specialWishes"
+        },
+        {
+          "name": "routedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.routedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "type": "INBOUND",
+          "title": "OrderLineRoutedToStation",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "92a336fe-818c-433d-b71a-34a3f7cbc1ef",
+          "type": "OUTBOUND",
+          "title": "StationDisplay",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "f5e9510c-4682-4127-a20c-ed45371e48cb",
+          "type": "INBOUND",
+          "title": "ItemPreparationStarted",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "4c5a2f9f-a622-4642-acba-d00226938d5e",
+          "type": "OUTBOUND",
+          "title": "StationDisplay",
+          "elementType": "SCREEN"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "StationQueue",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": true,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "84776577-558f-445d-8684-d6829917372c",
+      "title": "The station queue shows a routed line with its special wishes",
+      "chapter": "Day13",
+      "sliceName": "StationQueue",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d6000001-0000-4000-8000-000000000001",
+          "title": "What does this station have to prepare?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "station",
+              "example": "kitchen"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "92e2b3de-2f11-44f8-b865-d482c24d7d39",
+          "title": "StationQueue",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "63a87d20-1dae-4b65-8bdd-1f72a346640b",
+      "title": "The station queue is empty before anything is routed",
+      "chapter": "Day13",
+      "sliceName": "StationQueue",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "d6000001-0000-4000-8000-000000000002",
+          "title": "What does this station have to prepare?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "station",
+              "example": "kitchen"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "92e2b3de-2f11-44f8-b865-d482c24d7d39",
+          "title": "StationQueue",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

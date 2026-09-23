@@ -241,3 +241,18 @@ over the same order — does), don't add it "to be consistent." It means this re
 doesn't need that event's fields (KitchenQueue never surfaces `serverName`/`openedAt`). Reinforces
 the existing "only react to declared dependencies" rule at the sibling-comparison level, not just
 when checking a single slice against `{Context}Events.ts`.
+
+## A slice's staging `context` follows the stream it must replay, not the chapter it was drawn in
+
+A slice.json's `context` drives both `src/slices/{context}/` and the `{context}-...` stream prefix in
+`streamNameFor`, so it has to match whichever context already *wrote* the events the slice replays —
+not the chapter or MODEL_CONTEXT name the board exports. Day13's slices are drawn in chapter `Day13`
+under MODEL_CONTEXT "Order Management", but their deciders replay `Day12-table-{tableNumber}` streams
+written by Day12's commands, so they are staged under `.build-kit/.slices/day12/` with `context`
+forced to `"Day12"` while `chapter` stays `"Day13"`. Build them into `src/slices/Day12/{SliceName}/`,
+extend the existing `src/slices/Day12/Day12Events.ts` union, and reuse
+``export const streamNameFor = (tableNumber: string) => `Day12-table-${tableNumber}`;`` verbatim.
+Do not "fix" the `context`/`chapter` mismatch, and do not create an `OrderManagement` folder or
+stream prefix: `findSliceJson`'s `normalize()` would still resolve the checks, so nothing would block
+— the slice would just silently read an empty stream and pass every unit test while being broken
+end to end.

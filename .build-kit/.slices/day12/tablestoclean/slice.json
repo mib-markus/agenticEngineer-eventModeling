@@ -1,0 +1,326 @@
+{
+  "id": "4102e2a2-b3fb-42c0-8653-c2f703829d11",
+  "title": "TablesToClean",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "02913829-1f12-419a-8efb-0483e8177711",
+      "title": "TablesToClean",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableClosed.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableClosed.orderNumber"
+        },
+        {
+          "name": "closedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableClosed.closedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "type": "INBOUND",
+          "title": "TableClosed",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "3825f93d-38fb-4f83-a973-885cf4d4cf9f",
+          "type": "OUTBOUND",
+          "title": "TableCleaningScreen",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "389368a5-0b98-476d-b1f5-532e504f6010",
+          "type": "INBOUND",
+          "title": "TableFreedForReassignment",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "be255ca2-622e-4755-bab1-7271b5ce10c8",
+          "type": "OUTBOUND",
+          "title": "TableCleaningScreen",
+          "elementType": "SCREEN"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TablesToClean",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": true,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [
+    {
+      "id": "3825f93d-38fb-4f83-a973-885cf4d4cf9f",
+      "title": "TableCleaningScreen",
+      "type": "SCREEN",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesToClean.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesToClean.orderNumber"
+        },
+        {
+          "name": "closedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesToClean.closedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "02913829-1f12-419a-8efb-0483e8177711",
+          "type": "INBOUND",
+          "title": "TablesToClean",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "766adcd9-71ad-41ce-b628-d7ab09f3b2a9",
+          "type": "OUTBOUND",
+          "title": "Mark Table Cleaned",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Server",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TablesToClean",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": true,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "fdbe3107-e555-436b-96e3-0c5bc72cbe06",
+      "title": "A closed table appears on the cleaning list",
+      "chapter": "Day13",
+      "sliceName": "TablesToClean",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "title": "TableClosed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "da000001-0000-4000-8000-000000000001",
+          "title": "Which tables have to be cleaned?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "02913829-1f12-419a-8efb-0483e8177711",
+          "title": "TablesToClean",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a633a17c-eb6d-4126-8be7-def3cf4704bb",
+      "title": "A table that was only paid does not appear",
+      "chapter": "Day13",
+      "sliceName": "TablesToClean",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [
+        {
+          "id": "da000001-0000-4000-8000-000000000002",
+          "title": "Which tables have to be cleaned?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "02913829-1f12-419a-8efb-0483e8177711",
+          "title": "TablesToClean",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

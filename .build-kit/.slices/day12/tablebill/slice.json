@@ -1,0 +1,691 @@
+{
+  "id": "70993460-34cd-4c10-befa-21424d973f00",
+  "title": "TableBill",
+  "status": "Planned",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "1088749f-58fc-4c34-af1b-1d2b2a6b5ed0",
+      "title": "TableBill",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.quantity"
+        },
+        {
+          "name": "lineServed",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Boolean",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "derived:ItemServed.lineNumber present"
+        },
+        {
+          "name": "unitPrice",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderableItemAdded.price"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "aggregate:sum(unitPrice * quantity)"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dbf90fad-3b54-4114-90ce-27b071f2fd6a",
+          "type": "INBOUND",
+          "title": "OrderableItemAdded",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "type": "INBOUND",
+          "title": "OrderLineRoutedToStation",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "type": "INBOUND",
+          "title": "ItemServed",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "b275b3a5-be6d-4b66-9999-5291cdd6420d",
+          "type": "OUTBOUND",
+          "title": "TableBillScreen",
+          "elementType": "SCREEN"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TableBill",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "screens": [
+    {
+      "id": "b275b3a5-be6d-4b66-9999-5291cdd6420d",
+      "title": "TableBillScreen",
+      "type": "SCREEN",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.tableNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.quantity"
+        },
+        {
+          "name": "lineServed",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Boolean",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.lineServed"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TableBill.totalAmount"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "1088749f-58fc-4c34-af1b-1d2b2a6b5ed0",
+          "type": "INBOUND",
+          "title": "TableBill",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "d0423599-a594-4b18-be2f-8865f5375951",
+          "type": "OUTBOUND",
+          "title": "Pay Order",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Server",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "TableBill",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": true,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "fa835a07-59d8-403c-b440-884a6ea343d7",
+      "title": "The bill shows a routed line with its price",
+      "chapter": "Day13",
+      "sliceName": "TableBill",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ]
+        },
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d8000001-0000-4000-8000-000000000001",
+          "title": "What does this table owe?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "1088749f-58fc-4c34-af1b-1d2b2a6b5ed0",
+          "title": "TableBill",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "lineServed",
+              "example": "false"
+            },
+            {
+              "name": "unitPrice",
+              "example": "18.50"
+            },
+            {
+              "name": "totalAmount",
+              "example": "37.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0a42565a-d260-4d15-85dc-a27887c1690a",
+      "title": "A served line is marked as served on the bill",
+      "chapter": "Day13",
+      "sliceName": "TableBill",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ]
+        },
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "specialWishes",
+              "example": "without onions"
+            },
+            {
+              "name": "station",
+              "example": "kitchen"
+            },
+            {
+              "name": "routedAt",
+              "example": "2026-04-15T19:18:05Z"
+            }
+          ]
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "d8000001-0000-4000-8000-000000000002",
+          "title": "What does this table owe?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "1088749f-58fc-4c34-af1b-1d2b2a6b5ed0",
+          "title": "TableBill",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "quantity",
+              "example": "2"
+            },
+            {
+              "name": "lineServed",
+              "example": "true"
+            },
+            {
+              "name": "unitPrice",
+              "example": "18.50"
+            },
+            {
+              "name": "totalAmount",
+              "example": "37.00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5ee0e033-1153-420a-9017-1a0943b50184",
+      "title": "An order with no routed lines has no bill",
+      "chapter": "Day13",
+      "sliceName": "TableBill",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "352a330e-49ab-4ae0-83b2-cf13d5287c0c",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "itemNumber",
+              "example": "M-12"
+            },
+            {
+              "name": "name",
+              "example": "Wiener Schnitzel"
+            },
+            {
+              "name": "category",
+              "example": "Menu"
+            },
+            {
+              "name": "price",
+              "example": "18.50"
+            },
+            {
+              "name": "restaurantId",
+              "example": "rest-001"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [
+        {
+          "id": "d8000001-0000-4000-8000-000000000003",
+          "title": "What does this table owe?",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            }
+          ],
+          "expectEmptyList": true
+        }
+      ],
+      "then": [
+        {
+          "id": "1088749f-58fc-4c34-af1b-1d2b2a6b5ed0",
+          "title": "TableBill",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

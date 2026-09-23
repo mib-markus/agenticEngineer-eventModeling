@@ -1,0 +1,392 @@
+{
+  "id": "4eab8b8c-946e-44d0-a95e-90f93e969dbe",
+  "title": "MarkTableCleaned",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "766adcd9-71ad-41ce-b628-d7ab09f3b2a9",
+      "title": "Mark Table Cleaned",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesToClean.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesToClean.orderNumber"
+        },
+        {
+          "name": "cleanedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "3825f93d-38fb-4f83-a973-885cf4d4cf9f",
+          "type": "INBOUND",
+          "title": "TableCleaningScreen",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "389368a5-0b98-476d-b1f5-532e504f6010",
+          "type": "OUTBOUND",
+          "title": "TableFreedForReassignment",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "MarkTableCleaned",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "389368a5-0b98-476d-b1f5-532e504f6010",
+      "title": "TableFreedForReassignment",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Table Cleaned.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Table Cleaned.orderNumber"
+        },
+        {
+          "name": "cleanedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Mark Table Cleaned.cleanedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "766adcd9-71ad-41ce-b628-d7ab09f3b2a9",
+          "type": "INBOUND",
+          "title": "Mark Table Cleaned",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "02913829-1f12-419a-8efb-0483e8177711",
+          "type": "OUTBOUND",
+          "title": "TablesToClean",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "MarkTableCleaned",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "729f3ffb-a913-4f79-9908-35ffa2955aa7",
+      "title": "A closed table is freed after cleaning",
+      "chapter": "Day13",
+      "sliceName": "MarkTableCleaned",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "title": "TableClosed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "766adcd9-71ad-41ce-b628-d7ab09f3b2a9",
+          "title": "Mark Table Cleaned",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "cleanedAt",
+              "example": "2026-04-15T20:25:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "389368a5-0b98-476d-b1f5-532e504f6010",
+          "title": "TableFreedForReassignment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "cleanedAt",
+              "example": "2026-04-15T20:25:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3276a3ff-81bd-432e-8305-a9cb84f11981",
+      "title": "A table that was not closed cannot be marked cleaned",
+      "chapter": "Day13",
+      "sliceName": "MarkTableCleaned",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "766adcd9-71ad-41ce-b628-d7ab09f3b2a9",
+          "title": "Mark Table Cleaned",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "cleanedAt",
+              "example": "2026-04-15T20:25:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "72b649be-e8bb-482f-b4e3-9b4e1813e0c0",
+          "title": "A table that was not closed cannot be marked cleaned",
+          "description": "The table is still in service - only a closed table goes to cleaning.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "68be3fb9-9a2c-4205-bbf3-4cdc904a3af4",
+      "title": "An already freed table cannot be marked cleaned again",
+      "chapter": "Day13",
+      "sliceName": "MarkTableCleaned",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "title": "TableClosed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        },
+        {
+          "id": "389368a5-0b98-476d-b1f5-532e504f6010",
+          "title": "TableFreedForReassignment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "cleanedAt",
+              "example": "2026-04-15T20:25:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "766adcd9-71ad-41ce-b628-d7ab09f3b2a9",
+          "title": "Mark Table Cleaned",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "cleanedAt",
+              "example": "2026-04-15T20:30:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "fb941b0f-1683-4e3e-8a27-85af30800316",
+          "title": "An already freed table cannot be marked cleaned again",
+          "description": "This table has already been cleaned and freed for reassignment.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

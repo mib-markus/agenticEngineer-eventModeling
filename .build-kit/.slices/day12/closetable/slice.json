@@ -1,0 +1,445 @@
+{
+  "id": "8efca3cc-b6cb-47e9-af96-017839acc039",
+  "title": "CloseTable",
+  "status": "Planned",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day13",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "837fe7b0-ee85-47ee-be10-3fd9dd1eb484",
+      "title": "Close Table",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesReadyToClose.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "TablesReadyToClose.tableNumber"
+        },
+        {
+          "name": "closedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "9688f54b-e40c-4213-8571-3536d2a3d42e",
+          "type": "INBOUND",
+          "title": "TableClosingScreen",
+          "elementType": "SCREEN"
+        },
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "type": "OUTBOUND",
+          "title": "TableClosed",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CloseTable",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+      "title": "TableClosed",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Close Table.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Close Table.tableNumber"
+        },
+        {
+          "name": "closedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Close Table.closedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "837fe7b0-ee85-47ee-be10-3fd9dd1eb484",
+          "type": "INBOUND",
+          "title": "Close Table",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "02913829-1f12-419a-8efb-0483e8177711",
+          "type": "OUTBOUND",
+          "title": "TablesToClean",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "977584a8-6846-4526-bc6c-94cd56ffc8bb",
+          "type": "OUTBOUND",
+          "title": "TablesReadyToClose",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Order Management",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "CloseTable",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "9cbeb7fa-df75-4d59-a3b5-0f96e58a1342",
+      "title": "A paid table is closed",
+      "chapter": "Day13",
+      "sliceName": "CloseTable",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "837fe7b0-ee85-47ee-be10-3fd9dd1eb484",
+          "title": "Close Table",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "title": "TableClosed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b755a7d8-418b-4c03-96d2-49ea859432ee",
+      "title": "An unpaid table cannot be closed",
+      "chapter": "Day13",
+      "sliceName": "CloseTable",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "lineNumber",
+              "example": "1"
+            },
+            {
+              "name": "serverName",
+              "example": "Anna"
+            },
+            {
+              "name": "servedAt",
+              "example": "2026-04-15T19:36:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "837fe7b0-ee85-47ee-be10-3fd9dd1eb484",
+          "title": "Close Table",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "bcb7237b-668b-443d-8202-5a7346b46355",
+          "title": "An unpaid table cannot be closed",
+          "description": "The order has not been paid, so the table cannot be closed.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "950dd655-21a7-4fcb-849c-8dd5fd7b38e5",
+      "title": "An already closed table cannot be closed again",
+      "chapter": "Day13",
+      "sliceName": "CloseTable",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "amountPaid",
+              "example": "37.00"
+            },
+            {
+              "name": "paymentMethod",
+              "example": "card"
+            },
+            {
+              "name": "paidAt",
+              "example": "2026-04-15T20:15:00Z"
+            }
+          ]
+        },
+        {
+          "id": "e6f63e66-739c-4f55-8295-8da8332c5ac3",
+          "title": "TableClosed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:17:00Z"
+            }
+          ]
+        }
+      ],
+      "when": [
+        {
+          "id": "837fe7b0-ee85-47ee-be10-3fd9dd1eb484",
+          "title": "Close Table",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "orderNumber",
+              "example": "O-1042"
+            },
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "closedAt",
+              "example": "2026-04-15T20:19:00Z"
+            }
+          ]
+        }
+      ],
+      "then": [
+        {
+          "id": "e64dce2c-73c5-491d-8727-10d1a4d08afe",
+          "title": "An already closed table cannot be closed again",
+          "description": "This table has already been closed.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}
