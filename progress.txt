@@ -38,3 +38,50 @@
   kind of cross-context lookup, but do not build slices found this way; they belong to a different
   context and are out of scope per the Context Boundary rule.
 ---
+
+## 2026-09-23 - HoldTableForReservation
+
+- Picked next-highest-priority Planned slice in Day7 context: HoldTableForReservation (AUTOMATION).
+- Read slice.json: the processor has no `triggerEvent` — like RemindersDue/SendReservationReminder,
+  it is a polling automation with `fields: []` and its only INBOUND dependency is the
+  `AutoSeatingCandidates` READMODEL. Every command field
+  (`reservationCode`/`tableNumber`/`eMail`/`date`/`startTime`/`endTime`) maps exclusively from
+  `AutoSeatingCandidates.*`.
+- `AutoSeatingCandidates` was blocked in the previous iteration (commit `13555a4`) pending a
+  table-capacity data-source decision, and as a result has **no code at all** — verified with
+  `grep -rn "AutoSeatingCandidates" src/slices/` (no matches) and no projection/migration file
+  exists. Building `processor.ts` here would require inventing the very table schema that slice
+  is paused on.
+- This is the same root-cause ambiguity propagating downstream, not a new independent one — the
+  command handler itself (stream key `Day7-table-{tableNumber}`, same stream BlockTable uses) is
+  fully specified and unambiguous, but the processor cannot be built without guessing
+  AutoSeatingCandidates's shape. Escalated via `request-feedback`:
+  - Found the board by matching the slice id (`c4df296d-03bd-4579-8ee4-d65186b32cab`) via
+    `mcp__eventmodelers__list_slices` across the org's boards — landed on board
+    `62c1fe42-f280-4fe4-9700-26c085a63d12` ("markus.beck").
+  - Posted a QUESTION comment (`c14517db-633d-4af5-8e8e-f03930050ea1`) on the slice asking whether
+    it should stay blocked until AutoSeatingCandidates is unblocked and built, or whether a
+    different/interim polling source is intended.
+  - Set status to `Blocked` on the board via `mcp__eventmodelers__update_slice_status`.
+  - Mirrored `Blocked` status locally in `.build-kit/.slices/day7/index.json` and
+    `.build-kit/.slices/day7/holdtableforreservation/slice.json`.
+- No code was written. No branch was merged. Deleted the empty `feature/holdtableforreservation`
+  branch created at the start of this iteration.
+
+**Learnings for future iterations:**
+- A processor with `fields: []`, no `triggerEvent`, and a single INBOUND READMODEL dependency is a
+  *polling* automation (see RemindersDue/SendReservationReminder pattern) — it drains rows from
+  that read model on a schedule rather than reacting to an event. If that upstream read model is
+  Blocked/unbuilt, the polling automation cannot be built either — check the upstream read model's
+  status in index.json before starting an AUTOMATION slice whose only dependency is a READMODEL.
+- Root-cause blockers propagate: once one slice is blocked for a data-model reason, every
+  downstream slice whose command fields map exclusively from that slice's read model is blocked
+  too. Don't re-litigate the same ambiguity per-slice — reference the earlier block in the new
+  question instead of re-deriving it.
+- The local `.build-kit/.eventmodelers/config.json` is absent in this project, but the *root*
+  `.eventmodelers/config.json` and `.mcp.json` still resolve MCP credentials — `connect`'s "skip
+  platform communication if config.json is absent" instruction in Ralph's CLAUDE.md refers
+  specifically to the build-kit-local file; MCP tools worked fine here. Use
+  `mcp__eventmodelers__list_boards` + `list_slices` to find which board a given slice id lives on
+  when the config file doesn't pin one.
+---
