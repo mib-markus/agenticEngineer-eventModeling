@@ -162,3 +162,38 @@
   processor-internal implementation constant, not a slice.json field, so it doesn't need a
   slice.json entry — the command still takes `tableNumber` as an opaque string per spec.
 ---
+
+## 2026-09-23 - HeldReservations
+
+- Picked next-highest-priority Planned slice in Day7 context: HeldReservations (STATE_VIEW).
+  Started from `day12`, branch `feature/heldreservations`.
+- Read slice.json: a plain READMODEL projection over three events, all of which already exist in
+  `Day7Events.ts` — `TableHeldForReservation` and `TableHoldReleased` were added there in the
+  AutoSeatingCandidates iteration, and `ReservationConfirmed` is Day6's own event re-exported.
+  No new event types needed.
+- Implemented: migration `V11__day7_held_reservations.sql` (`day7_held_reservations` table, PK
+  `reservation_code`), `HeldReservationsProjection.ts` (canHandle: TableHeldForReservation → insert,
+  ReservationConfirmed → delete row [checks passed, hold turned into a seating],
+  TableHoldReleased → delete row [checks failed, hold given back]), `routes.ts`
+  (`GET /api/query/day7-heldreservations-collection`, filters by `date`/`_id`, same shape as
+  AutoSeatingCandidates's routes.ts), registered in `loadPostgresEventstore.ts`.
+- 3 tests (one per specification: seeded on hold, removed on confirm, removed on release), all
+  passing under Testcontainers with the Podman env vars.
+- Both commits (code, then board-status `chore:`) passed `npm run run:checks -- --staged` cleanly
+  on the first attempt — no scope-guard rejection this time.
+- FF-merged into `day12`. Board slice status InProgress → Done via
+  `mcp__eventmodelers__update_slice_status` (board `62c1fe42-f280-4fe4-9700-26c085a63d12`, slice
+  `e35ea243-5863-4926-a70d-0b84e6d468cd`).
+
+**Learnings for future iterations:**
+- A downstream STATE_VIEW slice's dependency events can already be fully declared in
+  `{Context}Events.ts` by the time you reach it — check there before assuming you need to add a
+  new event type; the AutoSeatingCandidates iteration already added TableHeldForReservation and
+  TableHoldReleased as pure-consumer types, and ReservationConfirmed is Day6's own event
+  re-exported from `Day7Events.ts`. Confirm the field shape matches slice.json exactly rather than
+  re-adding it.
+- Two DELETE-triggering events (here ReservationConfirmed and TableHoldReleased) both removing the
+  same row is a normal "leaves the queue for two different reasons" shape — no need for a status
+  column when the read model's whole purpose is "still waiting", the row's mere existence is the
+  state.
+---
