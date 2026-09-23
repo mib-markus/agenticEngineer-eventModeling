@@ -321,6 +321,23 @@ sibling `StartItemPreparation`/`ReadyItemsForServer` both independently confirm 
 preparation starts, the line stops waiting/appearing elsewhere") and add `evolve()`'s delete
 case plus a test for it, even though it's not literally one of this slice's own listed specs.
 
+## A read model's lines can outlive a sibling's delete-on-next-event pattern
+
+Don't assume every "line moves through stages" read model deletes the line once it advances
+(StationQueue deletes on `ItemPreparationStarted`, ReadyItemsForServer deletes on
+`ItemServed`) — check whether *this* slice's own field list needs the line to remain visible
+in more than one state. TableBill also reacts to `ItemServed`, but must keep showing the line
+(now with `lineServed: true`) rather than remove it, because a bill has to list served items
+too. Update the row in place instead of deleting it whenever a later field in slice.json's
+own read model needs to reflect that later event's outcome.
+
+## A `derived:` sum/aggregate over List-cardinality fields is computed in the route, not SQL
+
+`aggregate:sum(unitPrice * quantity)`-style mappings have no SQL-side precedent in this
+codebase (no generated columns, no window functions in any projection's `evolve()`) — compute
+the total in the route handler after joining header + lines, right where OrderPad/KitchenQueue
+already assemble their own List-cardinality arrays from the lines table.
+
 ## A `user:session.*` field mapping doesn't require building session/auth infrastructure
 
 A command field mapped `user:session.<field>` (distinct from `user:input`) describes where a

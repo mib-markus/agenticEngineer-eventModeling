@@ -1087,3 +1087,39 @@
   `session.` qualifier just documents where a real UI would source the value from a logged-
   in user, not a build requirement.
 ---
+## 2026-09-23 - TableBill
+
+- Picked highest-priority Planned slice in Day12 context: TableBill (STATE_VIEW).
+- Read slice.json: header (orderNumber/tableNumber) + lines (lineNumber/itemNumber/quantity/
+  lineServed/unitPrice, all List cardinality) + a Single-cardinality derived `totalAmount`
+  field mapped `aggregate:sum(unitPrice * quantity)`. Only 3 events feed it:
+  `OrderableItemAdded` (catalog price lookup), `OrderLineRoutedToStation` (creates the bill
+  header + line, unlike StationQueue/ReadyItemsForServer this line is never deleted), and
+  `ItemServed` (flips `lineServed` in place, doesn't remove the line — the bill still needs
+  to show served items).
+- Built it as header + lines + a small price-lookup catalog table, following the existing
+  "mixed Single/List-cardinality read model" and "STATE_VIEW needs a lookup table fed by an
+  unrelated event" patterns (`OrderLinesToRoute`'s category catalog is the closest sibling —
+  same `db.raw('? as col', [...])` insert-from-select-join shape, just joining on price
+  instead of category).
+- `totalAmount` is computed in the route handler (JS reduce over the joined lines), not in
+  SQL — no other Day12 slice does SQL-side aggregation, and it can't be a computed column
+  since `unitPrice`/`quantity` live in a child table.
+- Migration `V20__day12_tablebill.sql`, registered `TableBillProjection` in
+  `loadPostgresEventstore.ts`. 3 tests (one per slice.json specification), all pass. `tsc
+  --noEmit` and `npm run build` clean. `run:checks -- --staged` clean before commit.
+- Committed slice code (`feat: [TableBill]`) and status change (`chore: mark TableBill slice
+  Done`) as two separate commits per the commit-scope guard, then FF-merged into main.
+
+**Learnings for future iterations:**
+- A read model that must show a line's price also needs to *keep* the line after some later
+  lifecycle event, rather than delete it (contrast with StationQueue/ReadyItemsForServer,
+  whose own sibling events *do* remove the line once it moves past their stage) — check
+  whether slice.json's own field list needs the line to remain observable in both states
+  (unserved vs. served) before copying a sibling's delete-on-next-event shape verbatim.
+- `aggregate:sum(...)` over List-cardinality sibling fields (e.g. `sum(unitPrice * quantity)`)
+  has no SQL-side precedent in this codebase (no generated/computed columns, no window
+  functions in any existing projection) — compute it in the route handler after joining
+  header + lines, the same place OrderPad/KitchenQueue already assemble List-cardinality
+  arrays from their own lines table.
+---
