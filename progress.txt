@@ -197,3 +197,50 @@
   column when the read model's whole purpose is "still waiting", the row's mere existence is the
   state.
 ---
+
+## 2026-09-23 - ConfirmHeldReservation
+
+- Picked next-highest-priority Planned slice in Day7 context: ConfirmHeldReservation (AUTOMATION).
+  Started from `day12`, branch `feature/confirmheldreservation`.
+- Read slice.json: a polling processor (`fields: []`, no `triggerEvent`, single INBOUND dependency
+  on the `HeldReservations` READMODEL) — same shape as HoldTableForReservation polling
+  AutoSeatingCandidates. Its command fields map exclusively from `HeldReservations.*`, and its
+  specifications' given/then mix `TableHeldForReservation`/`TableHoldReleased`/`ReservationConfirmed`
+  in the same stream — the only way `decide()` can see all three to run its guard checks is if the
+  command is keyed by `tableNumber` on the shared `Day7-table-{tableNumber}` stream
+  (BlockTable/HoldTableForReservation's stream), not by `eMail` on the Day6 guest stream. The
+  not-yet-built ReleaseTableHold slice's own spec ("Reject releasing a hold for a reservation that
+  is already confirmed") confirms this: it needs ReservationConfirmed visible on that same table
+  stream too.
+- Implemented: `ConfirmHeldReservationCommand.ts` (stream key `Day7-table-{tableNumber}`, `decide`
+  rejects `hold_not_found` / `hold_already_released` / `already_confirmed`, otherwise appends the
+  existing Day6 `ReservationConfirmed` event), `processor.ts` (drains all `HeldReservations` rows
+  every minute — the read model's own purpose is "still waiting for its second-step checks", so
+  every row it holds is confirmable; `already_confirmed`/`hold_already_released` are treated as
+  expected races with the projection, not DLQ-worthy errors).
+- No new event type needed — `ReservationConfirmed` already exists in `Day7Events.ts` (Day6's own
+  event, re-exported).
+- No `routes.ts` — automation, no HTTP surface.
+- 4 tests (one per specification), all passing (pure decide/evolve, no Testcontainers needed for
+  this file).
+- `npm run run:checks -- --staged` passed cleanly on the first attempt with only `src/slices/**`
+  staged.
+- FF-merged into `day12`. Board slice status → Done via `mcp__eventmodelers__update_slice_status`
+  (board `62c1fe42-f280-4fe4-9700-26c085a63d12`, slice `52705c29-f758-46bb-8f89-e113277300bd`).
+  Forgot to set InProgress on the board before starting this iteration — went straight from
+  Planned to Done at the end; no claim conflict resulted, but future iterations should call
+  `update-slice-status` to InProgress as the very first step per Ralph's CLAUDE.md.
+
+**Learnings for future iterations:**
+- When a polling automation's specifications mix events from more than one emitter on the same
+  `given`/`then` (here TableHeldForReservation + TableHoldReleased + ReservationConfirmed), check
+  whether they all already live on one shared stream before assuming the command should key off
+  the read model's own id field (`reservationCode`) — if the command's `decide` needs to see all of
+  them to run its guards, it must replay the stream they actually share (here the table stream,
+  `Day7-table-{tableNumber}`), same pattern as HoldTableForReservation.
+- A downstream slice still `Planned` (ReleaseTableHold here) can carry a specification that reveals
+  which stream an upstream command must use — its "reject releasing an already-confirmed hold"
+  check only makes sense if ReservationConfirmed lands on the same stream ReleaseTableHold itself
+  will read from. Read forward into still-Planned sibling slices' specs when a stream-key decision
+  is ambiguous from the current slice alone.
+---

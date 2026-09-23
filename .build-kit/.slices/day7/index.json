@@ -1685,11 +1685,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "confirmheldreservation",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "52705c29-f758-46bb-8f89-e113277300bd",
         "title": "ConfirmHeldReservation",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "AUTOMATION",
         "chapter": "Day7",
         "context": "Day7",

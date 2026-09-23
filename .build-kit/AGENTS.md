@@ -60,6 +60,18 @@ earlier slice may have added them as pure-consumer types (see the entry above), 
 another context's event re-exported (e.g. Day6's `ReservationConfirmed` re-exported from
 `Day7Events.ts`). Always grep the events file first; only add a type when it's truly missing.
 
+## A command's stream key may need to be inferred from which events its specs mix together
+
+If a command's specifications mix `given`/`then` events from more than one emitter (e.g.
+`TableHeldForReservation` + `TableHoldReleased` + `ReservationConfirmed`), and slice.json's own
+command/processor dependencies don't spell out the stream, check whether those events already
+share one stream elsewhere in the codebase (grep other commands' `streamNameFor`) before assuming
+the command should key off the read model's own id field. If `decide()` needs to see all of those
+events to run its guards, it must replay the stream they actually share — not a stream keyed by an
+id that only appears on some of them. A still-`Planned` downstream sibling slice's own
+specifications can be the tie-breaker: if its guard only makes sense when a given event lands on a
+specific stream, that's evidence for which stream the upstream command must use too.
+
 ## Resolving board/MCP credentials when `.build-kit/.eventmodelers/config.json` is absent
 
 The Ralph loop instructions say to skip all platform communication when that specific file is
