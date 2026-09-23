@@ -85,6 +85,18 @@ export type ItemMarkedReady = Event<'ItemMarkedReady', {
     readyAt: string;
 }, CommonMeta>;
 
+// Emitted by Serve Item, still Planned in this Day12 context. Declared here as a
+// pure-consumer type so ReadyItemsForServer can evolve on it (a served item leaves the
+// server's board) — the field shape is copied verbatim from that slice's own slice.json
+// events[] block.
+export type ItemServed = Event<'ItemServed', {
+    orderNumber: string;
+    tableNumber: string;
+    lineNumber: number;
+    serverName: string;
+    servedAt: string;
+}, CommonMeta>;
+
 export type Day12Events =
     | OrderableItemAdded
     | OrderOpened
@@ -95,6 +107,7 @@ export type Day12Events =
     | OrderLineRoutedToStation
     | ItemPreparationStarted
     | ItemMarkedReady
+    | ItemServed
     | ReservationConfirmed;
 
 export type {ReservationConfirmed};
