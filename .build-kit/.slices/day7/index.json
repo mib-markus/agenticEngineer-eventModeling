@@ -1256,11 +1256,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "heldreservations",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "e35ea243-5863-4926-a70d-0b84e6d468cd",
         "title": "HeldReservations",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day7",
         "context": "Day7",
