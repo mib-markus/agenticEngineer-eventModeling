@@ -101,18 +101,12 @@ export type OrderPaid = Event<'OrderPaid', {
     paidAt: string;
 }, CommonMeta>;
 
-// Emitted by Close Table, still Planned in this Day12 context. Declared here as a
-// pure-consumer type so TablesReadyToClose can react to it — the field shape is
-// copied verbatim from that slice's own slice.json events[] block.
 export type TableClosed = Event<'TableClosed', {
     orderNumber: string;
     tableNumber: string;
     closedAt: string;
 }, CommonMeta>;
 
-// Emitted by Mark Table Cleaned, still Planned in this Day12 context. Declared here as a
-// pure-consumer type so TablesToClean can react to it — the field shape is copied verbatim
-// from that slice's own slice.json events[] block.
 export type TableFreedForReassignment = Event<'TableFreedForReassignment', {
     tableNumber: string;
     orderNumber: string;
