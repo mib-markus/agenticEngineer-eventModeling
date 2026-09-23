@@ -198,6 +198,18 @@ object. A header row can legitimately have zero lines (e.g. after every line is 
 denormalized table can't represent that without a nullable placeholder row, so don't reach for one
 just because the fields all "belong" to one screen/query.
 
+## An event field mapped from an earlier event, not the triggering command, must come from replayed state
+
+When a slice.json event field's `mapping` points at a *different, earlier* event in the same
+stream (e.g. `OrderSubmittedToKitchen.tableNumber` mapped from `OrderOpened.tableNumber`,
+while the triggering command only carries `orderNumber`/`submittedAt`), don't add that field
+to the command — carry it in the decider's own state instead (evolve() stores it off the
+earlier event) and read it back in `decide()` when constructing the new event. Also: when two
+separate specifications (e.g. "pad never had a line" and "pad's only lines were later
+removed") both produce the same externally-observable rejection, one guard covering both is
+correct — don't split into two error codes just because slice.json lists them as separate
+specs.
+
 ## A command whose data lacks the stream's key field needs a lookup projection
 
 If a command's own fields don't include the id the target stream is keyed by (e.g. `Add Order
