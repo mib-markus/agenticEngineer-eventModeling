@@ -110,6 +110,15 @@ export type TableClosed = Event<'TableClosed', {
     closedAt: string;
 }, CommonMeta>;
 
+// Emitted by Mark Table Cleaned, still Planned in this Day12 context. Declared here as a
+// pure-consumer type so TablesToClean can react to it — the field shape is copied verbatim
+// from that slice's own slice.json events[] block.
+export type TableFreedForReassignment = Event<'TableFreedForReassignment', {
+    tableNumber: string;
+    orderNumber: string;
+    cleanedAt: string;
+}, CommonMeta>;
+
 export type Day12Events =
     | OrderableItemAdded
     | OrderOpened
@@ -123,6 +132,7 @@ export type Day12Events =
     | ItemServed
     | OrderPaid
     | TableClosed
+    | TableFreedForReassignment
     | ReservationConfirmed;
 
 export type {ReservationConfirmed};
