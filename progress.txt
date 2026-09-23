@@ -432,3 +432,115 @@
   domain event (e.g. ReservationCancelled) just because it exists elsewhere in `{Context}Events.ts`;
   only react to what slice.json's own dependencies declare.
 ---
+---
+
+## 2026-09-23 - Open Order
+
+- Picked next-highest-priority Planned slice in Day12 context: Open Order (STATE_CHANGE).
+  `.build-kit/.eventmodelers/config.json` is absent, so skipped all board/MCP status sync
+  and worked locally only, per the Ralph loop's "Important" note. Started branch
+  `feature/openorder` from `main` (day12 context data already merged, per the
+  "check main first" AGENTS.md entry).
+- Read slice.json: command `Open Order` (orderNumber generated, tableNumber, serverName,
+  openedAt generated) emits `OrderOpened`. Four specifications: two happy-path opens, one
+  guard ("A second pad cannot be opened while the table still has an open order" →
+  `SPEC_ERROR`), and one allowing a new pad once `OrderSubmittedToKitchen` was appended for
+  the previous order on the same table.
+- The guard spans multiple orderNumbers for one tableNumber, so — same reasoning as Day7's
+  BlockTable/HoldTableForReservation (see AGENTS.md "Two commands sharing one stream reuse
+  the same overlap-checking shape") — the stream must be keyed by `tableNumber`
+  (`Day12-table-{tableNumber}`), not by the new order's own `orderNumber`. State tracks a
+  `Set<orderNumber>` of currently-open orders: `OrderOpened` adds, `OrderSubmittedToKitchen`
+  removes; `decide` rejects when the set is non-empty.
+- `OrderSubmittedToKitchen` is emitted by "Submit Order To Kitchen", itself still Planned in
+  this same Day12 context. Its shape is fully specified in that slice's own slice.json
+  `events[]` block (`orderNumber`/`tableNumber`/`submittedAt`), so per the "downstream event
+  type may not exist yet" AGENTS.md entry this is not a blocker — declared it as a
+  pure-consumer type in `Day12Events.ts` alongside the new `OrderOpened` type this slice
+  itself owns.
+- Implemented: `OpenOrderCommand.ts` (decide/evolve/handle, stream key
+  `Day12-table-{tableNumber}`), `routes.ts` (`POST /api/day12/openorder/:tableNumber`,
+  generates `orderNumber` as `O-{4-digit-random}` and `openedAt` as `new Date().toISOString()`
+  server-side, same "caller supplies id/business fields, route stamps generated ones"
+  pattern as Day6's PlaceReservation), `OpenOrder.test.ts` (one test per specification, 4
+  total) using `DeciderSpecification`.
+- `npx tsc --noEmit` and `npm run build` both clean. `npx tsx --test
+  'src/slices/Day12/OpenOrder/*.test.ts'` — all 4 pass (pure DeciderSpecification test, no
+  Testcontainers needed for a STATE_CHANGE slice).
+- `npm run run:checks -- --staged` clean after staging `Day12Events.ts` +
+  `src/slices/Day12/OpenOrder/**`; single `feat:` commit (code) followed by a separate
+  `chore:` commit (index.json/slice.json status → Done), per the established
+  slice-scope-guard pattern. FF-merged `feature/openorder` into `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- A STATE_CHANGE slice's guard that must see events across multiple ids of its own command's
+  own id-attribute field (here: multiple `orderNumber`s must all be visible to reject a new
+  order for the same `tableNumber`) needs its stream keyed by the *other* field the guard
+  actually reasons about, not by the command's own `idAttribute: true` field — same principle
+  as "A `idAttribute: true` field isn't always the natural primary key" (already in AGENTS.md
+  for read models) but applying to a command's stream key instead of a read model's PK.
+- When `.build-kit/.eventmodelers/config.json` is missing, the Ralph loop instructions say to
+  skip board sync entirely (not just skip on error) — don't attempt
+  `mcp__eventmodelers__update_slice_status` calls at all in that case; update only the local
+  `index.json`/`slice.json` status fields.
+
+## 2026-09-23 - Add Order Line
+
+- Picked next-highest-priority Planned slice in Day12 context: Add Order Line (STATE_CHANGE).
+  `.build-kit/.eventmodelers/config.json` is absent, so skipped board/MCP status sync per the
+  Ralph loop's "Important" note. Started branch `feature/addorderline` from `main`.
+- Read slice.json: command `Add Order Line` (orderNumber, lineNumber generated, itemNumber,
+  quantity, specialWishes) emits `OrderLineAdded`. Five specifications: two happy-path lines
+  (menu item, drink with empty specialWishes), one showing the same itemNumber twice becomes
+  two distinct lines, and two guards (SPEC_ERROR): no open order for the given orderNumber, and
+  the order was already submitted to the kitchen.
+- The command's own data carries only `orderNumber`, but `OrderOpened`/`OrderSubmittedToKitchen`
+  (both needed to evaluate the guards) live on Open Order's `Day12-table-{tableNumber}` stream —
+  same "command's own idAttribute isn't the stream key" situation as ConfirmReservation. Built
+  the same lookup-projection pattern as `ReservationLookupProjection`: a new
+  `OrderLookupProjection.ts` + `migrations/V14__day12_order_lookup.sql`
+  (`day12_order_lookup(order_number PK, table_number)`), populated by `OrderOpened`, read by
+  `routes.ts` before constructing the command so `handleAddOrderLine` knows which stream to
+  replay.
+- `lineNumber` is `generated: true` but, unlike OpenOrder's random `orderNumber` or
+  PlaceReservation's random `reservationCode`, it must be *sequential per order* — so it can't
+  be stamped by the route. Computed inside `decide()` instead: state tracks
+  `Record<orderNumber, {open, lineCount}>`, incremented on every replayed `OrderLineAdded` for
+  that order; `lineNumber = lineCount + 1`. `handleAddOrderLine` reads the generated value back
+  off `result.newEvents` so the route can still return it to the caller.
+- Implemented: `Day12Events.ts` gained `OrderLineAdded` (orderNumber/lineNumber/itemNumber/
+  quantity/specialWishes); `AddOrderLineCommand.ts` (decide/evolve/handle, stream key reused
+  from `OpenOrderCommand`'s `Day12-table-{tableNumber}`); `OrderLookupProjection.ts` +
+  migration; `routes.ts` (`POST /api/day12/addorderline/:orderNumber`, looks up tableNumber via
+  the projection first, 409s with `unknown_order` if the lookup itself misses — kept distinct
+  from decide()'s own `unknown_order` the same way ConfirmReservation's route separates a
+  stream-lookup miss from the handler's own check); `AddOrderLine.test.ts` (one test per
+  specification, 5 total) via `DeciderSpecification`. Registered `OrderLookupProjection` in
+  `loadPostgresEventstore.ts`.
+- `npx tsc --noEmit` and `npm run build` both clean. `npx tsx --test
+  'src/slices/Day12/AddOrderLine/*.test.ts'` — all 5 pass (pure DeciderSpecification test, no
+  Testcontainers needed for the command-handler half of a STATE_CHANGE slice).
+- `npm run run:checks -- --staged` clean after staging `Day12Events.ts` +
+  `src/slices/Day12/AddOrderLine/**` + `migrations/V14__day12_order_lookup.sql` +
+  `loadPostgresEventstore.ts`; single `feat:` commit (code) followed by a separate `chore:`
+  commit (index.json/slice.json status → Done), per the established slice-scope-guard pattern.
+  FF-merge into `main` pending.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- A command whose own data fields don't include the field the *stream* is keyed by (here:
+  `Add Order Line` only carries `orderNumber`, but the stream is `Day12-table-{tableNumber}`,
+  same as `OpenOrder`) needs a lookup projection exactly like `ReservationLookupProjection` —
+  populate it from the event that first links the two ids (`OrderOpened` here), read it in
+  `routes.ts` before building the command, and 409 distinctly if the lookup itself misses versus
+  if `decide()`'s own precondition fails.
+- Not every `generated: true` field is a route-stamped random value (like OpenOrder's
+  `orderNumber` or PlaceReservation's `reservationCode`). A field that must be *sequential per
+  parent id* (like `lineNumber` here — one counter per `orderNumber`) has to be computed inside
+  `decide()` from replayed state, and the route can only recover it after the fact from
+  `result.newEvents` — check what "generated" means semantically (random vs. derived-from-state)
+  before deciding where to compute it.
+---

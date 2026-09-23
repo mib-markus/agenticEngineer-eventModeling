@@ -1,7 +1,7 @@
 {
   "id": "43efa16a-e83e-491f-9024-6de59ae0dee5",
   "title": "Add Order Line",
-  "status": "Planned",
+  "status": "Done",
   "sliceType": "STATE_CHANGE",
   "chapter": "Day12",
   "context": "Day12",
