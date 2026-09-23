@@ -918,3 +918,51 @@
   reacts only to declared dependencies" rule, just read in the affirmative (it does react,
   just via delete, not a field).
 ---
+
+## 2026-09-23 - StartItemPreparation
+
+- Picked highest-priority Planned slice in Day12 context: StartItemPreparation
+  (STATE_CHANGE, drawn in chapter Day13, staged under day12). `.build-kit/.eventmodelers/config.json`
+  is absent, so skipped board/MCP status sync. Started branch `feature/startitempreparation`
+  from `main`.
+- slice.json: kitchen/bar staff start preparing a routed line from the StationDisplay
+  screen. Command carries orderNumber/tableNumber/lineNumber/station (all mapped from
+  `StationQueue.*`); `startedAt` is `generated: true`, mapping `derived:now()`. Emits
+  `ItemPreparationStarted`, already declared as a pure-consumer type in `Day12Events.ts`
+  by the earlier StationQueue build — removed its now-stale "still Planned" comment since
+  this slice now owns the emitter (same cleanup RemoveOrderLine/RouteOrderLineToStation did).
+- Same `Day12-table-{tableNumber}` stream as RouteOrderLineToStation/AddOrderLine — the two
+  specifications' guards ("never routed" / "already in preparation") both need to see
+  `OrderLineRoutedToStation` and `ItemPreparationStarted` together, matching the
+  established "command's own idAttribute isn't the stream key" pattern. No lookup
+  projection needed since the command carries `tableNumber` directly (unlike
+  AddOrderLine/ChangeOrderLine, which only carry `orderNumber`).
+- `startedAt` has no HTTP-visible route field per slice.json's own command fields (only a
+  SCREEN INBOUND dependency, no `routes[]`/query params listed) — stamped server-side in
+  `routes.ts` via `new Date().toISOString()`, same "generated, stream-independent value"
+  pattern as OpenOrder's `openedAt`.
+- Implemented: `StartItemPreparationCommand.ts` (decide/evolve/handle), `routes.ts`
+  (`POST /api/day12/startitempreparation/:tableNumber` with `@openapi` block — the slice
+  has a SCREEN dependency, StationDisplay, but no other slice in this codebase renders a
+  screen as its own artifact, so implemented the command as an HTTP endpoint the screen
+  would call, per the existing STATE_CHANGE pattern), `StartItemPreparation.test.ts` (3
+  specs from slice.json).
+- `npx tsc --noEmit` / `npm run build` clean. `npx tsx --test
+  'src/slices/Day12/StartItemPreparation/*.test.ts'` — all 3 pass (pure decider tests, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:`
+  status commit. FF-merged `feature/startitempreparation` into `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- A STATE_CHANGE command reused on the same shared `Day12-table-{tableNumber}` stream
+  doesn't always need a lookup projection — only build one when the command's own fields
+  lack the stream-key field (AddOrderLine/ChangeOrderLine's `orderNumber`-only situation).
+  Here the command already carries `tableNumber` directly per slice.json, so `routes.ts`
+  uses it straight from the URL path with no lookup at all.
+- A slice whose only INBOUND dependency is a SCREEN (not a READMODEL or triggerEvent) is
+  still a plain STATE_CHANGE — the screen is the UI that calls the command's HTTP route,
+  not a data source the decider replays. Build it exactly like any other command-driven
+  slice; the SCREEN dependency doesn't change decide()/evolve() at all.
+---

@@ -293,6 +293,23 @@ role instead, stamping the value into `command.metadata` at the point it constru
 and `decide()` reads it back from metadata exactly as `SendReservationReminder` already does for
 `sentAt`.
 
+## Not every command on a shared stream needs a lookup projection
+
+The "command whose data lacks the stream's key field needs a lookup projection" rule (see
+`AddOrderLine`/`ChangeOrderLine`, which only carry `orderNumber`) doesn't apply when the
+command's own fields already include the stream-key field directly (e.g.
+`StartItemPreparation` carries `tableNumber` per slice.json, same stream as
+`RouteOrderLineToStation`/`AddOrderLine`) — just read it straight from the request in
+`routes.ts`, no lookup table needed.
+
+## A SCREEN-only INBOUND dependency doesn't change a STATE_CHANGE's implementation
+
+A command whose only INBOUND dependency is a SCREEN (not a READMODEL or `triggerEvent`) is
+still a plain command-driven slice — the screen is the UI that calls the command's HTTP
+route, it isn't a data source `decide()`/`evolve()` need to replay. Build it exactly like
+any other STATE_CHANGE slice; don't treat the SCREEN dependency as something requiring
+special handling.
+
 ## A STATE_VIEW's INBOUND dependency with no field mapping can still be a delete trigger
 
 Not every INBOUND event on a read model's `dependencies[]` contributes a field — one can exist
