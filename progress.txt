@@ -281,3 +281,53 @@
   would for a STATE_VIEW's derived-field mapping before concluding it's missing, then escalate the
   same way.
 ---
+
+## 2026-09-23 - ReleaseTableHold (retry after scope-down)
+
+- Board had resolved the previous blocker: an earlier commit (`60777b7`, made before this
+  iteration) rescoped the processor's mapping/description to only derive the one checkable
+  reason — "The hold outlived its reservation window" from `HeldReservations.date`/`endTime` —
+  leaving blacklist/upfront-payment as staff-supplied strings the command still accepts unvalidated.
+  Slice status was back to `Planned`. Started from `day12`, branch `feature/releasetablehold`.
+- Read slice.json: an AUTOMATION with a polling processor (`fields: []`, no `triggerEvent`, single
+  INBOUND dependency on `HeldReservations`) — same shape as ConfirmHeldReservation/
+  HoldTableForReservation. The command's specifications mix `TableHeldForReservation` +
+  `TableHoldReleased` + `ReservationConfirmed` in given/then, so — per the established pattern —
+  `decide` replays the shared `Day7-table-{tableNumber}` stream, not a stream keyed by
+  `reservationCode`.
+- Implemented: `ReleaseTableHoldCommand.ts` (stream key `Day7-table-{tableNumber}`; `decide`
+  rejects `hold_not_found` / `hold_already_released` / `reservation_already_confirmed` — the
+  `evolve`/state shape is copied verbatim from `ConfirmHeldReservationCommand.ts` since both
+  commands need to see the exact same three event types on the exact same stream to guard their
+  respective actions), `processor.ts` (drains all `HeldReservations` rows every minute, computes
+  `wallClock(row.date, row.endTime)` — copied from `NoShowsDueProjection.ts`'s own grace-period
+  math — and only fires the command for rows whose window has already passed, with reason
+  `'The hold outlived its reservation window'`; `hold_already_released`/
+  `reservation_already_confirmed` are expected races with the projection/ConfirmHeldReservation's
+  own drain, not DLQ-worthy).
+- No new event type needed — `TableHoldReleased`/`TableHeldForReservation`/`ReservationConfirmed`
+  all already existed in `Day7Events.ts`.
+- No `routes.ts` — automation, no HTTP surface.
+- 5 tests (one per specification, including both the blacklist and payment reason specs even
+  though the processor itself never derives those reasons — the command still has to accept them
+  per slice.json), all passing (pure decide/evolve, no Testcontainers needed).
+- `npm run run:checks -- --staged` passed cleanly; split into two commits (`chore:` InProgress →
+  `feat:` code → `chore:` Done) per the established slice-scope-guard pattern.
+- FF-merged into `day12`. Board slice status InProgress → Done via
+  `mcp__eventmodelers__update_slice_status` (board `62c1fe42-f280-4fe4-9700-26c085a63d12`, slice
+  `68b6b0c6-26d4-40b0-9540-d0806da643f6`).
+
+**Learnings for future iterations:**
+- When a board author resolves a "no data source for this business rule" block by narrowing the
+  processor's own description/mapping (rather than adding a new field), the command itself keeps
+  accepting the full original field range (here `reason` still takes any string) — only the
+  *processor's* own derivation narrows. Implement the narrowed condition in `processor.ts`, but
+  still write and pass every specification in slice.json, including the ones the processor itself
+  will never trigger.
+- A polling automation's "only fire when a wall-clock threshold has passed" condition is computed
+  the same way `NoShowsDueProjection.graceEndsAt`/`wallClock` already does — reuse that exact
+  UTC-frame arithmetic (`Date.UTC` from `DD.MM.YYYY`/`HH:MM` parts) rather than reinventing date
+  parsing, and filter in the processor's drain loop (skip rows whose computed threshold is still
+  in the future) rather than adding a SQL predicate, since the read model has no precomputed
+  sortable column for this particular threshold (unlike NoShowsDue's own `grace_ends_at_sortable`).
+---

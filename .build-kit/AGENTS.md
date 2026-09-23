@@ -83,6 +83,25 @@ grep the whole codebase for the named concept (blacklist, payment, expiry/window
 way you would for a derived-field mapping before concluding it's genuinely unbuilt, then escalate
 via `request-feedback` rather than inventing a stand-in data source.
 
+## A blocked slice can be unblocked by narrowing the processor, not the command
+
+When a board author resolves a "business rule has no data source" block by rescoping the
+processor's own description/mapping (see ReleaseTableHold after AutoSeatingCandidates-style
+escalation), the command keeps accepting the full original field range — only the processor's
+own derivation narrows to the one condition it can actually evaluate. Implement that narrowed
+condition in `processor.ts`, but still write and pass every specification in slice.json,
+including ones the processor itself will never trigger (a caller/staff-supplied value still
+has to be accepted and produce the same event).
+
+## Wall-clock threshold checks reuse one UTC-frame arithmetic helper
+
+`NoShowsDueProjection.ts`'s `wallClock(date, time)` (parse `DD.MM.YYYY`/`HH:MM`, `Date.UTC(...)`)
+is the canonical "has this deadline passed" arithmetic in this codebase — reuse it (copy the
+function, don't invent new date parsing) any time a polling processor needs to compare a read
+model's date/time fields against `now`. If the read model has no precomputed sortable column for
+the specific threshold (unlike NoShowsDue's own `grace_ends_at_sortable`), filter in the
+processor's drain loop instead of adding a SQL predicate.
+
 ## Resolving board/MCP credentials when `.build-kit/.eventmodelers/config.json` is absent
 
 The Ralph loop instructions say to skip all platform communication when that specific file is
