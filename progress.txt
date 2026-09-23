@@ -776,3 +776,53 @@
   (KitchenQueue never shows `serverName`/`openedAt`), reinforcing the existing "only react to
   declared dependencies" rule rather than copying a sibling's dependency list wholesale.
 ---
+
+## 2026-09-23 - OrderLinesToRoute
+
+- Picked the highest-priority Planned slice in Day12 context: OrderLinesToRoute (STATE_VIEW,
+  drawn in chapter Day13 but staged under day12 per the existing cross-chapter pattern).
+  `.build-kit/.eventmodelers/config.json` is absent, so skipped board/MCP status sync. Started
+  branch `feature/orderlinestoroute` from `main` (already had all Day12 files).
+- slice.json: which submitted lines still have to be routed to a station. Same working/frozen
+  split as KitchenQueue, but with two twists: (1) the read model also needs `category`, sourced
+  from `OrderableItemAdded` (a different, unrelated event stream — restaurant catalogue, not the
+  order's own stream) via a small lookup table (`day12_route_catalog`, item_number -> category),
+  and (2) rows leave the frozen table entirely once `OrderLineRoutedToStation` fires (delete, not
+  a flag) — this event/command pair belongs to the sibling `RouteOrderLineToStation` AUTOMATION,
+  still Planned, but its shape was fully pinned down by slice.json's own dependency id + this
+  slice's own specifications, so declared it as a pure-consumer type in `Day12Events.ts` rather
+  than escalating.
+- Implemented: `day12_route_working_lines` (mutated by OrderLineAdded/Changed/Removed, same as
+  KitchenQueue's working table), `day12_route_catalog` (upserted by OrderableItemAdded), and the
+  frozen `day12_lines_to_route` header-less table (one row per line, PK
+  order_number+line_number), populated via `INSERT ... SELECT` joining working lines to the
+  catalog at `OrderSubmittedToKitchen`, and deleted per-row on `OrderLineRoutedToStation`.
+- Gotcha: knex's object-form join alias (`.join({c: table}, ...)`) does not compose with
+  `.withSchema('public')` — it silently serializes the alias object into the query string
+  (`"public"."[object Object]"`), a runtime-only failure invisible to `tsc`. Use string-form
+  table+alias instead: `db('public.tablename as alias')`.
+- `npm run run:checks -- --staged` passed cleanly; split into `feat:` code commit then `chore:`
+  status commit, per the established slice-scope-guard pattern. FF-merged
+  `feature/orderlinestoroute` into `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- knex's object-form join alias (`.join({alias: tableName}, ...)`) is incompatible with a
+  separate `.withSchema('public')` call — the schema call doesn't know how to combine with an
+  alias object and silently renders `"public"."[object Object]"` in the generated SQL. `tsc`
+  and the compiler give no warning; it only surfaces as a Postgres `relation "public.[object
+  Object]" does not exist` error at test time. Use the string form instead —
+  `db('public.tablename as alias')` — whenever a projection's `evolve()` needs a joined query
+  (e.g. enriching one event stream's data with a lookup table populated by an unrelated event).
+- A STATE_VIEW can legitimately need a lookup table fed by an event from a completely different
+  domain concept than its own primary stream (here: the order-lines read model also needs
+  `OrderableItemAdded.category`, from the restaurant catalogue, not the order stream) — this is
+  the STATE_VIEW-side counterpart of the existing "command needs a lookup projection" pattern,
+  just read directly inside `evolve()` instead of in `routes.ts` before building a command.
+- A read model's own specifications can specify the *effect* of a sibling AUTOMATION's not-yet-
+  built OUTBOUND event (here: "an already routed line leaves the list") without that automation
+  needing to exist yet — same as the existing "not every unbuilt cross-context event emitter is
+  a blocker" rule, just applied to a same-context sibling slice's own event instead of a
+  cross-context one.
+---

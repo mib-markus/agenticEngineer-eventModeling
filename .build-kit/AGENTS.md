@@ -256,3 +256,20 @@ Do not "fix" the `context`/`chapter` mismatch, and do not create an `OrderManage
 stream prefix: `findSliceJson`'s `normalize()` would still resolve the checks, so nothing would block
 — the slice would just silently read an empty stream and pass every unit test while being broken
 end to end.
+
+## knex's object-form join alias breaks silently under `.withSchema()`
+
+`.join({alias: tableName}, ...)` combined with a separate `.withSchema('public')` call renders the
+alias object into the query string instead of a name (`"public"."[object Object]"`) — `tsc` and the
+build give no warning, it only surfaces as a Postgres `relation "public.[object Object]" does not
+exist` error at test time. Use the string form for any joined query in a projection's `evolve()`:
+`db('public.tablename as alias')`, qualifying the schema inline rather than via `.withSchema()`.
+
+## A STATE_VIEW can need a lookup table fed by an unrelated event stream
+
+Same shape as the existing "a command's data lacks the stream's key field needs a lookup
+projection" entry, but on the read-model side: a projection's own primary events (e.g. an order's
+line events) can be missing a field (e.g. `category`) that only exists on a completely different
+domain's event (e.g. the restaurant catalogue's `OrderableItemAdded`). Build a small lookup table
+fed by that other event, upserted in the same projection's `evolve()`, and join it in the query
+that builds the frozen row — no need to route the enrichment through a separate slice.
