@@ -2917,11 +2917,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "removeorderline",
-      "status": "Planned",
+      "status": "Done",
       "definition": {
         "id": "db8cc198-3c62-4449-9dc6-98a69fe463c4",
         "title": "Remove Order Line",
-        "status": "Planned",
+        "status": "Done",
         "sliceType": "STATE_CHANGE",
         "chapter": "Day12",
         "context": "Day12",

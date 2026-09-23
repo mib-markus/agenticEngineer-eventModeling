@@ -601,3 +601,37 @@
   so `line_not_found` already covers it) rather than inventing an `unknown_order` code slice.json
   never specifies.
 ---
+## 2026-09-23 14:33 - Remove Order Line
+
+- Picked highest-priority Planned slice in Day12 context: Remove Order Line (STATE_CHANGE).
+- Started feature/removeorderline branch from main.
+- Set status to InProgress locally in index.json and slice.json (no .eventmodelers/config.json, board sync skipped).
+
+## 2026-09-23 - Remove Order Line
+
+- Implemented Remove Order Line (STATE_CHANGE) in src/slices/Day12/RemoveOrderLine/.
+- Files: RemoveOrderLineCommand.ts (decide/evolve/handle), RemoveOrderLine.test.ts (5 specs
+  from slice.json), routes.ts (POST /api/day12/removeorderline/:orderNumber with @openapi block).
+- Reused Day12Events.ts's OrderLineRemoved type (already declared as a pure-consumer type by
+  Change Order Line's earlier build) — dropped its now-stale "still Planned" comment since this
+  slice now owns the emitter.
+- Reused AddOrderLine's OrderLookupProjection/findTableNumberByOrderNumber for the
+  orderNumber -> tableNumber lookup and Day12-table-{tableNumber} stream key, same pattern as
+  ChangeOrderLine.
+- State/guards (line_not_found, order_already_submitted, line_already_removed) copied from
+  ChangeOrderLine's own OrderLineState/OrderState shape since both commands replay the exact
+  same three events (OrderOpened, OrderLineAdded, OrderSubmittedToKitchen) plus OrderLineRemoved
+  itself for idempotency.
+- npm run build passed. Ran only the Day12 AddOrderLine/ChangeOrderLine/RemoveOrderLine test
+  files (11+5 passed) rather than the full suite.
+- Committed slice code separately (`feat: [Remove Order Line]`) from the index.json/slice.json
+  status bump, per the existing commit-scope-guard learning.
+
+**Learnings for future iterations:**
+- No test-analyzer skill or code-slice.json step exists in this installed kit — Ralph's own
+  generic step 14 doesn't apply here; skip it rather than inventing a missing skill.
+- When a sibling slice already declared this slice's own emitted event as a pure-consumer type
+  in {Context}Events.ts, just delete the "still Planned, declared as pure-consumer" comment once
+  this slice is actually built — the type itself needs no changes if the shape already matches
+  slice.json exactly.
+---
