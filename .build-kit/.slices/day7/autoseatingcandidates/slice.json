@@ -1,7 +1,7 @@
 {
   "id": "8937fa23-81ed-470d-8e97-c8aa3fb83de5",
   "title": "AutoSeatingCandidates",
-  "status": "Blocked",
+  "status": "Planned",
   "sliceType": "STATE_VIEW",
   "chapter": "Day7",
   "context": "Day7",
@@ -74,16 +74,6 @@
           "mapping": "ReservationPlaced.numberOfPeople - the party that has to fit"
         },
         {
-          "name": "candidateTableNumber",
-          "optional": false,
-          "query": false,
-          "generated": true,
-          "idAttribute": false,
-          "type": "String",
-          "cardinality": "Single",
-          "mapping": "derived - smallest published table seating numberOfPeople that has no TableBlocked, no ReservationConfirmed and no TableHeldForReservation overlapping date/startTime-endTime"
-        },
-        {
           "name": "autoSeatingOutcome",
           "optional": false,
           "query": false,
@@ -91,16 +81,34 @@
           "idAttribute": false,
           "type": "String",
           "cardinality": "Single",
-          "mapping": "derived - Pending until a table is held, Held once TableHeldForReservation arrives, Failed once TableHoldReleased arrives or no candidate table exists. Failed rows leave the queue and stay with the staff for manual confirmation."
+          "mapping": "derived - Pending while the reservation still waits for a table, Held once TableHeldForReservation arrives, Failed once TableHoldReleased arrives. Failed rows leave the queue and stay with the staff for manual confirmation."
         }
       ],
       "dependencies": [
-        {"id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541", "type": "INBOUND", "title": "ReservationPlaced", "elementType": "EVENT"},
-        {"id": "b2000001-0000-4000-8000-000000000202", "type": "INBOUND", "title": "TableBlocked", "elementType": "EVENT"},
-        {"id": "8f813437-d24b-4c75-8eea-a9ef3849e795", "type": "INBOUND", "title": "ReservationConfirmed", "elementType": "EVENT"},
-        {"id": "600cabad-a4b2-428e-a5d4-c3fe00c9fa66", "type": "OUTBOUND", "title": "Hold Table For Reservation", "elementType": "AUTOMATION"},
-        {"id": "c6d378c0-7f94-4c7e-8195-a7877e961241", "type": "INBOUND", "title": "TableHoldReleased", "elementType": "EVENT"},
-        {"id": "995ee9b1-2fe5-4a99-a122-cde19a2ff8d4", "type": "INBOUND", "title": "TableHeldForReservation", "elementType": "EVENT"}
+        {
+          "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
+          "type": "INBOUND",
+          "title": "ReservationPlaced",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "600cabad-a4b2-428e-a5d4-c3fe00c9fa66",
+          "type": "OUTBOUND",
+          "title": "Hold Table For Reservation",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "c6d378c0-7f94-4c7e-8195-a7877e961241",
+          "type": "INBOUND",
+          "title": "TableHoldReleased",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "995ee9b1-2fe5-4a99-a122-cde19a2ff8d4",
+          "type": "INBOUND",
+          "title": "TableHeldForReservation",
+          "elementType": "EVENT"
+        }
       ],
       "modelContext": "Day7",
       "lane": "Interaction",
@@ -126,7 +134,7 @@
   "specifications": [
     {
       "id": "65b96a7e-e349-4bd9-9f7e-77936a344bb9",
-      "title": "A new reservation gets a candidate table that fits the party",
+      "title": "A new reservation enters the queue waiting for a table",
       "chapter": "Day7",
       "sliceName": "AutoSeatingCandidates",
       "vertical": false,
@@ -138,12 +146,30 @@
           "title": "ReservationPlaced",
           "type": "EVENT",
           "fields": [
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "4"}
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
           ]
         }
       ],
@@ -152,7 +178,12 @@
           "id": "e1000001-0000-4000-8000-000000000501",
           "title": "Which reservations still need a table?",
           "type": "QUERY",
-          "fields": [{"name": "date", "example": "15.04.2026"}]
+          "fields": [
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            }
+          ]
         }
       ],
       "then": [
@@ -161,14 +192,34 @@
           "title": "AutoSeatingCandidates",
           "type": "READMODEL",
           "fields": [
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "4"},
-            {"name": "candidateTableNumber", "example": "12"},
-            {"name": "autoSeatingOutcome", "example": "Pending"}
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "autoSeatingOutcome",
+              "example": "Pending"
+            }
           ]
         }
       ]
@@ -187,12 +238,30 @@
           "title": "ReservationPlaced",
           "type": "EVENT",
           "fields": [
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "4"}
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
           ]
         },
         {
@@ -200,12 +269,30 @@
           "title": "TableHeldForReservation",
           "type": "EVENT",
           "fields": [
-            {"name": "tableNumber", "example": "12"},
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"}
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            }
           ]
         }
       ],
@@ -214,7 +301,12 @@
           "id": "e1000001-0000-4000-8000-000000000502",
           "title": "Which reservations still need a table?",
           "type": "QUERY",
-          "fields": [{"name": "date", "example": "15.04.2026"}]
+          "fields": [
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            }
+          ]
         }
       ],
       "then": [
@@ -223,70 +315,41 @@
           "title": "AutoSeatingCandidates",
           "type": "READMODEL",
           "fields": [
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "4"},
-            {"name": "candidateTableNumber", "example": "12"},
-            {"name": "autoSeatingOutcome", "example": "Held"}
-          ]
-        }
-      ]
-    },
-    {
-      "id": "366bc38a-69b8-4791-add6-889a6f45721a",
-      "title": "A party bigger than every table is left to the staff",
-      "chapter": "Day7",
-      "sliceName": "AutoSeatingCandidates",
-      "vertical": false,
-      "expectEmptyList": false,
-      "examples": [],
-      "given": [
-        {
-          "id": "a1000001-0000-4000-8000-000000000102",
-          "title": "ReservationPlaced",
-          "type": "EVENT",
-          "fields": [
-            {"name": "reservationCode", "example": "R-9M4X"},
-            {"name": "eMail", "example": "erika.musterfrau@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "14"}
-          ]
-        }
-      ],
-      "when": [
-        {
-          "id": "e1000001-0000-4000-8000-000000000503",
-          "title": "Which reservations still need a table?",
-          "type": "QUERY",
-          "fields": [{"name": "date", "example": "15.04.2026"}]
-        }
-      ],
-      "then": [
-        {
-          "id": "ad4be24c-28fa-4f0e-a803-9d05539f99d7",
-          "title": "AutoSeatingCandidates",
-          "type": "READMODEL",
-          "fields": [
-            {"name": "reservationCode", "example": "R-9M4X"},
-            {"name": "eMail", "example": "erika.musterfrau@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "14"},
-            {"name": "candidateTableNumber", "example": ""},
-            {"name": "autoSeatingOutcome", "example": "Failed"}
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "autoSeatingOutcome",
+              "example": "Held"
+            }
           ]
         }
       ]
     },
     {
       "id": "09a80eac-3d42-46b2-8dfd-16b5dd7b2f50",
-      "title": "A released hold puts the reservation back in the queue on a different table",
+      "title": "A released hold puts the reservation back in the queue",
       "chapter": "Day7",
       "sliceName": "AutoSeatingCandidates",
       "vertical": false,
@@ -298,12 +361,30 @@
           "title": "ReservationPlaced",
           "type": "EVENT",
           "fields": [
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "4"}
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            }
           ]
         },
         {
@@ -311,12 +392,30 @@
           "title": "TableHeldForReservation",
           "type": "EVENT",
           "fields": [
-            {"name": "tableNumber", "example": "12"},
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"}
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            }
           ]
         },
         {
@@ -324,12 +423,30 @@
           "title": "TableHoldReleased",
           "type": "EVENT",
           "fields": [
-            {"name": "tableNumber", "example": "12"},
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "reason", "example": "Guest is on the blacklist"}
+            {
+              "name": "tableNumber",
+              "example": "12"
+            },
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "reason",
+              "example": "Guest is on the blacklist"
+            }
           ]
         }
       ],
@@ -338,7 +455,12 @@
           "id": "e1000001-0000-4000-8000-000000000504",
           "title": "Which reservations still need a table?",
           "type": "QUERY",
-          "fields": [{"name": "date", "example": "15.04.2026"}]
+          "fields": [
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            }
+          ]
         }
       ],
       "then": [
@@ -347,14 +469,34 @@
           "title": "AutoSeatingCandidates",
           "type": "READMODEL",
           "fields": [
-            {"name": "reservationCode", "example": "R-7K2Q"},
-            {"name": "eMail", "example": "max.mustermann@gmx.de"},
-            {"name": "date", "example": "15.04.2026"},
-            {"name": "startTime", "example": "19:00"},
-            {"name": "endTime", "example": "21:00"},
-            {"name": "numberOfPeople", "example": "4"},
-            {"name": "candidateTableNumber", "example": ""},
-            {"name": "autoSeatingOutcome", "example": "Failed"}
+            {
+              "name": "reservationCode",
+              "example": "R-7K2Q"
+            },
+            {
+              "name": "eMail",
+              "example": "max.mustermann@gmx.de"
+            },
+            {
+              "name": "date",
+              "example": "15.04.2026"
+            },
+            {
+              "name": "startTime",
+              "example": "19:00"
+            },
+            {
+              "name": "endTime",
+              "example": "21:00"
+            },
+            {
+              "name": "numberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "autoSeatingOutcome",
+              "example": "Failed"
+            }
           ]
         }
       ]

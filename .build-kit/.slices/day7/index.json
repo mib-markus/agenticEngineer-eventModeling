@@ -7,11 +7,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "autoseatingcandidates",
-      "status": "Blocked",
+      "status": "Planned",
       "definition": {
         "id": "8937fa23-81ed-470d-8e97-c8aa3fb83de5",
         "title": "AutoSeatingCandidates",
-        "status": "Blocked",
+        "status": "Planned",
         "sliceType": "STATE_VIEW",
         "chapter": "Day7",
         "context": "Day7",
@@ -84,16 +84,6 @@
                 "mapping": "ReservationPlaced.numberOfPeople - the party that has to fit"
               },
               {
-                "name": "candidateTableNumber",
-                "optional": false,
-                "query": false,
-                "generated": true,
-                "idAttribute": false,
-                "type": "String",
-                "cardinality": "Single",
-                "mapping": "derived - smallest published table seating numberOfPeople that has no TableBlocked, no ReservationConfirmed and no TableHeldForReservation overlapping date/startTime-endTime"
-              },
-              {
                 "name": "autoSeatingOutcome",
                 "optional": false,
                 "query": false,
@@ -101,7 +91,7 @@
                 "idAttribute": false,
                 "type": "String",
                 "cardinality": "Single",
-                "mapping": "derived - Pending until a table is held, Held once TableHeldForReservation arrives, Failed once TableHoldReleased arrives or no candidate table exists. Failed rows leave the queue and stay with the staff for manual confirmation."
+                "mapping": "derived - Pending while the reservation still waits for a table, Held once TableHeldForReservation arrives, Failed once TableHoldReleased arrives. Failed rows leave the queue and stay with the staff for manual confirmation."
               }
             ],
             "dependencies": [
@@ -109,18 +99,6 @@
                 "id": "ec9a3e96-f0a6-4d2f-a72b-6ff4bfd02541",
                 "type": "INBOUND",
                 "title": "ReservationPlaced",
-                "elementType": "EVENT"
-              },
-              {
-                "id": "b2000001-0000-4000-8000-000000000202",
-                "type": "INBOUND",
-                "title": "TableBlocked",
-                "elementType": "EVENT"
-              },
-              {
-                "id": "8f813437-d24b-4c75-8eea-a9ef3849e795",
-                "type": "INBOUND",
-                "title": "ReservationConfirmed",
                 "elementType": "EVENT"
               },
               {
@@ -166,7 +144,7 @@
         "specifications": [
           {
             "id": "65b96a7e-e349-4bd9-9f7e-77936a344bb9",
-            "title": "A new reservation gets a candidate table that fits the party",
+            "title": "A new reservation enters the queue waiting for a table",
             "chapter": "Day7",
             "sliceName": "AutoSeatingCandidates",
             "vertical": false,
@@ -247,10 +225,6 @@
                   {
                     "name": "numberOfPeople",
                     "example": "4"
-                  },
-                  {
-                    "name": "candidateTableNumber",
-                    "example": "12"
                   },
                   {
                     "name": "autoSeatingOutcome",
@@ -376,10 +350,6 @@
                     "example": "4"
                   },
                   {
-                    "name": "candidateTableNumber",
-                    "example": "12"
-                  },
-                  {
                     "name": "autoSeatingOutcome",
                     "example": "Held"
                   }
@@ -388,104 +358,8 @@
             ]
           },
           {
-            "id": "366bc38a-69b8-4791-add6-889a6f45721a",
-            "title": "A party bigger than every table is left to the staff",
-            "chapter": "Day7",
-            "sliceName": "AutoSeatingCandidates",
-            "vertical": false,
-            "expectEmptyList": false,
-            "examples": [],
-            "given": [
-              {
-                "id": "a1000001-0000-4000-8000-000000000102",
-                "title": "ReservationPlaced",
-                "type": "EVENT",
-                "fields": [
-                  {
-                    "name": "reservationCode",
-                    "example": "R-9M4X"
-                  },
-                  {
-                    "name": "eMail",
-                    "example": "erika.musterfrau@gmx.de"
-                  },
-                  {
-                    "name": "date",
-                    "example": "15.04.2026"
-                  },
-                  {
-                    "name": "startTime",
-                    "example": "19:00"
-                  },
-                  {
-                    "name": "endTime",
-                    "example": "21:00"
-                  },
-                  {
-                    "name": "numberOfPeople",
-                    "example": "14"
-                  }
-                ]
-              }
-            ],
-            "when": [
-              {
-                "id": "e1000001-0000-4000-8000-000000000503",
-                "title": "Which reservations still need a table?",
-                "type": "QUERY",
-                "fields": [
-                  {
-                    "name": "date",
-                    "example": "15.04.2026"
-                  }
-                ]
-              }
-            ],
-            "then": [
-              {
-                "id": "ad4be24c-28fa-4f0e-a803-9d05539f99d7",
-                "title": "AutoSeatingCandidates",
-                "type": "READMODEL",
-                "fields": [
-                  {
-                    "name": "reservationCode",
-                    "example": "R-9M4X"
-                  },
-                  {
-                    "name": "eMail",
-                    "example": "erika.musterfrau@gmx.de"
-                  },
-                  {
-                    "name": "date",
-                    "example": "15.04.2026"
-                  },
-                  {
-                    "name": "startTime",
-                    "example": "19:00"
-                  },
-                  {
-                    "name": "endTime",
-                    "example": "21:00"
-                  },
-                  {
-                    "name": "numberOfPeople",
-                    "example": "14"
-                  },
-                  {
-                    "name": "candidateTableNumber",
-                    "example": ""
-                  },
-                  {
-                    "name": "autoSeatingOutcome",
-                    "example": "Failed"
-                  }
-                ]
-              }
-            ]
-          },
-          {
             "id": "09a80eac-3d42-46b2-8dfd-16b5dd7b2f50",
-            "title": "A released hold puts the reservation back in the queue on a different table",
+            "title": "A released hold puts the reservation back in the queue",
             "chapter": "Day7",
             "sliceName": "AutoSeatingCandidates",
             "vertical": false,
@@ -630,10 +504,6 @@
                     "example": "4"
                   },
                   {
-                    "name": "candidateTableNumber",
-                    "example": ""
-                  },
-                  {
                     "name": "autoSeatingOutcome",
                     "example": "Failed"
                   }
@@ -655,11 +525,11 @@
       "contextName": "Day7",
       "contextSlug": "day7",
       "folder": "holdtableforreservation",
-      "status": "Blocked",
+      "status": "Planned",
       "definition": {
         "id": "c4df296d-03bd-4579-8ee4-d65186b32cab",
         "title": "HoldTableForReservation",
-        "status": "Blocked",
+        "status": "Planned",
         "sliceType": "AUTOMATION",
         "chapter": "Day7",
         "context": "Day7",
@@ -687,7 +557,7 @@
                 "idAttribute": false,
                 "type": "String",
                 "cardinality": "Single",
-                "mapping": "AutoSeatingCandidates.candidateTableNumber - the table the processor wants to take"
+                "mapping": "chosen by the Hold Table For Reservation processor - the lowest table number it has not yet tried for this reservation. The command itself rejects a table that is blocked or already held, so the processor needs no occupancy data."
               },
               {
                 "name": "eMail",
@@ -896,7 +766,7 @@
             "triggers": [],
             "tags": [],
             "slice": "HoldTableForReservation",
-            "description": "",
+            "description": "Polls AutoSeatingCandidates for rows with autoSeatingOutcome 'Pending' and issues HoldTableForReservation for each. The processor picks the table itself: it walks table numbers 1 to 20 in ascending order and issues the command for the first one it has not already tried for this reservation, stopping as soon as one is accepted. A rejection (table blocked, or already held for that window) is expected and not an error - the processor moves on to the next table number. If every table rejects, the row stays 'Pending' and the staff seat the party manually. There is no seat-capacity data in this system, so numberOfPeople is carried for the staff to see but does not constrain the pick.",
             "context": "INTERNAL",
             "elementContext": "INTERNAL",
             "listElement": false,

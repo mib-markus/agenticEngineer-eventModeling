@@ -1,7 +1,7 @@
 {
   "id": "c4df296d-03bd-4579-8ee4-d65186b32cab",
   "title": "HoldTableForReservation",
-  "status": "Blocked",
+  "status": "Planned",
   "sliceType": "AUTOMATION",
   "chapter": "Day7",
   "context": "Day7",
@@ -29,7 +29,7 @@
           "idAttribute": false,
           "type": "String",
           "cardinality": "Single",
-          "mapping": "AutoSeatingCandidates.candidateTableNumber - the table the processor wants to take"
+          "mapping": "chosen by the Hold Table For Reservation processor - the lowest table number it has not yet tried for this reservation. The command itself rejects a table that is blocked or already held, so the processor needs no occupancy data."
         },
         {
           "name": "eMail",
@@ -238,7 +238,7 @@
       "triggers": [],
       "tags": [],
       "slice": "HoldTableForReservation",
-      "description": "",
+      "description": "Polls AutoSeatingCandidates for rows with autoSeatingOutcome 'Pending' and issues HoldTableForReservation for each. The processor picks the table itself: it walks table numbers 1 to 20 in ascending order and issues the command for the first one it has not already tried for this reservation, stopping as soon as one is accepted. A rejection (table blocked, or already held for that window) is expected and not an error - the processor moves on to the next table number. If every table rejects, the row stays 'Pending' and the staff seat the party manually. There is no seat-capacity data in this system, so numberOfPeople is carried for the staff to see but does not constrain the pick.",
       "context": "INTERNAL",
       "elementContext": "INTERNAL",
       "listElement": false,
