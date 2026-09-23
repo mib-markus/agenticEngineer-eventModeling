@@ -683,3 +683,49 @@
   into an invented nested object shape (e.g. `lines: [{quantity, ...}]`) — the field name and
   cardinality slice.json declares is the contract, not a convenient shape.
 ---
+
+## 2026-09-23 - Submit Order To Kitchen
+
+- Picked highest-priority Planned slice in Day12 context: Submit Order To Kitchen
+  (STATE_CHANGE). `.build-kit/.eventmodelers/config.json` is absent, so skipped board/MCP
+  status sync. Started branch `feature/submitordertokitchen` from `main`.
+- Implemented in src/slices/Day12/SubmitOrderToKitchen/: SubmitOrderToKitchenCommand.ts
+  (decide/evolve/handle), SubmitOrderToKitchen.test.ts (5 specs from slice.json), routes.ts
+  (POST /api/day12/submitordertokitchen/:orderNumber with @openapi block).
+- Same stream/pattern as AddOrderLine/ChangeOrderLine/RemoveOrderLine
+  (Day12-table-{tableNumber}) — reused AddOrderLine's OrderLookupProjection for the
+  orderNumber -> tableNumber lookup. Command replays OrderOpened/OrderLineAdded/
+  OrderLineRemoved/OrderSubmittedToKitchen; evolve() tracks per-order open/closed plus a
+  per-line removed flag (same shape as sibling commands) to decide whether any active
+  (non-removed) line remains.
+- `submittedAt` is `generated: true` like OpenOrder's `openedAt` — generated in routes.ts
+  (`new Date().toISOString()`), not inside decide(), keeping decide() pure per the existing
+  AGENTS.md rule for stream-independent generated fields.
+- Guard order matches slice.json's own specifications: no order found -> `pad_never_opened`
+  (mirrors AddOrderLine's route-level 409 when the lookup itself misses); already submitted
+  -> `pad_already_submitted`; no active line left (either never added or all removed) ->
+  `pad_is_empty`. The event's own `tableNumber` field is sourced from OrderOpened via the
+  replayed state, not from the command (which only carries orderNumber/submittedAt per
+  slice.json), matching the event's `mapping: "OrderOpened.tableNumber"`.
+- npm run build passed. Ran only the SubmitOrderToKitchen test file (5/5 passed) — pure
+  decider tests, no Testcontainers/Podman env needed for this slice.
+- `npm run run:checks -- --staged` passed cleanly after staging only the slice code; split
+  into `feat:` code commit then `chore:` status commit, per the established
+  commit-scope-guard pattern. FF-merged `feature/submitordertokitchen` into `main`, deleted
+  the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- An event field mapped from an *earlier* event in the same stream (e.g.
+  OrderSubmittedToKitchen.tableNumber mapped from `OrderOpened.tableNumber`, not from the
+  triggering command) must be carried in the decider's own replayed state, not read off the
+  command — the command here only has orderNumber/submittedAt per slice.json, so evolve()
+  needs to store tableNumber from OrderOpened for decide() to read back when building the
+  event.
+- Same "no active line remains" check covers two distinct specs (a pad that never had a
+  line added, and a pad whose only line(s) were later removed) with one guard
+  (`Object.values(lines).some(l => !l.removed)`) — no need for two separate error codes when
+  slice.json's own two specifications both map to the same externally-observable rejection
+  (`pad_is_empty`).
+---
