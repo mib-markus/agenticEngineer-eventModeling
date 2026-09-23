@@ -53,6 +53,13 @@ in `processor.ts`, not something to add to slice.json or the command's fields. M
 whatever numbers are already used across the context's existing test fixtures/board examples so it
 stays consistent.
 
+## Check `{Context}Events.ts` before adding an event type, not just when it's missing
+
+A STATE_VIEW slice's dependency events may already be fully declared by the time you build it — an
+earlier slice may have added them as pure-consumer types (see the entry above), or they may be
+another context's event re-exported (e.g. Day6's `ReservationConfirmed` re-exported from
+`Day7Events.ts`). Always grep the events file first; only add a type when it's truly missing.
+
 ## Resolving board/MCP credentials when `.build-kit/.eventmodelers/config.json` is absent
 
 The Ralph loop instructions say to skip all platform communication when that specific file is
