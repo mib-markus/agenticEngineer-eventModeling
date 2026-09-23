@@ -1,7 +1,7 @@
 {
   "id": "19b6126c-1151-4342-ab50-23993e8ca1da",
   "title": "MarkItemReady",
-  "status": "Planned",
+  "status": "Done",
   "sliceType": "STATE_CHANGE",
   "chapter": "Day13",
   "context": "Day12",

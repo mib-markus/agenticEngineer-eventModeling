@@ -966,3 +966,36 @@
   not a data source the decider replays. Build it exactly like any other command-driven
   slice; the SCREEN dependency doesn't change decide()/evolve() at all.
 ---
+
+## 2026-09-23 - MarkItemReady
+
+- Picked highest-priority Planned slice in Day12 context: MarkItemReady (STATE_CHANGE,
+  drawn in chapter Day13, staged under day12). `.build-kit/.eventmodelers/config.json` is
+  absent, so skipped board/MCP status sync. Started branch `feature/markitemready` from
+  `main`. Set status to InProgress locally in index.json and slice.json.
+- slice.json: command `Mark Item Ready` (orderNumber/tableNumber/lineNumber/station mapped
+  from StationQueue.*, readyAt `generated: true`/`derived:now()`) emits `ItemMarkedReady`.
+  Same shape as StartItemPreparation: same Day12-table-{tableNumber} stream (guards need
+  to see ItemPreparationStarted + ItemMarkedReady together), command already carries
+  tableNumber directly (no lookup projection needed), readyAt stamped in routes.ts (no
+  route field, no HTTP-visible field per slice.json), SCREEN-only INBOUND dependency
+  (StationDisplay) doesn't change the implementation.
+- Implemented: `Day12Events.ts` gained `ItemMarkedReady`; `MarkItemReadyCommand.ts`
+  (decide/evolve/handle, guards `line_not_started`/`already_ready`); `routes.ts`
+  (`POST /api/day12/markitemready/:tableNumber` with `@openapi` block);
+  `MarkItemReady.test.ts` (3 specs from slice.json).
+- `npx tsc --noEmit` / `npm run build` clean. `npx tsx --test
+  'src/slices/Day12/MarkItemReady/*.test.ts'` — all 3 pass (pure decider tests, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:`
+  status commit. FF-merge into `main` pending.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- MarkItemReady is structurally identical to StartItemPreparation, just one step later in
+  the same chain (started -> ready instead of routed -> started) — when a new slice's
+  dependencies/fields/guards mirror an existing sibling almost exactly, copy that sibling's
+  state shape, stream key, and route pattern wholesale rather than re-deriving from scratch;
+  only the event names/guard codes change.
+---
