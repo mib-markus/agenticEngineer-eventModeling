@@ -273,3 +273,22 @@ line events) can be missing a field (e.g. `category`) that only exists on a comp
 domain's event (e.g. the restaurant catalogue's `OrderableItemAdded`). Build a small lookup table
 fed by that other event, upserted in the same projection's `evolve()`, and join it in the query
 that builds the frozen row — no need to route the enrichment through a separate slice.
+
+## A `derived:` mapping with a concrete lookup table is not the AutoSeatingCandidates-style ambiguity
+
+The escalation rule for "a named business concept with no backing field/event anywhere" (see the
+polling-automation and derived-field entries above) does not apply when the mapping string itself
+spells out a closed lookup (e.g. `derived:OrderLinesToRoute.category (Menu->kitchen, Drink->bar,
+Dessert->dessert)`). That string *is* the data — implement it as a plain `Record<string, string>`
+constant in the processor/decider, no `request-feedback` needed. Only escalate when the concept is
+named but never given a concrete rule to compute it from.
+
+## A pure-AUTOMATION command's `generated: true` field is stamped by the processor, not `decide()`
+
+`OpenOrder`/`SubmitOrderToKitchen` stamp their stream-independent `generated: true` fields
+(`openedAt`, `submittedAt`) in `routes.ts` before building the command, keeping `decide()` pure.
+A command that only exists to be fired by a processor (no `routes.ts` at all, e.g.
+`RouteOrderLineToStation`'s `routedAt`) has no route to do this — the processor plays that same
+role instead, stamping the value into `command.metadata` at the point it constructs the command,
+and `decide()` reads it back from metadata exactly as `SendReservationReminder` already does for
+`sentAt`.

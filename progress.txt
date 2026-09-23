@@ -826,3 +826,54 @@
   a blocker" rule, just applied to a same-context sibling slice's own event instead of a
   cross-context one.
 ---
+
+## 2026-09-23 - RouteOrderLineToStation
+
+- Picked highest-priority Planned slice in Day12 context: RouteOrderLineToStation
+  (AUTOMATION, drawn in chapter Day13, staged under day12). `.build-kit/.eventmodelers/config.json`
+  is absent, so skipped board/MCP status sync. Started branch `feature/routeorderlinetostation`
+  from `main`.
+- Read slice.json: a polling processor (`fields: []`, no `triggerEvent`, single INBOUND
+  dependency on the `OrderLinesToRoute` READMODEL) — same shape as ConfirmHeldReservation
+  polling HeldReservations. The command's `station` field maps
+  `derived:OrderLinesToRoute.category (Menu->kitchen, Drink->bar, Dessert->dessert)` — a
+  concrete three-way lookup fully specified in the mapping string itself, not an ambiguous
+  concept requiring escalation (unlike ReleaseTableHold's blacklist/window case).
+- decide()/evolve() replay the shared `Day12-table-{tableNumber}` stream (same as
+  AddOrderLine/RemoveOrderLine/SubmitOrderToKitchen) because the guards need to see
+  OrderLineAdded/OrderLineRemoved/OrderLineRoutedToStation together: `line_not_found` (never
+  added or removed before submission — folded into one check per the ChangeOrderLine
+  precedent, since slice.json's own spec is "removed before submission is never routed"),
+  `already_routed` (idempotent per (orderNumber, lineNumber)), `station_not_determined`
+  (category outside Menu/Drink/Dessert).
+- `routedAt` is `generated: true` on the event but the command has no HTTP route (automation
+  only) — the processor stamps it into `command.metadata.routedAt` itself (same "generated,
+  stream-independent value" pattern as OpenOrder's routes.ts, just moved into the processor
+  since there is no route here), and `decide()` reads it back from metadata to stay pure.
+- Implemented: `RouteOrderLineToStationCommand.ts`, `RouteOrderLineToStation.test.ts` (5
+  specs from slice.json), `processor.ts` (drains all `OrderLinesToRoute` rows every minute;
+  `already_routed`/`line_not_found` treated as expected races with that read model's own
+  removal-on-route behavior, not DLQ-worthy).
+- Removed the now-stale "still Planned" pure-consumer comment on `OrderLineRoutedToStation`
+  in `Day12Events.ts` since this slice now owns the emitter (same cleanup RemoveOrderLine
+  did for `OrderLineRemoved`).
+- `npx tsc --noEmit` / `npm run build` clean. `npx tsx --test
+  'src/slices/Day12/RouteOrderLineToStation/*.test.ts'` — all 5 pass (pure decider tests, no
+  Testcontainers needed).
+- `npm run run:checks -- --staged` clean; split into `feat:` code commit then `chore:`
+  status commit. FF-merged `feature/routeorderlinetostation` into `main`, deleted the branch.
+- No board sync performed (config absent) — status is Done only in the local
+  `.build-kit/.slices/day12/**` files, not on the eventmodelers board.
+
+**Learnings for future iterations:**
+- A `derived:` mapping string that spells out a concrete, closed lookup table (e.g.
+  "Menu->kitchen, Drink->bar, Dessert->dessert") is not the same class of ambiguity as
+  AutoSeatingCandidates/ReleaseTableHold's "named concept with no backing data anywhere" —
+  the mapping itself *is* the backing data. Implement the lookup as a plain
+  `Record<string, string>` constant in the processor, no escalation needed.
+- When a command exists only to be fired by a processor (no `routes.ts`, e.g. any pure
+  AUTOMATION), a `generated: true` event field with no stream-history dependency (like
+  `routedAt`) is stamped by the processor into the command's metadata at the point it builds
+  the command — the same role `routes.ts` plays for HTTP-triggered commands — rather than
+  inside `decide()`.
+---
