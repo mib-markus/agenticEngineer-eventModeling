@@ -1,0 +1,40 @@
+## 2026-09-23 - AutoSeatingCandidates
+
+- Picked highest-priority Planned slice in Day7 context: AutoSeatingCandidates (STATE_VIEW).
+- Read slice.json: derived field `candidateTableNumber` is mapped as "smallest published table
+  seating numberOfPeople that has no TableBlocked, no ReservationConfirmed and no
+  TableHeldForReservation overlapping date/startTime-endTime".
+- Investigated the codebase: no "published table configuration" (table number + seat capacity)
+  exists anywhere — not in any event, migration, or other Day6/Day7 slice. Every tableNumber in
+  the system (TableBlocked, ReservationConfirmed, TableHeldForReservation) is free-text staff
+  input with no linked capacity. `ConfirmReservation/routes.ts` even states explicitly the table
+  number "is not checked against the published table configuration."
+- Checked the eventmodelers board directly (not just local slice.json): found a separate
+  "Restaurant Backoffice" bounded context with AddTable/UpdateTable/RemoveTable/PublishTables
+  slices whose read models carry tableName + seatCount — this looks like the "published table
+  configuration" the mapping refers to. But that context is still status "Created" (unbuilt),
+  and AutoSeatingCandidates's own `dependencies[]` never lists it as an inbound dependency.
+- This is genuine ambiguity, not a guessable implementation detail: guessing a data source here
+  (hardcoded seat map vs. a new migration vs. wiring to the unbuilt Backoffice context) would
+  encode an unintended data model into working code. Escalated via `request-feedback`:
+  - Posted comment on slice `8937fa23-81ed-470d-8e97-c8aa3fb83de5` (AutoSeatingCandidates) asking
+    whether capacity should come from the Restaurant Backoffice context's read model (and
+    whether a dependency edge + building that context first is needed), or whether a simpler
+    stand-in is intended.
+  - Set slice status to `Blocked` on the board via `mcp__eventmodelers__update_slice_status`.
+  - Mirrored `Blocked` status locally in `.build-kit/.slices/day7/index.json` and
+    `.build-kit/.slices/day7/autoseatingcandidates/slice.json`.
+- No code was written. No branch was merged. Deleted the empty `feature/autoseatingcandidates`
+  branch created at the start of this iteration.
+
+**Learnings for future iterations:**
+- When a slice's derived-field mapping references a "published"/"configured" concept that has no
+  backing event/migration in this Day6/Day7 codebase, check the eventmodelers board for a
+  *different, possibly unbuilt* bounded context before assuming the concept doesn't exist at all
+  — in this case "Restaurant Backoffice" (AddTable/PublishTables/etc.) models exactly that, but
+  sits outside the Day7 context and isn't wired as a dependency.
+- `mcp__eventmodelers__list_slices` with a `boardId` returns every slice across every context on
+  that board, including contexts unrelated to the one in `current_context.json` — useful for this
+  kind of cross-context lookup, but do not build slices found this way; they belong to a different
+  context and are out of scope per the Context Boundary rule.
+---
