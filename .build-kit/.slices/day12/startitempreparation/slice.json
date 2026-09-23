@@ -1,7 +1,7 @@
 {
   "id": "db9faf93-1b18-4b26-9bdc-fcd78fcc3ac5",
   "title": "StartItemPreparation",
-  "status": "Planned",
+  "status": "Done",
   "sliceType": "STATE_CHANGE",
   "chapter": "Day13",
   "context": "Day12",
