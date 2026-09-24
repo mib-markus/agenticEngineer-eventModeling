@@ -1359,7 +1359,9 @@ plus a separate `chore:` status commit; board synced to Done per slice.
   siblings' `streamNameFor`, because the unit specs cannot otherwise see the write key.
 - **`PaymentDeclined` field-count mismatch (real slice.json vs. code drift).** `Day12Events.ts`
   declared 8 fields; `RecordPaymentDecline`'s `events[]` and the board node both list 6.
-  `cardBrand`/`maskedCardNumber` were made optional and are not written by the emitter.
+  `cardBrand`/`maskedCardNumber` were first made optional, then removed outright (813ead2):
+  nothing reads or writes them on this event — they stop at `AuthorizationDeclined` — and
+  declaring card fields speculatively only widens where card data can surface.
 - **`DeclinedPayments` (V27)** is keyed on `tableNumber` while `attemptCount` counts
   `PaymentDeclined per orderNumber` — needed a conditional `case when … order_number =
   excluded.order_number then attempt_count + 1 else 1 end` in the object-form `merge()`, plus its
@@ -1377,3 +1379,36 @@ write-stream split (with the assertion pattern), the staging-table "not a todo y
 `aggregate:count(X per Y)` on a differently-keyed row, narrower `events[]` vs. shared event type,
 retry-flow guard keys, and the `--env-file=/tmp/tc.env` Podman test invocation.
 ---
+
+## Day14 — frontend (eventModeling-reactDay7), 2026-09-24
+
+Five UI slices for the two Day14 payment screens, staged under `.build-kit/.slices/day14/`
+(frontend context follows the *chapter*, unlike the backend, which stages under `day12`
+because its deciders replay `Day12-table-{tableNumber}`).
+
+- **PaymentScreen** composes `PaymentSummary` (read model) + `RequestPayment` (command). The
+  page owns `tipAmount`, so the tip selector moves both the PRICE CALCULATION Tip row and the
+  Total — verified in the browser: 10% of 37.00 turns 43.66 into 47.36. Cash and Voucher are
+  rendered-but-disabled, as drawn.
+- **PaymentDeclinedScreen** is one page with two variants keyed on `attemptCount >= 3`,
+  because the board deliberately draws two nodes with different markup (one screen driving
+  two commands is a violation). Verified all three states in the browser via
+  `VITE_MOCK_SAMPLE` overrides on the dev-server command line — sample 1 = E1 first decline,
+  sample 3 = G1 exhausted (reason picker + live Abandon), sample 2 = empty state. No console
+  errors or warnings in any of them.
+
+**Defect found and fixed during review — client/server contract drift.** The components
+posted every command field, including the ones the endpoints derive server-side and ignore:
+`paymentId` + `requestedAt` + `totalAmount` on Request Payment, `paymentId` + `paymentMethod`
+on Retry Payment, and a redundant body `tableNumber` on all three (it is the path parameter).
+Worse, each minted its own `crypto.randomUUID()` for `paymentId`, which reads as if the client
+chose the id when the route always overwrites it. Payloads now match the documented
+`requestBody` schemas exactly.
+
+**Currency inconsistency repaired on the board, not just in code.** The PaymentScreen mockup
+labelled the same 48.66 total "EUR" while the declined screen said "CHF"; VAT 8% is the Swiss
+rate, so CHF is correct. Fixed via `render_screen` on node `8ec111af…`, then propagated into
+frontend staging (8b11e95) and the component.
+
+All 11 Day14 slices (6 backend-only + 5 with UI) are `Done` on the board. Nothing pushed in
+either repo — `main` is ahead of `origin` in both and is yours to review.
