@@ -154,9 +154,13 @@ export type PaymentDeclined = Event<'PaymentDeclined', {
     tableNumber: string;
     declineReason: string;
     declineCode: string;
-    cardBrand: string;
-    maskedCardNumber: string;
     declinedAt: string;
+    // RecordPaymentDecline's slice.json events[] lists only the six fields above, so the
+    // decider never writes these two. They stay declared - optional - because the card
+    // details do reach the system on AuthorizationDeclined and a future slice may carry
+    // them forward.
+    cardBrand?: string;
+    maskedCardNumber?: string;
 }, CommonMeta>;
 
 export type PaymentAbandoned = Event<'PaymentAbandoned', {
