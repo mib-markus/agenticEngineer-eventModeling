@@ -16799,11 +16799,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "submitauthorizationdecline",
-      "status": "Created",
+      "status": "Done",
       "definition": {
         "id": "d9901efb-b3f5-467e-8292-bae58444690e",
         "title": "SubmitAuthorizationDecline",
-        "status": "Created",
+        "status": "Done",
         "sliceType": "STATE_CHANGE",
         "chapter": "Day14 - Payment Declined",
         "context": "Day12",
