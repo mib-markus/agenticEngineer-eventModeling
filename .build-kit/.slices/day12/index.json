@@ -17982,11 +17982,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "declinedpayments",
-      "status": "Created",
+      "status": "Done",
       "definition": {
         "id": "262c28ad-eb62-4102-8aa0-f93c15026042",
         "title": "DeclinedPayments",
-        "status": "Created",
+        "status": "Done",
         "sliceType": "STATE_VIEW",
         "chapter": "Day14 - Payment Declined",
         "context": "Day12",
