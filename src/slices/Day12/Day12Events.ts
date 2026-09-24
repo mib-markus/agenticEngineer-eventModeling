@@ -99,6 +99,9 @@ export type OrderPaid = Event<'OrderPaid', {
     amountPaid: string;
     paymentMethod: string;
     paidAt: string;
+    // Day14 card payments carry these; the Day13 cash path does not.
+    paymentId?: string;
+    tipAmount?: string;
 }, CommonMeta>;
 
 export type TableClosed = Event<'TableClosed', {
@@ -111,6 +114,58 @@ export type TableFreedForReassignment = Event<'TableFreedForReassignment', {
     tableNumber: string;
     orderNumber: string;
     cleanedAt: string;
+}, CommonMeta>;
+
+export type PaymentRequested = Event<'PaymentRequested', {
+    paymentId: string;
+    orderNumber: string;
+    tableNumber: string;
+    subtotal: string;
+    serviceCharge: string;
+    taxAmount: string;
+    tipAmount: string;
+    totalAmount: string;
+    paymentType: string;
+    requestedAt: string;
+}, CommonMeta>;
+
+// Emitted by the payment provider's callback, not by a user-facing command.
+export type AuthorizationApproved = Event<'AuthorizationApproved', {
+    paymentId: string;
+    authorizationCode: string;
+    cardBrand: string;
+    maskedCardNumber: string;
+    authorizedAmount: string;
+    approvedAt: string;
+}, CommonMeta>;
+
+export type AuthorizationDeclined = Event<'AuthorizationDeclined', {
+    paymentId: string;
+    declineReason: string;
+    declineCode: string;
+    cardBrand: string;
+    maskedCardNumber: string;
+    declinedAt: string;
+}, CommonMeta>;
+
+export type PaymentDeclined = Event<'PaymentDeclined', {
+    paymentId: string;
+    orderNumber: string;
+    tableNumber: string;
+    declineReason: string;
+    declineCode: string;
+    cardBrand: string;
+    maskedCardNumber: string;
+    declinedAt: string;
+}, CommonMeta>;
+
+export type PaymentAbandoned = Event<'PaymentAbandoned', {
+    tableNumber: string;
+    orderNumber: string;
+    paymentId: string;
+    abandonReason: string;
+    serverName: string;
+    abandonedAt: string;
 }, CommonMeta>;
 
 export type Day12Events =
@@ -127,6 +182,11 @@ export type Day12Events =
     | OrderPaid
     | TableClosed
     | TableFreedForReassignment
+    | PaymentRequested
+    | AuthorizationApproved
+    | AuthorizationDeclined
+    | PaymentDeclined
+    | PaymentAbandoned
     | ReservationConfirmed;
 
 export type {ReservationConfirmed};
