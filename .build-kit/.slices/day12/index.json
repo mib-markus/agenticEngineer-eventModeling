@@ -19145,11 +19145,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "abandonpayment",
-      "status": "Created",
+      "status": "Done",
       "definition": {
         "id": "7c3e3f13-b7a5-4541-a5cf-25493b4b07f3",
         "title": "AbandonPayment",
-        "status": "Created",
+        "status": "Done",
         "sliceType": "STATE_CHANGE",
         "chapter": "Day14 - Payment Declined",
         "context": "Day12",
