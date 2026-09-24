@@ -372,3 +372,108 @@ the codebase has no session/auth infra anywhere (grep for `express-session`/`req
 `passport` first), treat the field exactly like a plain staff-supplied value read from the
 request body — e.g. ServeItem's `serverName` is read from `req.body.serverName`, same as
 OpenOrder's own unprefixed `serverName` field.
+
+## An automation reads a read model and writes a *different* stream — assert the write stream
+
+A polling automation has two independent stream decisions, and only one of them is visible in the
+processor. The processor *reads* a read model that may be keyed on anything (a paymentId, a line
+number); the command it dispatches *writes* to whatever stream `streamNameFor()` builds. Those two
+keys are usually different, and unit tests on `decide`/`evolve` cannot see the write key at all —
+a wrong prefix produces a perfectly green test suite and a system where no existing consumer ever
+sees the event.
+
+The read-model row is what carries the write key across: `AuthorizationsToRecord` /
+`DeclinesToRecord` both exist because the read model's `PaymentRequested` half supplies
+`tableNumber`, which the payment-keyed trigger event does not. Do not derive the write key from
+the trigger event; project it in.
+
+Pin the write key with a real assertion in the slice's own test file rather than leaving it to
+review — import the sibling commands' own `streamNameFor` and compare:
+
+```ts
+it('writes to the same table stream PayOrder and OpenOrder use', () => {
+    assert.strictEqual(streamNameFor('12'), payOrderStreamNameFor('12'));
+    assert.strictEqual(streamNameFor('12'), openOrderStreamNameFor('12'));
+    assert.strictEqual(streamNameFor('12'), 'Day12-table-12');
+});
+```
+
+## "Not a todo until the second event lands" is a staging table, not a nullable flag
+
+A todo-list read model whose fields are mapped from two events (`PaymentRequested.totalAmount` +
+`AuthorizationDeclined.declineReason`) almost always has a spec like "a request with no provider
+answer yet is not a todo". Implementing that as one table with nullable columns plus a filtered
+query makes the invariant a convention the route has to remember. Instead give the first event its
+own `{table}_requests` staging table and build the visible row only on the second event, with an
+`INSERT ... SELECT` that joins the staged row:
+
+```ts
+const joined = db(`${requestsTableName} as r`)
+    .withSchema('public')
+    .where('r.payment_id', event.data.paymentId)
+    .select('r.order_number', 'r.table_number',
+            db.raw('? as decline_reason', [event.data.declineReason]),
+            db.raw('?::timestamp as declined_at', [event.data.declinedAt]));
+return [sql(db(tableName).withSchema('public').insert(joined)
+    .onConflict('payment_id').merge([...]).toQuery())];
+```
+
+No row exists before the answer arrives, so the "not a todo" spec passes structurally and the
+route needs no `WHERE ... IS NOT NULL`. The matching migration adds *two* `CREATE TABLE`s.
+
+## `aggregate:count(X per Y)` on a read model keyed by Z needs a conditional increment
+
+`attemptCount` mapped `aggregate:count(PaymentDeclined per orderNumber)` on a read model whose
+`idAttribute` is `tableNumber` counts on a *different* key than the row is keyed on. A plain
+`attempt_count + 1` on conflict silently carries the previous bill's count into the next one.
+Compare the grouping key in the merge and reset:
+
+```ts
+.onConflict('table_number').merge({
+    order_number: db.raw('excluded.order_number'),
+    attempt_count: db.raw(
+        `case when ${tableName}.order_number = excluded.order_number`
+        + ` then ${tableName}.attempt_count + 1 else 1 end`),
+})
+```
+
+Knex accepts an object-form `merge({col: db.raw('excluded.col')})`, which is what makes referring
+to both `excluded.*` and the target table in one expression possible — the array form cannot.
+
+## slice.json's `events[]` can be narrower than a shared event type — make the extras optional
+
+An event declared in `{Context}Events.ts` for an earlier chapter can carry more fields than the
+slice that finally *emits* it declares in `events[]`. `PaymentDeclined` had 8 fields in
+`Day12Events.ts` but `RecordPaymentDecline`'s `events[]` lists 6 (`cardBrand`/`maskedCardNumber`
+stop at `AuthorizationDeclined`). Confirm against the board (`get_node <eventId>`) rather than
+assuming the type is right, then make the extras `optional` in the shared type — do not write
+fields the emitting slice does not declare, and do not delete fields other slices' tests construct.
+
+## Guards on a retry flow key on the attempt, not the order
+
+When a slice's specs include both "a second decline on a retried payment is recorded too" and
+"recording the same decline twice is rejected", the two are only consistent if the replay guard is
+keyed on `paymentId`: a retry issues a *fresh* paymentId against the same `orderNumber`, so a
+per-order "already declined" check wrongly rejects the retry. Conversely a terminal per-order fact
+(PaymentAbandoned) *is* keyed on `orderNumber` — it ends the card path for the whole bill, not one
+attempt. Expect both keys in the same decider state.
+
+## A command may omit fields its own event requires — read them off replayed state
+
+`RetryPayment`'s `commands[0].fields` has no `subtotal`/`serviceCharge`/`taxAmount`, yet it emits
+`PaymentRequested`, which requires all three. That is not a slice.json defect and not an invitation
+to accept them from the request body: the retry re-sends the *same* bill, so carry them in the
+decider's state off the declined `PaymentRequested` (`previousPaymentId` is the command field that
+names which one). Same rule as an event field mapped from an earlier event — if the command does
+not declare it, it comes from replay.
+
+## Running Testcontainers tests under Podman
+
+`npm test` and bare `node --test` do not pick up the Podman socket. Use tsx with the env file:
+
+```
+npx tsx --env-file=/tmp/tc.env --test 'src/slices/{Context}/{Slice}/*.test.ts'
+```
+
+`/tmp/tc.env` holds `DOCKER_HOST=...` plus `TESTCONTAINERS_RYUK_DISABLED=true`. Pure decider
+specs (`DeciderSpecification`) need no container and run with plain `npx tsx --test`.

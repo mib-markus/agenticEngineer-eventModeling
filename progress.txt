@@ -1329,3 +1329,51 @@
   shared table stream, generated timestamp stamped in routes.ts, event already declared as a
   pure-consumer type by an earlier read-model slice).
 ---
+
+## 2026-09-24 - Day14 "Payment Declined" chapter (11 slices, all staged under day12/)
+
+All 11 slices carry `"chapter": "Day14 …"` but `"context": "Day12"`, so every one was built under
+`src/slices/Day12/` against the existing `Day12-table-{tableNumber}` streams — no Day14 folder or
+stream prefix. Built in dependency order: PaymentSummary, RequestPayment,
+SubmitAuthorizationApproval, AuthorizationsToRecord, RecordPaymentAuthorization,
+SubmitAuthorizationDecline, DeclinesToRecord, RecordPaymentDecline, DeclinedPayments,
+RetryPayment, AbandonPayment. Migrations V23–V27. All committed on `main` as `feat: [Slice]`
+plus a separate `chore:` status commit; board synced to Done per slice.
+
+- **Two provider-callback commands, one lookup.** `SubmitAuthorizationApproval` and
+  `SubmitAuthorizationDecline` both receive only a `paymentId` from the PSP webhook but must
+  append to the table's stream. Built one `PaymentLookupProjection`
+  (`day12_payment_lookup`, V24, paymentId → tableNumber/orderNumber) under the approval slice and
+  imported `findPaymentLocation` from the decline slice's route rather than duplicating it.
+- **`authorizedAmount` has no matching command field** on SubmitAuthorizationApproval — carried
+  `requestedTotal` in decider state off the replayed `PaymentRequested` instead of inventing a
+  request-body field.
+- **Two staged-requests read models.** `AuthorizationsToRecord` (V25) and `DeclinesToRecord` (V26)
+  each got a `_requests` staging table plus an `INSERT … SELECT` on the provider's answer, so "a
+  request with no provider answer yet is not a todo" holds structurally. `OrderPaid` /
+  `PaymentDeclined` are deliberately absent from both `canHandle` lists — a recorded item stays on
+  its list, which is what makes both drains idempotent-by-rejection.
+- **Two polling automations**, both patterned on `RouteOrderLineToStation/processor.ts`
+  (`fields: []`, no triggerEvent, one INBOUND READMODEL = cron drain). Each has an explicit
+  `it('writes to the same table stream PayOrder and OpenOrder use')` assertion importing both
+  siblings' `streamNameFor`, because the unit specs cannot otherwise see the write key.
+- **`PaymentDeclined` field-count mismatch (real slice.json vs. code drift).** `Day12Events.ts`
+  declared 8 fields; `RecordPaymentDecline`'s `events[]` and the board node both list 6.
+  `cardBrand`/`maskedCardNumber` were made optional and are not written by the emitter.
+- **`DeclinedPayments` (V27)** is keyed on `tableNumber` while `attemptCount` counts
+  `PaymentDeclined per orderNumber` — needed a conditional `case when … order_number =
+  excluded.order_number then attempt_count + 1 else 1 end` in the object-form `merge()`, plus its
+  own `_requests` staging table for the two PaymentRequested-sourced money fields.
+- **RetryPayment/AbandonPayment guard keys.** Replay guards key on `paymentId` (a retry is a fresh
+  paymentId on the same order, and the specs require it to be accepted); the terminal
+  `PaymentAbandoned` guard keys on `orderNumber`. RetryPayment reads
+  `subtotal`/`serviceCharge`/`taxAmount` off the declined `PaymentRequested` — they are not command
+  fields and are never accepted from the body.
+- `npx tsc --noEmit` clean throughout; every slice's own tests green; `npm run run:checks --
+  --staged` clean on every commit, no `--no-verify`. Nothing pushed.
+
+**Learnings for future iterations:** six new AGENTS.md entries — automation read-stream vs.
+write-stream split (with the assertion pattern), the staging-table "not a todo yet" pattern,
+`aggregate:count(X per Y)` on a differently-keyed row, narrower `events[]` vs. shared event type,
+retry-flow guard keys, and the `--env-file=/tmp/tc.env` Podman test invocation.
+---
