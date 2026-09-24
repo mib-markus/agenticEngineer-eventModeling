@@ -26,6 +26,7 @@ import {PaymentSummaryProjection} from "../slices/Day12/PaymentSummary/PaymentSu
 import {PaymentLookupProjection} from "../slices/Day12/SubmitAuthorizationApproval/PaymentLookupProjection";
 import {AuthorizationsToRecordProjection} from "../slices/Day12/AuthorizationsToRecord/AuthorizationsToRecordProjection";
 import {DeclinesToRecordProjection} from "../slices/Day12/DeclinesToRecord/DeclinesToRecordProjection";
+import {DeclinedPaymentsProjection} from "../slices/Day12/DeclinedPayments/DeclinedPaymentsProjection";
 
 let eventStoreInstance: ReturnType<typeof getPostgreSQLEventStore> | null = null;
 
@@ -65,6 +66,7 @@ export const findEventstore = async () => {
                 PaymentLookupProjection,
                 AuthorizationsToRecordProjection,
                 DeclinesToRecordProjection,
+                DeclinedPaymentsProjection,
             ]),
         });
         await eventStoreInstance.schema.migrate();
