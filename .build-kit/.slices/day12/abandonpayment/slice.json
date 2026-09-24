@@ -1,0 +1,662 @@
+{
+  "id": "7c3e3f13-b7a5-4541-a5cf-25493b4b07f3",
+  "title": "AbandonPayment",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day14 - Payment Declined",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+      "title": "Abandon Payment",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.orderNumber"
+        },
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.paymentId"
+        },
+        {
+          "name": "abandonReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.abandonReason"
+        },
+        {
+          "name": "serverName",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.serverName"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "5cfd816b-ed67-440d-a321-5d79b9d8bcef",
+          "type": "INBOUND",
+          "title": "PaymentDeclinedScreen",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "f92465ae-280d-4d6d-8437-1a36505d708b",
+          "type": "OUTBOUND",
+          "title": "PaymentAbandoned",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "AbandonPayment",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "events": [
+    {
+      "id": "f92465ae-280d-4d6d-8437-1a36505d708b",
+      "title": "PaymentAbandoned",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Abandon Payment.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Abandon Payment.orderNumber"
+        },
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Abandon Payment.paymentId"
+        },
+        {
+          "name": "abandonReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Abandon Payment.abandonReason"
+        },
+        {
+          "name": "serverName",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Abandon Payment.serverName"
+        },
+        {
+          "name": "abandonedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "generated:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "type": "INBOUND",
+          "title": "Abandon Payment",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "AbandonPayment",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [
+    {
+      "id": "5cfd816b-ed67-440d-a321-5d79b9d8bcef",
+      "title": "PaymentDeclinedScreen",
+      "type": "HTML_SCREEN",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.orderNumber"
+        },
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.paymentId"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.totalAmount"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.declineReason"
+        },
+        {
+          "name": "attemptCount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.attemptCount"
+        },
+        {
+          "name": "abandonReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "input:server picks a reason"
+        },
+        {
+          "name": "serverName",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "input:logged-in server"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "type": "INBOUND",
+          "title": "DeclinedPayments",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "type": "OUTBOUND",
+          "title": "Abandon Payment",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Server",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "AbandonPayment",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "ce5aefc6-8aff-4319-ad47-8023e7463e68",
+      "title": "A declined card payment can be abandoned",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "AbandonPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "f92465ae-280d-4d6d-8437-1a36505d708b",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "1c7a630e-beaa-4224-bde4-582b667dd141",
+      "title": "Abandoning after three declines is allowed",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "AbandonPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "f92465ae-280d-4d6d-8437-1a36505d708b",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "f8bcd630-acc0-48a4-8d3c-fe5f71f5458d",
+      "title": "Abandoning twice is rejected",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "AbandonPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "f92465ae-280d-4d6d-8437-1a36505d708b",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "00f061e5-4bf9-4ae6-80ab-9339ad4b2253",
+          "title": "Abandoning twice is rejected",
+          "description": "Card payment for this order was already abandoned.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "39044a60-76a0-4005-9552-4dc2be436705",
+      "title": "Abandoning is rejected while the provider has not answered",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "AbandonPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "a46047c2-d7c7-4bf9-b763-7d75f455e110",
+          "title": "Abandoning is rejected while the provider has not answered",
+          "description": "The pending payment has not been declined — wait for the provider's answer before abandoning.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "6a4bb63f-db6a-41ec-97bc-5727e44cc822",
+      "title": "Abandoning requires a reason",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "AbandonPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "9e17d94d-fe14-4a2c-89a0-c85c3d3f82fb",
+          "title": "Abandoning requires a reason",
+          "description": "abandonReason must not be empty.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

@@ -1,0 +1,366 @@
+{
+  "id": "338b1bfb-df03-4652-8f20-1d9c361e7101",
+  "title": "SubmitAuthorizationApproval",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day14",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "e3d6c77b-91b3-46fe-9c5e-97eb7a00ae0a",
+      "title": "Submit Authorization Approval",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.payment_id"
+        },
+        {
+          "name": "authorizationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.auth_code"
+        },
+        {
+          "name": "cardBrand",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.card.brand"
+        },
+        {
+          "name": "maskedCardNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.card.last4"
+        },
+        {
+          "name": "approvedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.approved_at"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+          "type": "OUTBOUND",
+          "title": "AuthorizationApproved",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SubmitAuthorizationApproval",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "events": [
+    {
+      "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+      "title": "AuthorizationApproved",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.merchantReference"
+        },
+        {
+          "name": "authorizationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.authCode"
+        },
+        {
+          "name": "cardBrand",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.scheme"
+        },
+        {
+          "name": "maskedCardNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.maskedPan"
+        },
+        {
+          "name": "authorizedAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.amount"
+        },
+        {
+          "name": "approvedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.timestamp"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+          "type": "OUTBOUND",
+          "title": "AuthorizationsToRecord",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "e3d6c77b-91b3-46fe-9c5e-97eb7a00ae0a",
+          "type": "INBOUND",
+          "title": "Submit Authorization Approval",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Payment Provider",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SubmitAuthorizationApproval",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "d06f70c5-c22f-40cd-a25f-a819b8b610a5",
+      "title": "The provider's approval callback is accepted",
+      "chapter": "Day14",
+      "sliceName": "SubmitAuthorizationApproval",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "e3d6c77b-91b3-46fe-9c5e-97eb7a00ae0a",
+          "title": "Submit Authorization Approval",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+          "title": "AuthorizationApproved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "c4b600c3-9da9-4b1e-8e47-6227d3af2804",
+      "title": "A replayed approval callback is rejected",
+      "chapter": "Day14",
+      "sliceName": "SubmitAuthorizationApproval",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+          "title": "AuthorizationApproved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "e3d6c77b-91b3-46fe-9c5e-97eb7a00ae0a",
+          "title": "Submit Authorization Approval",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "c0d14f6f-7585-48c4-9973-bf179635f97f",
+          "title": "A replayed approval callback is rejected",
+          "description": "This paymentId was already authorized — the provider is retrying a callback it already delivered.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "54852f11-3e39-4569-a202-1995af9c7133",
+      "title": "A callback for an unknown paymentId is rejected",
+      "chapter": "Day14",
+      "sliceName": "SubmitAuthorizationApproval",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "e3d6c77b-91b3-46fe-9c5e-97eb7a00ae0a",
+          "title": "Submit Authorization Approval",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "86e4548b-e414-4593-af36-c0551c80cf7a",
+          "title": "A callback for an unknown paymentId is rejected",
+          "description": "No payment was requested with this paymentId — the callback cannot be matched.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

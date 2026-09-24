@@ -1,0 +1,568 @@
+{
+  "id": "48414adb-558b-47f0-bde8-161c41a63c9f",
+  "title": "RetryPayment",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day14 - Payment Declined",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+      "title": "Retry Payment",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.orderNumber"
+        },
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "generated:new paymentId per attempt"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.totalAmount"
+        },
+        {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.tipAmount"
+        },
+        {
+          "name": "paymentMethod",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "fixed:CARD"
+        },
+        {
+          "name": "previousPaymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclinedScreen.paymentId"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "d8145993-4bba-49ff-8e5b-30996ec61c88",
+          "type": "INBOUND",
+          "title": "PaymentDeclinedScreen",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "type": "OUTBOUND",
+          "title": "PaymentRequested",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RetryPayment",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "events": [
+    {
+      "id": "95624253-457c-40db-84ed-47fa5c190936",
+      "title": "PaymentRequested",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.tableNumber"
+        },
+        {
+          "name": "subtotal",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.subtotal"
+        },
+        {
+          "name": "serviceCharge",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.serviceCharge"
+        },
+        {
+          "name": "taxAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.taxAmount"
+        },
+        {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.tipAmount"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.totalAmount"
+        },
+        {
+          "name": "paymentType",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.paymentType"
+        },
+        {
+          "name": "requestedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.requestedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "type": "INBOUND",
+          "title": "Retry Payment",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RetryPayment",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": true,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "cfcece57-0cee-4905-a3bc-000749bc5e74",
+      "title": "A declined payment can be retried",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RetryPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "95624253-457c-40db-84ed-47fa5c190936",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "33970145-e01c-492b-a6e6-d51a1b50fc9a",
+      "title": "A retry after two declines is still allowed",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RetryPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "95624253-457c-40db-84ed-47fa5c190936",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "2954f046-9327-4958-9330-a9485dc77cd5",
+      "title": "Retry is rejected when the last payment was not declined",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RetryPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "dc43025c-5991-483f-947f-73e4542adea5",
+          "title": "Retry is rejected when the last payment was not declined",
+          "description": "The pending payment has not been declined — wait for the provider's answer before retrying.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "9e83eb40-fd2d-42ce-91fb-3df158757eb7",
+      "title": "Retry is rejected after the payment was abandoned",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RetryPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "f92465ae-280d-4d6d-8437-1a36505d708b",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "d7b5f2b0-b2e8-4301-8098-7595472dc635",
+          "title": "Retry is rejected after the payment was abandoned",
+          "description": "Card payment for this order was abandoned — it cannot be retried.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "a532c607-8b87-476a-aba0-f5b86e735307",
+      "title": "Retry is rejected when nothing was ever requested",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RetryPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "a3772ef6-f7b8-4972-86f9-0d22804c2387",
+          "title": "Retry is rejected when nothing was ever requested",
+          "description": "No payment was requested for this table — there is nothing to retry.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

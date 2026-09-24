@@ -1,0 +1,302 @@
+{
+  "id": "224b7450-9f8a-4be3-82c5-f04c5a647557",
+  "title": "DeclinesToRecord",
+  "status": "Created",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day14 - Payment Declined",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+      "title": "DeclinesToRecord",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationDeclined.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.tableNumber"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.totalAmount"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationDeclined.declineReason"
+        },
+        {
+          "name": "declineCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationDeclined.declineCode"
+        },
+        {
+          "name": "maskedCardNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationDeclined.maskedCardNumber"
+        },
+        {
+          "name": "declinedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationDeclined.declinedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "c0c57f40-41c6-4337-a1c9-cecd364342e4",
+          "type": "OUTBOUND",
+          "title": "Decline Recorder",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+          "type": "INBOUND",
+          "title": "AuthorizationDeclined",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "type": "INBOUND",
+          "title": "PaymentRequested",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "DeclinesToRecord",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "41b780d1-22c9-46b5-9774-d702b4f44e13",
+      "title": "A declined authorization becomes a todo",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "DeclinesToRecord",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "c0054f1c-f18f-4e94-b408-7eee567138a4",
+      "title": "A request with no provider answer yet is not a todo",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "DeclinesToRecord",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    },
+    {
+      "id": "1405759b-1b70-4902-a242-328ba88fb951",
+      "title": "A recorded decline stays on the list",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "DeclinesToRecord",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

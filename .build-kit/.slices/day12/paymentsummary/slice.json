@@ -1,0 +1,570 @@
+{
+  "id": "c8e15eb4-2b6d-4547-a9ed-4f133f6b26a2",
+  "title": "PaymentSummary",
+  "status": "Created",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day14",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "1bfdfd74-f528-492b-a694-1dea6864219c",
+      "title": "PaymentSummary",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.tableNumber"
+        },
+        {
+          "name": "lineNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.lineNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderLineRoutedToStation.quantity"
+        },
+        {
+          "name": "unitPrice",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "OrderableItemAdded.price"
+        },
+        {
+          "name": "lineTotal",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "aggregate:unitPrice * quantity"
+        },
+        {
+          "name": "lineServed",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Boolean",
+          "cardinality": "List",
+          "subfields": [],
+          "mapping": "derived:ItemServed.lineNumber present"
+        },
+        {
+          "name": "subtotal",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "aggregate:sum(lineTotal)"
+        },
+        {
+          "name": "serviceCharge",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "aggregate:subtotal * 0.10"
+        },
+        {
+          "name": "taxAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "aggregate:subtotal * 0.08"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "aggregate:subtotal + serviceCharge + taxAmount"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "8ec111af-a9eb-4a8f-9ed0-16b1c567eff4",
+          "type": "OUTBOUND",
+          "title": "PaymentScreen",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "dbf90fad-3b54-4114-90ce-27b071f2fd6a",
+          "type": "INBOUND",
+          "title": "OrderableItemAdded",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "156804c9-a2e3-41b6-8178-77663689f94d",
+          "type": "INBOUND",
+          "title": "OrderLineRoutedToStation",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "c466a863-ad7a-4f58-93c5-ef876a3581f2",
+          "type": "INBOUND",
+          "title": "ItemServed",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "PaymentSummary",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "screens": [
+    {
+      "id": "8ec111af-a9eb-4a8f-9ed0-16b1c567eff4",
+      "title": "PaymentScreen",
+      "type": "HTML_SCREEN",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.tableNumber"
+        },
+        {
+          "name": "itemNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.itemNumber"
+        },
+        {
+          "name": "quantity",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.quantity"
+        },
+        {
+          "name": "unitPrice",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.unitPrice"
+        },
+        {
+          "name": "lineTotal",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.lineTotal"
+        },
+        {
+          "name": "subtotal",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.subtotal"
+        },
+        {
+          "name": "serviceCharge",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.serviceCharge"
+        },
+        {
+          "name": "taxAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.taxAmount"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.totalAmount"
+        },
+        {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user:input"
+        },
+        {
+          "name": "paymentType",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user:input"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "1bfdfd74-f528-492b-a694-1dea6864219c",
+          "type": "INBOUND",
+          "title": "PaymentSummary",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "type": "OUTBOUND",
+          "title": "Request Payment",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Server",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "PaymentSummary",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "e1427401-7cf4-442b-978e-441fb17c8f16",
+      "title": "Priced summary for a fully served order",
+      "chapter": "Day14",
+      "sliceName": "PaymentSummary",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8b8ff3f9-16c0-44da-8ba0-83b082793458",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "ba22da10-622a-4ee7-85cc-0c9a2b7257a0",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "183c19fa-5238-43c0-938e-d7d5e1b196dc",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "1bfdfd74-f528-492b-a694-1dea6864219c",
+          "title": "PaymentSummary",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "31d8586c-5a3d-48b9-a0c4-1a92abd79cf6",
+      "title": "Unserved lines are still priced but flagged",
+      "chapter": "Day14",
+      "sliceName": "PaymentSummary",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "8b8ff3f9-16c0-44da-8ba0-83b082793458",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "ba22da10-622a-4ee7-85cc-0c9a2b7257a0",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "1bfdfd74-f528-492b-a694-1dea6864219c",
+          "title": "PaymentSummary",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "50fc3fee-7332-46ad-bd88-1627765d08c9",
+      "title": "No routed lines yields no summary",
+      "chapter": "Day14",
+      "sliceName": "PaymentSummary",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "8b8ff3f9-16c0-44da-8ba0-83b082793458",
+          "title": "OrderableItemAdded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "1bfdfd74-f528-492b-a694-1dea6864219c",
+          "title": "PaymentSummary",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

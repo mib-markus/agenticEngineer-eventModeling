@@ -1,0 +1,472 @@
+{
+  "id": "1485651b-af3e-419a-8b45-99b38e704bd1",
+  "title": "RecordPaymentAuthorization",
+  "status": "Created",
+  "sliceType": "AUTOMATION",
+  "chapter": "Day14",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "438467ed-04ba-4e32-8d43-4527e2e1739d",
+      "title": "Record Payment Authorization",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.tableNumber"
+        },
+        {
+          "name": "amountPaid",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.totalAmount"
+        },
+        {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.tipAmount"
+        },
+        {
+          "name": "paymentMethod",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.paymentType"
+        },
+        {
+          "name": "authorizationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.authorizationCode"
+        },
+        {
+          "name": "paidAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationsToRecord.approvedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "8e3ec1f7-1917-4dd1-b190-c17de4948f81",
+          "type": "INBOUND",
+          "title": "Authorization Recorder",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+          "type": "OUTBOUND",
+          "title": "OrderPaid",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RecordPaymentAuthorization",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "events": [
+    {
+      "id": "e65e6b22-dc51-4358-9328-857850a0ac6d",
+      "title": "OrderPaid",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.tableNumber"
+        },
+        {
+          "name": "amountPaid",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.amountPaid"
+        },
+        {
+          "name": "paymentMethod",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.paymentMethod"
+        },
+        {
+          "name": "paidAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Pay Order.paidAt"
+        },
+        {
+          "name": "paymentId",
+          "optional": true,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Authorization.paymentId",
+          "example": "p-7f3a"
+        },
+        {
+          "name": "tipAmount",
+          "optional": true,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Authorization.tipAmount",
+          "example": "5.00"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "d0423599-a594-4b18-be2f-8865f5375951",
+          "type": "INBOUND",
+          "title": "Pay Order",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "977584a8-6846-4526-bc6c-94cd56ffc8bb",
+          "type": "OUTBOUND",
+          "title": "TablesReadyToClose",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "438467ed-04ba-4e32-8d43-4527e2e1739d",
+          "type": "INBOUND",
+          "title": "Record Payment Authorization",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RecordPaymentAuthorization",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": true,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [
+    {
+      "id": "8e3ec1f7-1917-4dd1-b190-c17de4948f81",
+      "title": "Authorization Recorder",
+      "type": "AUTOMATION",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+          "type": "INBOUND",
+          "title": "AuthorizationsToRecord",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "438467ed-04ba-4e32-8d43-4527e2e1739d",
+          "type": "OUTBOUND",
+          "title": "Record Payment Authorization",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "System",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RecordPaymentAuthorization",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "f65881d9-1afa-44e8-93f4-fb365c669364",
+      "title": "An approved authorization marks the order paid",
+      "chapter": "Day14",
+      "sliceName": "RecordPaymentAuthorization",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "438467ed-04ba-4e32-8d43-4527e2e1739d",
+          "title": "Record Payment Authorization",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "2560d59e-927e-494c-bb11-9182e7db5399",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "4bca57ce-13c3-4528-a298-0b968d89c2ad",
+      "title": "Recording the same authorization twice is rejected",
+      "chapter": "Day14",
+      "sliceName": "RecordPaymentAuthorization",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "2560d59e-927e-494c-bb11-9182e7db5399",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "438467ed-04ba-4e32-8d43-4527e2e1739d",
+          "title": "Record Payment Authorization",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "92b7c112-719f-4c93-bccc-71bdee027ae4",
+          "title": "Recording the same authorization twice is rejected",
+          "description": "This order is already paid — the authorization was already recorded.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "c814c09e-88f8-4290-8627-c525cf447317",
+      "title": "An authorization for an unrequested payment is rejected",
+      "chapter": "Day14",
+      "sliceName": "RecordPaymentAuthorization",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "438467ed-04ba-4e32-8d43-4527e2e1739d",
+          "title": "Record Payment Authorization",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "22c2308f-f94a-4b02-949d-56bbb1175ebd",
+          "title": "An authorization for an unrequested payment is rejected",
+          "description": "No payment was requested for this table — the provider's authorization cannot be matched.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

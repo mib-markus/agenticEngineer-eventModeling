@@ -1,0 +1,380 @@
+{
+  "id": "d9901efb-b3f5-467e-8292-bae58444690e",
+  "title": "SubmitAuthorizationDecline",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day14 - Payment Declined",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "35010a88-fa19-4922-ada3-061af162fa3d",
+      "title": "Submit Authorization Decline",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.payment_id"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.decline_reason"
+        },
+        {
+          "name": "declineCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.decline_code"
+        },
+        {
+          "name": "cardBrand",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.card.brand"
+        },
+        {
+          "name": "maskedCardNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.card.last4"
+        },
+        {
+          "name": "declinedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.declined_at"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+          "type": "OUTBOUND",
+          "title": "AuthorizationDeclined",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SubmitAuthorizationDecline",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "events": [
+    {
+      "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+      "title": "AuthorizationDeclined",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.merchantReference"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.refusalReason"
+        },
+        {
+          "name": "declineCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.refusalCode"
+        },
+        {
+          "name": "cardBrand",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.scheme"
+        },
+        {
+          "name": "maskedCardNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.maskedPan"
+        },
+        {
+          "name": "declinedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "external:PSP webhook payload.timestamp"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+          "type": "OUTBOUND",
+          "title": "DeclinesToRecord",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "35010a88-fa19-4922-ada3-061af162fa3d",
+          "type": "INBOUND",
+          "title": "Submit Authorization Decline",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Payment Provider",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "SubmitAuthorizationDecline",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "777e9718-c584-4705-99a9-b1feb2d12a64",
+      "title": "The provider's decline callback is accepted",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "SubmitAuthorizationDecline",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "35010a88-fa19-4922-ada3-061af162fa3d",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "0a9a9436-45d7-46b4-b487-d2cd54bfa38e",
+      "title": "A replayed decline callback is rejected",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "SubmitAuthorizationDecline",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "35010a88-fa19-4922-ada3-061af162fa3d",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "62ddd232-10dc-49c7-b805-1e39f586c875",
+          "title": "A replayed decline callback is rejected",
+          "description": "This paymentId was already declined — the provider is retrying a callback it already delivered.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "58980a50-7c5b-4a63-9a46-89e728917825",
+      "title": "A decline callback for an unknown paymentId is rejected",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "SubmitAuthorizationDecline",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "35010a88-fa19-4922-ada3-061af162fa3d",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "e8b5e391-71bf-4e20-a96c-0271f04b6233",
+          "title": "A decline callback for an unknown paymentId is rejected",
+          "description": "No payment was requested with this paymentId — the callback cannot be matched.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

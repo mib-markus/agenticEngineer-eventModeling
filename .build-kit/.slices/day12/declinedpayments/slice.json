@@ -1,0 +1,563 @@
+{
+  "id": "262c28ad-eb62-4102-8aa0-f93c15026042",
+  "title": "DeclinedPayments",
+  "status": "Created",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day14 - Payment Declined",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+      "title": "DeclinedPayments",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclined.tableNumber"
+        },
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclined.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclined.orderNumber"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.totalAmount"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclined.declineReason"
+        },
+        {
+          "name": "attemptCount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "aggregate:count(PaymentDeclined per orderNumber)"
+        },
+        {
+          "name": "declinedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentDeclined.declinedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "type": "INBOUND",
+          "title": "PaymentDeclined",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "type": "INBOUND",
+          "title": "PaymentRequested",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "d8145993-4bba-49ff-8e5b-30996ec61c88",
+          "type": "OUTBOUND",
+          "title": "PaymentDeclinedScreen",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "5cfd816b-ed67-440d-a321-5d79b9d8bcef",
+          "type": "OUTBOUND",
+          "title": "PaymentDeclinedScreen",
+          "elementType": "HTML_SCREEN"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "DeclinedPayments",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "screens": [
+    {
+      "id": "d8145993-4bba-49ff-8e5b-30996ec61c88",
+      "title": "PaymentDeclinedScreen",
+      "type": "HTML_SCREEN",
+      "fields": [
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.tableNumber"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.orderNumber"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.totalAmount"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.declineReason"
+        },
+        {
+          "name": "attemptCount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Int",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.attemptCount"
+        },
+        {
+          "name": "declinedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinedPayments.declinedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "type": "INBOUND",
+          "title": "DeclinedPayments",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "type": "OUTBOUND",
+          "title": "Retry Payment",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Server",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "DeclinedPayments",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "8cb13eaa-a5b7-417b-9bac-e7c3155174c6",
+      "title": "A declined payment appears on the server's screen",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "DeclinedPayments",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "e8765037-77f5-410f-b01a-5c8aee7100ed",
+      "title": "Three declines on one order count up to three attempts",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "DeclinedPayments",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "ea175a57-9c9f-4eec-80ae-b9941953371d",
+      "title": "No declines means nothing to show",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "DeclinedPayments",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": [],
+  "storylines": [
+    {
+      "id": "c2a7e8f1-46b9-4d03-8e75-1b9c3f2a6d48",
+      "title": "Card declined, retried, then abandoned",
+      "elements": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "PaymentRequested (from the happy-path chapter)",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "54e2f8da-793a-4a3c-9b50-5547bbe68e56",
+          "title": "Provider declines the card",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+          "title": "Decline waits to be recorded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "c0c57f40-41c6-4337-a1c9-cecd364342e4",
+          "title": "Decline Recorder picks it up",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "AUTOMATION",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+          "title": "Decline is recorded against the order",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "PaymentDeclined",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "title": "Server sees the decline and the attempt count",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "d8145993-4bba-49ff-8e5b-30996ec61c88",
+          "title": "Server is shown the decline reason",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "HTML_SCREEN",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "title": "Server retries the card",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "95624253-457c-40db-84ed-47fa5c190936",
+          "title": "PaymentRequested again — a fresh paymentId, back to the provider",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "5cfd816b-ed67-440d-a321-5d79b9d8bcef",
+          "title": "After repeated declines the server gives up on the card",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "HTML_SCREEN",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "19d7b4ea-7a73-4caa-b1d8-924967b25661",
+          "title": "Server abandons the card payment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "f92465ae-280d-4d6d-8437-1a36505d708b",
+          "title": "PaymentAbandoned — the order stays unpaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        }
+      ]
+    }
+  ]
+}

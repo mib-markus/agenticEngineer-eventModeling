@@ -1,0 +1,763 @@
+{
+  "id": "1487fda4-e465-4d1e-981e-2fd5b575b3b2",
+  "title": "RequestPayment",
+  "status": "Created",
+  "sliceType": "STATE_CHANGE",
+  "chapter": "Day14",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+      "title": "Request Payment",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:uuid()"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.tableNumber"
+        },
+        {
+          "name": "subtotal",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.subtotal"
+        },
+        {
+          "name": "serviceCharge",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.serviceCharge"
+        },
+        {
+          "name": "taxAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentSummary.taxAmount"
+        },
+        {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user:input"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "aggregate:PaymentSummary.totalAmount + tipAmount"
+        },
+        {
+          "name": "paymentType",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "user:input"
+        },
+        {
+          "name": "requestedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": true,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "derived:now()"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "8ec111af-a9eb-4a8f-9ed0-16b1c567eff4",
+          "type": "INBOUND",
+          "title": "PaymentScreen",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "type": "OUTBOUND",
+          "title": "PaymentRequested",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RequestPayment",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "events": [
+    {
+      "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+      "title": "PaymentRequested",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.tableNumber"
+        },
+        {
+          "name": "subtotal",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.subtotal"
+        },
+        {
+          "name": "serviceCharge",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.serviceCharge"
+        },
+        {
+          "name": "taxAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.taxAmount"
+        },
+        {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.tipAmount"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.totalAmount"
+        },
+        {
+          "name": "paymentType",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.paymentType"
+        },
+        {
+          "name": "requestedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Request Payment.requestedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "type": "INBOUND",
+          "title": "Request Payment",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+          "type": "OUTBOUND",
+          "title": "AuthorizationsToRecord",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+          "type": "OUTBOUND",
+          "title": "DeclinesToRecord",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "type": "OUTBOUND",
+          "title": "DeclinedPayments",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "5de9093b-2672-4fb6-8fd5-78cc51a06027",
+          "type": "INBOUND",
+          "title": "Retry Payment",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RequestPayment",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "04f24df5-a47e-45b7-a5f3-6656a51c4244",
+      "title": "Card payment requested with a tip",
+      "chapter": "Day14",
+      "sliceName": "RequestPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ba22da10-622a-4ee7-85cc-0c9a2b7257a0",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "183c19fa-5238-43c0-938e-d7d5e1b196dc",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "title": "Request Payment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "d91f849c-576a-4bf0-80f5-1551030e3a89",
+      "title": "Card payment requested without a tip",
+      "chapter": "Day14",
+      "sliceName": "RequestPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ba22da10-622a-4ee7-85cc-0c9a2b7257a0",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "183c19fa-5238-43c0-938e-d7d5e1b196dc",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "title": "Request Payment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "9d42062a-464a-45e9-bceb-3e4fc21ccfd2",
+      "title": "Payment cannot be requested twice while one is pending",
+      "chapter": "Day14",
+      "sliceName": "RequestPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "title": "Request Payment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "aa6fcbf4-c7f6-4c89-b79d-bdb96ca22031",
+          "title": "Payment cannot be requested twice while one is pending",
+          "description": "A payment authorization for this order is already pending — wait for the provider's answer before requesting another.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "666883aa-32bb-4036-bdb2-ee3980e43a7e",
+      "title": "Payment cannot be requested for an already paid order",
+      "chapter": "Day14",
+      "sliceName": "RequestPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "2560d59e-927e-494c-bb11-9182e7db5399",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "title": "Request Payment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "dd16cb4a-55a9-410f-b19c-3765aaf50863",
+          "title": "Payment cannot be requested for an already paid order",
+          "description": "The order is already paid.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "8508fe44-fec0-480c-b2e3-c0e81c54e8bd",
+      "title": "Payment cannot be requested for an order with no routed lines",
+      "chapter": "Day14",
+      "sliceName": "RequestPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "title": "Request Payment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "07332b69-a809-408c-8371-397fd7207cf2",
+          "title": "Payment cannot be requested for an order with no routed lines",
+          "description": "Nothing has been ordered on this table — there is nothing to pay.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "d62cf9ca-df23-4b63-846e-423204dbfe80",
+      "title": "A negative tip is rejected",
+      "chapter": "Day14",
+      "sliceName": "RequestPayment",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "ba22da10-622a-4ee7-85cc-0c9a2b7257a0",
+          "title": "OrderLineRoutedToStation",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "183c19fa-5238-43c0-938e-d7d5e1b196dc",
+          "title": "ItemServed",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "title": "Request Payment",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "d5e70066-c613-4554-ac1d-f42431c230eb",
+          "title": "A negative tip is rejected",
+          "description": "tipAmount must not be negative.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": [],
+  "storylines": [
+    {
+      "id": "b1f4d0c7-3a58-4e92-9c14-7d6e2a8b5f30",
+      "title": "Card payment authorized",
+      "elements": [
+        {
+          "id": "1bfdfd74-f528-492b-a694-1dea6864219c",
+          "title": "Priced bill for the table",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "8ec111af-a9eb-4a8f-9ed0-16b1c567eff4",
+          "title": "Server shows the bill and enters a tip",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "HTML_SCREEN",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "1f082efd-7836-44cc-a993-9ddf42412cc8",
+          "title": "Card payment is requested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+          "title": "Provider approves the card",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+          "title": "Approval waits to be recorded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "8e3ec1f7-1917-4dd1-b190-c17de4948f81",
+          "title": "Authorization Recorder picks it up",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "AUTOMATION",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "438467ed-04ba-4e32-8d43-4527e2e1739d",
+          "title": "Authorization is recorded",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "id": "2560d59e-927e-494c-bb11-9182e7db5399",
+          "title": "OrderPaid — Day13 can now close the table",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,474 @@
+{
+  "id": "d392bcbd-6149-4dd4-b8e5-62bdcd29ec0c",
+  "title": "RecordPaymentDecline",
+  "status": "Created",
+  "sliceType": "AUTOMATION",
+  "chapter": "Day14 - Payment Declined",
+  "context": "Day12",
+  "commands": [
+    {
+      "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+      "title": "Record Payment Decline",
+      "type": "COMMAND",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinesToRecord.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinesToRecord.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinesToRecord.tableNumber"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinesToRecord.declineReason"
+        },
+        {
+          "name": "declineCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinesToRecord.declineCode"
+        },
+        {
+          "name": "declinedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "DeclinesToRecord.declinedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "c0c57f40-41c6-4337-a1c9-cecd364342e4",
+          "type": "INBOUND",
+          "title": "Decline Recorder",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "type": "OUTBOUND",
+          "title": "PaymentDeclined",
+          "elementType": "EVENT"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RecordPaymentDecline",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "events": [
+    {
+      "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+      "title": "PaymentDeclined",
+      "type": "EVENT",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Decline.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Decline.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Decline.tableNumber"
+        },
+        {
+          "name": "declineReason",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Decline.declineReason"
+        },
+        {
+          "name": "declineCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Decline.declineCode"
+        },
+        {
+          "name": "declinedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "Record Payment Decline.declinedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+          "type": "INBOUND",
+          "title": "Record Payment Decline",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "90a145d0-7dec-4785-bf6e-9985c20a3880",
+          "type": "OUTBOUND",
+          "title": "DeclinedPayments",
+          "elementType": "READMODEL"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Order Management",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RecordPaymentDecline",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "processors": [
+    {
+      "id": "c0c57f40-41c6-4337-a1c9-cecd364342e4",
+      "title": "Decline Recorder",
+      "type": "AUTOMATION",
+      "fields": [],
+      "dependencies": [
+        {
+          "id": "8adbd51a-647d-4d01-a105-b5da3d18211c",
+          "type": "INBOUND",
+          "title": "DeclinesToRecord",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+          "type": "OUTBOUND",
+          "title": "Record Payment Decline",
+          "elementType": "COMMAND"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "System",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "RecordPaymentDecline",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": []
+    }
+  ],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "35124a81-1aad-41b5-afe8-39531e373f8e",
+      "title": "A declined authorization is recorded against the order",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RecordPaymentDecline",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "05256460-b57f-4ba0-89b4-31bba7a0f4b5",
+      "title": "A second decline on a retried payment is recorded too",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RecordPaymentDecline",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "788c38d8-9a46-4d3a-8380-0ed897f11a27",
+      "title": "Recording the same decline twice is rejected",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RecordPaymentDecline",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "fab5e2ed-d1d3-4ece-a81b-b8c46a9abd0a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "44de61f8-73f4-4c92-a6f2-ef108dc8785a",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [
+        {
+          "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "71a9ede0-d4ce-40a4-815f-c0d246eeebb9",
+          "title": "Recording the same decline twice is rejected",
+          "description": "This paymentId was already declined — the decline was already recorded.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "33093477-79ee-4d57-8794-c2adeba8308c",
+      "title": "A decline for an unrequested payment is rejected",
+      "chapter": "Day14 - Payment Declined",
+      "sliceName": "RecordPaymentDecline",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [],
+      "when": [
+        {
+          "id": "478c6c5d-e701-4a69-901c-a28890b77dcb",
+          "title": "",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": []
+        }
+      ],
+      "then": [
+        {
+          "id": "0bcc344a-6c24-45a9-bcc5-5b7c67a76532",
+          "title": "A decline for an unrequested payment is rejected",
+          "description": "No payment was requested for this table — the provider's decline cannot be matched.",
+          "type": "SPEC_ERROR",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}

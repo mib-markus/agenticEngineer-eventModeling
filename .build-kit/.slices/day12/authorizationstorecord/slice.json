@@ -1,0 +1,330 @@
+{
+  "id": "748be85a-524b-4aa1-baf1-de25444c22a6",
+  "title": "AuthorizationsToRecord",
+  "status": "Created",
+  "sliceType": "STATE_VIEW",
+  "chapter": "Day14",
+  "context": "Day12",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+      "title": "AuthorizationsToRecord",
+      "type": "READMODEL",
+      "fields": [
+        {
+          "name": "paymentId",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": true,
+          "type": "UUID",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationApproved.paymentId"
+        },
+        {
+          "name": "orderNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.orderNumber"
+        },
+        {
+          "name": "tableNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.tableNumber"
+        },
+        {
+          "name": "totalAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.totalAmount"
+        },
+        {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.tipAmount"
+        },
+        {
+          "name": "paymentType",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.paymentType"
+        },
+        {
+          "name": "authorizationCode",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationApproved.authorizationCode"
+        },
+        {
+          "name": "cardBrand",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationApproved.cardBrand"
+        },
+        {
+          "name": "maskedCardNumber",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "String",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationApproved.maskedCardNumber"
+        },
+        {
+          "name": "approvedAt",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "DateTime",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "AuthorizationApproved.approvedAt"
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "type": "INBOUND",
+          "title": "PaymentRequested",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+          "type": "INBOUND",
+          "title": "AuthorizationApproved",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "8e3ec1f7-1917-4dd1-b190-c17de4948f81",
+          "type": "OUTBOUND",
+          "title": "Authorization Recorder",
+          "elementType": "AUTOMATION"
+        }
+      ],
+      "modelContext": "Restaurant Backoffice",
+      "lane": "Interaction",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "triggers": [],
+      "tags": [],
+      "slice": "AuthorizationsToRecord",
+      "description": "",
+      "context": "INTERNAL",
+      "elementContext": "INTERNAL",
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "elementCopy": false,
+      "sketched": false,
+      "comments": [],
+      "apiEndpoint": null
+    }
+  ],
+  "screens": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "9adade6d-d8e4-41c8-a339-4896e0a260b0",
+      "title": "An approved authorization becomes a todo",
+      "chapter": "Day14",
+      "sliceName": "AuthorizationsToRecord",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+          "title": "AuthorizationApproved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+          "title": "AuthorizationsToRecord",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "id": "4a6353df-00dc-4618-b64e-ccc2b1d170f6",
+      "title": "A request with no provider answer yet is not a todo",
+      "chapter": "Day14",
+      "sliceName": "AuthorizationsToRecord",
+      "vertical": false,
+      "expectEmptyList": true,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+          "title": "AuthorizationsToRecord",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    },
+    {
+      "id": "270b8db6-c63a-4045-9ecf-d5a53b77c60b",
+      "title": "A recorded authorization stays on the list",
+      "chapter": "Day14",
+      "sliceName": "AuthorizationsToRecord",
+      "vertical": false,
+      "expectEmptyList": false,
+      "examples": [],
+      "given": [
+        {
+          "id": "a24bf0dc-cc81-4910-a6ea-94fff477472e",
+          "title": "PaymentRequested",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "0e8ec511-afda-4dda-8859-f56bc20cfe3a",
+          "title": "AuthorizationApproved",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        },
+        {
+          "id": "2560d59e-927e-494c-bb11-9182e7db5399",
+          "title": "OrderPaid",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": []
+        }
+      ],
+      "when": [],
+      "then": [
+        {
+          "id": "6e75bcb3-7ffe-4f27-9d38-36aeba8abe41",
+          "title": "AuthorizationsToRecord",
+          "tags": [],
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": []
+        }
+      ]
+    }
+  ],
+  "actors": [],
+  "aggregates": [],
+  "screenImages": [],
+  "comments": []
+}
