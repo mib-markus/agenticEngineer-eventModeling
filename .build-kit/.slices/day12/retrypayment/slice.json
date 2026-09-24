@@ -45,13 +45,13 @@
           "showAttributes": false,
           "technicalAttribute": false,
           "query": false,
-          "generated": false,
+          "generated": true,
           "edited": false,
           "idAttribute": false,
           "type": "UUID",
           "cardinality": "Single",
           "subfields": [],
-          "mapping": "generated:new paymentId per attempt"
+          "mapping": "derived:uuid()"
         },
         {
           "name": "totalAmount",

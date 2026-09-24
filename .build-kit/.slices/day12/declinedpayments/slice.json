@@ -70,6 +70,20 @@
           "mapping": "PaymentRequested.totalAmount"
         },
         {
+          "name": "tipAmount",
+          "optional": false,
+          "showAttributes": false,
+          "technicalAttribute": false,
+          "query": false,
+          "generated": false,
+          "edited": false,
+          "idAttribute": false,
+          "type": "Decimal",
+          "cardinality": "Single",
+          "subfields": [],
+          "mapping": "PaymentRequested.tipAmount"
+        },
+        {
           "name": "declineReason",
           "optional": false,
           "showAttributes": false,
