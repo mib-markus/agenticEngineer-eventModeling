@@ -1,7 +1,7 @@
 {
   "id": "48414adb-558b-47f0-bde8-161c41a63c9f",
   "title": "RetryPayment",
-  "status": "Created",
+  "status": "Done",
   "sliceType": "STATE_CHANGE",
   "chapter": "Day14 - Payment Declined",
   "context": "Day12",
