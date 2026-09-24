@@ -17499,11 +17499,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "recordpaymentdecline",
-      "status": "Created",
+      "status": "Done",
       "definition": {
         "id": "d392bcbd-6149-4dd4-b8e5-62bdcd29ec0c",
         "title": "RecordPaymentDecline",
-        "status": "Created",
+        "status": "Done",
         "sliceType": "AUTOMATION",
         "chapter": "Day14 - Payment Declined",
         "context": "Day12",
