@@ -16318,11 +16318,11 @@
       "contextName": "Day12",
       "contextSlug": "day12",
       "folder": "recordpaymentauthorization",
-      "status": "Created",
+      "status": "Done",
       "definition": {
         "id": "1485651b-af3e-419a-8b45-99b38e704bd1",
         "title": "RecordPaymentAuthorization",
-        "status": "Created",
+        "status": "Done",
         "sliceType": "AUTOMATION",
         "chapter": "Day14",
         "context": "Day12",
